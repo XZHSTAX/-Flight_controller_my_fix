@@ -9,18 +9,20 @@
 #include "Drv_spi.h"
 #include "Drv_led.h"
 
+// 初始化 Icm20602 的CS引脚，输出1，即不选中
 void Drv_Icm20602CSPin_Init(void)
 {
-    MAP_SysCtlPeripheralEnable(ICM20602_CS_SYSCTL);
+    MAP_SysCtlPeripheralEnable(ICM20602_CS_SYSCTL);          // 开启传感器CS引脚对应时钟 CS:PN2
     while(!(MAP_SysCtlPeripheralReady(ICM20602_CS_SYSCTL)))
     {
     }
     
-    GPIOPinTypeGPIOOutput(ICM20602_CS_GPIO, ICM20602_CS_PIN);
+    GPIOPinTypeGPIOOutput(ICM20602_CS_GPIO, ICM20602_CS_PIN);// 设置PN2模式为输出
     
-    GPIOPinWrite(ICM20602_CS_GPIO, ICM20602_CS_PIN, ICM20602_CS_PIN);
+    GPIOPinWrite(ICM20602_CS_GPIO, ICM20602_CS_PIN, ICM20602_CS_PIN); // 设置设置PN2输出1
 }
 
+// 片选，ena = 1选中芯片 
 static void icm20602_enable(u8 ena)
 {
     if(ena)
@@ -29,9 +31,10 @@ static void icm20602_enable(u8 ena)
 	GPIOPinWrite(ICM20602_CS_GPIO, ICM20602_CS_PIN, ICM20602_CS_PIN);
 }
 
+// 无论读还是写，开始前要把CS拉低，完成后把电平拉高
 static void icm20602_readbuf(u8 reg, u8 length, u8 *data)
 {
-    icm20602_enable(1);
+    icm20602_enable(1);    // 选中芯片
     Drv_SPI2_RW(reg|0x80);
     Drv_SPI2_Receive(data,length);
     icm20602_enable(0);
@@ -41,7 +44,7 @@ static u8 icm20602_writebyte(u8 reg, u8 data)
 {
     u8 status;
 
-    icm20602_enable(1);
+    icm20602_enable(1);       // 选中芯片
     status = Drv_SPI2_RW(reg);
     Drv_SPI2_RW(data);
     icm20602_enable(0);
@@ -121,6 +124,7 @@ u8 mpu_buffer[14];		                //ICM20602原始数据
 _center_pos_st center_pos;
 _sensor_st sensor;
 
+// 把数据读入mpu_buffer数组中
 void Drv_Icm20602_Read()
 {
 	icm20602_readbuf(MPUREG_ACCEL_XOUT_H,14,mpu_buffer);

@@ -12,14 +12,14 @@
 void Fc_Sensor_Get()
 {
 	static u8 cnt;
-	if(flag.start_ok)
+	if(flag.start_ok)   // 如果初始化OK
 	{
 		/*读取陀螺仪和加速度计数据*/
 		Drv_Icm20602_Read();
 		
 		cnt ++;
 		cnt %= 20;
-		if(cnt==0)
+		if(cnt==0)     // 相当于每20ms读取一次电子罗盘磁力计和气压计
 		{
 			/*读取电子罗盘磁力计数据*/
 			Drv_AK8975_Read();

@@ -28,9 +28,15 @@
 #include "OpticalFlow.h"        //ATK-PMW3901光流模块
 #include "DY_Flight_Log.h"      //OpenmMv控制
 
-// test_dT_1000hz[0]:上次计时 时刻
+// test_dT_1000hz
+// [0]:上次计时 时刻
 // [1]：当前时刻  [2]：两次计时的间隔时间
-u32 test_dT_1000hz[3],test_rT[6];
+u32 test_dT_1000hz[3];
+// test_rT
+// [3] 进入Loop_1000Hz的时刻
+// [4] 执行完Loop_1000Hz的时刻
+// [5] 本次执行Loop_1000Hz的时长
+u32 test_rT[6];
 static void Loop_1000Hz(void)	//1ms执行一次
 { 
 	test_dT_1000hz[0] = test_dT_1000hz[1];
