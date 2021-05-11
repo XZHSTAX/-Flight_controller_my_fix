@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iarUserArgVars>
+    <group name="test" active="true" />
+    <group name="SIMPLELINK_MSP432E4_SDK" active="true">
+        <variable>
+            <name>XDCPATH</name>
+            <value>c:/ti/simplelink_msp432e4_sdk_2_20_00_20/kernel/tirtos/packages;c:/ti/simplelink_msp432e4_sdk_2_20_00_20/source</value>
+        </variable>
+        <variable>
+            <name>XDCROOT</name>
+            <value>c:/ti/xdctools_3_50_07_20_core</value>
+        </variable>
+        <variable>
+            <name>FREERTOS_INSTALL_DIR</name>
+            <value>c:/FreeRTOSv10.0.0</value>
+        </variable>
+        <variable>
+            <name>SIMPLELINK_MSP432E4_SDK_INSTALL_DIR</name>
+            <value>c:/ti/simplelink_msp432e4_sdk_2_20_00_20</value>
+        </variable>
+        <variable>
+            <name>EXAMPLE_ROOT</name>
+            <value>c:/ti/simplelink_msp432e4_sdk_2_20_00_20/tools/iar</value>
+        </variable>
+    </group>
+</iarUserArgVars>

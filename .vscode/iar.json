@@ -1,0 +1,7 @@
+{
+    "version": 1,
+    "path": "D:\IAR\common\bin",
+    "project": "D:\IAR\savelocation\DeYan_UAV",
+    "config": "Debug",
+    "parallel" : true
+}

@@ -1,0 +1,1398 @@
+###############################################################################
+#
+# IAR ELF Linker V8.22.2.15995/W32 for ARM                10/May/2021  21:48:18
+# Copyright 2007-2018 IAR Systems AB.
+#
+#    Output file  =  D:\IAR\savelocation\DeYan_UAV\Debug\Exe\DeYan_UAV.out
+#    Map file     =  D:\IAR\savelocation\DeYan_UAV\Debug\List\DeYan_UAV.map
+#    Command line =  
+#        -f D:\User\Temp\EW9ADA.tmp
+#        (D:\IAR\savelocation\DeYan_UAV\Debug\Obj\BSP_Init.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_adc.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_ak8975.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_icm20602.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_led.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_pwm_in.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_pwm_out.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_soft_i2c.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_spi.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_spl06.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_time.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_usart.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_vl53l0x.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\Drv_w25qxx.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_AltCtrl.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_AttCtrl.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_DT.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_Flight_Log.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_FlightCtrl.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_FlightDataCal.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_LocCtrl.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_MagProcess.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_MotorCtrl.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_OF.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_Parameter.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_power.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_RC.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_Scheduler.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\DY_Tracking.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\main.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\OpticalFlow.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\startup_msp432e401y_ewarm.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\system_msp432e401y.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\uartstdio.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_api.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_api_calibration.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_api_core.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_api_ranging.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_api_strings.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_i2c.o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Obj\vl53l0x_platform.o -o
+#        D:\IAR\savelocation\DeYan_UAV\Debug\Exe\DeYan_UAV.out --map
+#        D:\IAR\savelocation\DeYan_UAV\Debug\List\DeYan_UAV.map --config
+#        D:\IAR\savelocation\DeYan_UAV\msp432e401y.icf
+#        D:\IAR\TI\simplelink_msp432e4_sdk_2_20_00_20/source/ti/display/lib/display.arm4f
+#        D:\IAR\TI\simplelink_msp432e4_sdk_2_20_00_20/source/ti/grlib/lib/iar/m4f/grlib.a
+#        D:\IAR\TI\simplelink_msp432e4_sdk_2_20_00_20/source/third_party/spiffs/lib/iar/m4f/spiffs.a
+#        D:\IAR\TI\simplelink_msp432e4_sdk_2_20_00_20/source/ti/drivers/lib/drivers_msp432e4.arm4f
+#        D:\IAR\TI\simplelink_msp432e4_sdk_2_20_00_20/source/third_party/fatfs/lib/iar/m4f/fatfs.a
+#        D:\IAR\TI\simplelink_msp432e4_sdk_2_20_00_20/source/ti/devices/msp432e4/driverlib/lib/iar/m4f/msp432e4_driverlib.a
+#        --silent --cpu=Cortex-M4F --redirect _Printf=_PrintfSmall --redirect
+#        _Scanf=_ScanfSmall --semihosting
+#        D:\IAR\savelocation\DeYan_UAV\Library\DeYan_UAV.a
+#        D:\IAR\savelocation\DeYan_UAV\FlyControl_Algorithm\src\FlyControl_Algorithm.a
+#        --entry __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because no calls to memory allocation
+functions were found in the application outside of system library
+functions, and there are calls to deallocation functions in the
+application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x00008000 { ro section .intvec };
+"P1":  place in [from 0x00008000 to 0x000fffff] { ro };
+define block CSTACK with size = 4K, alignment = 8 { };
+define block PROC_STACK with size = 0M, alignment = 8 { };
+define block HEAP with size = 8K, alignment = 8 { };
+"P3":  place in [from 0x00000000 to 0x00000000] |
+                [from 0x20000000 to 0x2003ffff] {
+          rw, block CSTACK, block PROC_STACK, block HEAP };
+do not initialize { section .noinit };
+initialize by copy { rw };
+
+No sections matched the following patterns:
+
+  ro section application_specific_ro  in "P2|P4"
+  rw section application_specific_rw  in "P2|P4"
+
+
+  Section            Kind        Address     Size  Object
+  -------            ----        -------     ----  ------
+"A0":                                       0x208
+  .intvec            const    0x00008000    0x208  startup_msp432e401y_ewarm.o [1]
+                            - 0x00008208    0x208
+
+"P1":                                     0x1063a
+  .text              ro code  0x00008208   0x2054  DY_DT.o [1]
+  .text              ro code  0x0000a25c    0x4bc  Drv_usart.o [1]
+  .text              ro code  0x0000a718    0x3e8  DY_Parameter.o [1]
+  .text              ro code  0x0000ab00    0x974  DY_FlightCtrl.o [1]
+  .text              ro code  0x0000b474     0x2c  DY_FcData.o [4]
+  .text              ro code  0x0000b4a0    0x29c  DY_OF.o [1]
+  .text              ro code  0x0000b73c    0xcac  Drv_icm20602.o [1]
+  .text              ro code  0x0000c3e8    0x438  Drv_w25qxx.o [1]
+  .text              ro code  0x0000c820    0x110  DY_FlyControl.o [3]
+  .text              ro code  0x0000c930    0xb8c  DY_AttCtrl.o [1]
+  .text              ro code  0x0000d4bc    0x550  DY_AltCtrl.o [1]
+  .text              ro code  0x0000da0c    0x2fc  DY_LocCtrl.o [1]
+  .text              ro code  0x0000dd08    0x278  DY_Math.o [4]
+  .text              ro code  0x0000df80    0x294  DY_MotionCal.o [4]
+  .text              ro code  0x0000e214    0x178  gpio_MSP432E411Y.obj [7]
+  .text              ro code  0x0000e38c    0x1f8  Drv_spi.o [1]
+  .text              ro code  0x0000e584    0x108  DY_Pid.o [4]
+  .text              ro code  0x0000e68c     0x76  ABImemcpy_unaligned.o [8]
+  .text              ro code  0x0000e704    0x210  DY_Filter.o [4]
+  .text              ro code  0x0000e914   0x1770  vl53l0x_api_core.o [1]
+  .text              ro code  0x00010084   0x113c  vl53l0x_api.o [1]
+  .text              ro code  0x000111c0    0x2e4  vl53l0x_platform.o [1]
+  .text              ro code  0x000114a4     0x44  strcpy_unaligned.o [8]
+  .text              ro code  0x000114e8    0x970  vl53l0x_api_calibration.o [1]
+  .text              ro code  0x00011e58      0x8  abs.o [5]
+  .text              ro code  0x00011e60    0x120  vl53l0x_api_strings.o [1]
+  .text              ro code  0x00011f80      0x6  ABImemclr4.o [8]
+  .text              ro code  0x00011f86    0x11a  vl53l0x_i2c.o [1]
+  .text              ro code  0x000120a0     0x32  ABImemset48.o [8]
+  .text              ro code  0x000120d4    0x3c8  Drv_soft_i2c.o [1]
+  .text              ro code  0x0001249c    0x4c8  sysctl_MSP432E411Y.obj [7]
+  .text              ro code  0x00012964    0xbd0  Drv_led.o [1]
+  .text              ro code  0x00013534    0xbcc  DY_Imu.o [4]
+  .text              ro code  0x00014100    0xa18  Drv_pwm_in.o [1]
+  .text              ro code  0x00014b18    0x734  DY_RC.o [1]
+  .text              ro code  0x0001524c    0x7f0  OpticalFlow.o [1]
+  .text              ro code  0x00015a3c    0x1bc  tan32.o [6]
+  .text              ro code  0x00015bf8    0x6dc  Drv_spl06.o [1]
+  .text              ro code  0x000162d4     0x22  S32ToDbl.o [6]
+  .text              ro code  0x000162f8    0x1a2  DblMul.o [6]
+  .text              ro code  0x0001649c     0x48  FltToDbl.o [6]
+  .text              ro code  0x000164e4    0x178  DblAdd.o [6]
+  .text              ro code  0x0001665c     0x68  DblToFlt.o [6]
+  .text              ro code  0x000166c4     0xd2  DblSub.o [6]
+  .text              ro code  0x00016798    0x558  DY_MagProcess.o [1]
+  .rodata            const    0x00016cf0    0x404  DY_Math.o [4]
+  .text              ro code  0x000170f4    0x34c  DY_FlightDataCal.o [1]
+  .text              ro code  0x00017440    0x100  Drv_ak8975.o [1]
+  .text              ro code  0x00017540    0x224  Drv_pwm_out.o [1]
+  .text              ro code  0x00017764     0x28  DblToU32.o [6]
+  .text              ro code  0x0001778c    0x1f0  DY_Scheduler.o [1]
+  .text              ro code  0x0001797c     0xc8  Drv_time.o [1]
+  .text              ro code  0x00017a44    0x18c  DY_MotorCtrl.o [1]
+  .text              ro code  0x00017bd0    0x13c  DY_Flight_Log.o [1]
+  .text              ro code  0x00017d0c     0x78  Drv_vl53l0x.o [1]
+  .text              ro code  0x00017d84    0x1ac  DY_power.o [1]
+  .text              ro code  0x00017f30      0xc  systick_MSP432E411Y.obj [7]
+  .text              ro code  0x00017f3c    0x18c  BSP_Init.o [1]
+  .text              ro code  0x000180c8     0xd8  Drv_adc.o [1]
+  .text              ro code  0x000181a0     0xb2  adc_MSP432E411Y.obj [7]
+  .text              ro code  0x00018252     0x9c  packbits_init.o [8]
+  .text              ro code  0x000182ee      0x6  abort.o [5]
+  .text              ro code  0x000182f4     0x14  exit.o [9]
+  .text              ro code  0x00018308     0x40  zero_init3.o [8]
+  .text              ro code  0x00018348     0x28  data_init.o [8]
+  .text              ro code  0x00018370     0x24  system_msp432e401y.o [1]
+  .text              ro code  0x00018394     0x22  fpinit_M.o [6]
+  .iar.init_table    const    0x000183b8     0x2c  - Linker created -
+  .text              ro code  0x000183e4     0x1e  cmain.o [8]
+  .text              ro code  0x00018402      0x4  low_level_init.o [5]
+  .text              ro code  0x00018408     0x1c  main.o [1]
+  .text              ro code  0x00018424      0x4  exit.o [5]
+  .text              ro code  0x00018428      0xa  cexit.o [8]
+  .rodata            const    0x00018434     0x18  vl53l0x_api_strings.o [1]
+  .rodata            const    0x0001844c     0x14  DY_Parameter.o [1]
+  .rodata            const    0x00018460     0x10  BSP_Init.o [1]
+  .rodata            const    0x00018470     0x10  Drv_icm20602.o [1]
+  .rodata            const    0x00018480     0x10  Drv_icm20602.o [1]
+  .rodata            const    0x00018490     0x10  DY_Parameter.o [1]
+  .text              ro code  0x000184a0      0xe  startup_msp432e401y_ewarm.o [1]
+  .text              ro code  0x000184ae      0xc  cstartup_M.o [8]
+  .rodata            const    0x000184bc      0xc  DY_Parameter.o [1]
+  .rodata            const    0x000184c8      0xc  DY_Parameter.o [1]
+  .rodata            const    0x000184d4      0xc  vl53l0x_api_strings.o [1]
+  .rodata            const    0x000184e0      0xc  vl53l0x_api_strings.o [1]
+  .rodata            const    0x000184ec      0xc  vl53l0x_api_strings.o [1]
+  .rodata            const    0x000184f8      0x8  DY_FlightCtrl.o [1]
+  .rodata            const    0x00018500      0x8  vl53l0x_api_strings.o [1]
+  .rodata            const    0x00018508      0x0  zero_init3.o [8]
+  .rodata            const    0x00018508      0x0  packbits_init.o [8]
+  Initializer bytes  const    0x00018508    0x33a  <for P3 s0>
+                            - 0x00018842  0x1063a
+
+"P3", part 1 of 3:                          0x44b
+  P3 s0                       0x20000000    0x44b  <Init block>
+    .data            inited   0x20000000    0x1b8  vl53l0x_api.o [1]
+    .data            inited   0x200001b8     0xf4  vl53l0x_api.o [1]
+    .data            inited   0x200002ac     0xe8  DY_Imu.o [4]
+    .data            inited   0x20000394     0x54  DY_Scheduler.o [1]
+    .data            inited   0x200003e8     0x18  DY_Imu.o [4]
+    .data            inited   0x20000400     0x10  Drv_led.o [1]
+    .data            inited   0x20000410     0x10  vl53l0x_api_calibration.o [1]
+    .data            inited   0x20000420      0xc  Drv_icm20602.o [1]
+    .data            inited   0x2000042c      0x4  DY_OF.o [1]
+    .data            inited   0x20000430      0x4  DY_power.o [1]
+    .data            inited   0x20000434      0x4  OpticalFlow.o [1]
+    .data            inited   0x20000438      0x4  system_msp432e401y.o [1]
+    .data            inited   0x2000043c      0x2  Drv_led.o [1]
+    .data            inited   0x2000043e      0x2  DY_RC.o [1]
+    .data            inited   0x20000440      0x1  DY_DT.o [1]
+    .data            inited   0x20000441      0x1  DY_DT.o [1]
+    .data            inited   0x20000442      0x1  DY_DT.o [1]
+    .data            inited   0x20000443      0x1  DY_DT.o [1]
+    .data            inited   0x20000444      0x1  DY_DT.o [1]
+    .data            inited   0x20000445      0x1  DY_DT.o [1]
+    .data            inited   0x20000446      0x1  DY_DT.o [1]
+    .data            inited   0x20000447      0x1  DY_DT.o [1]
+    .data            inited   0x20000448      0x1  DY_DT.o [1]
+    .data            inited   0x20000449      0x1  DY_FlightCtrl.o [1]
+    .data            inited   0x2000044a      0x1  DY_FlightCtrl.o [1]
+                            - 0x2000044b    0x44b
+
+"P3", part 2 of 3:                         0x2290
+  .bss               zero     0x2000044c   0x1000  DY_Parameter.o [1]
+  .bss               zero     0x2000144c    0x190  DY_DT.o [1]
+  .bss               zero     0x200015dc    0x160  vl53l0x_platform.o [1]
+  .bss               zero     0x2000173c    0x100  Drv_usart.o [1]
+  .bss               zero     0x2000183c    0x100  Drv_usart.o [1]
+  .bss               zero     0x2000193c    0x100  Drv_usart.o [1]
+  .bss               zero     0x20001a3c    0x100  Drv_usart.o [1]
+  .bss               zero     0x20001b3c    0x100  DY_DT.o [1]
+  .bss               zero     0x20001c3c     0x80  DY_FlyControl.o [3]
+  .bss               zero     0x20001cbc     0x78  DY_AttCtrl.o [1]
+  .bss               zero     0x20001d34     0x78  DY_AttCtrl.o [1]
+  .bss               zero     0x20001dac     0x64  vl53l0x_platform.o [1]
+  .bss               zero     0x20001e10     0x50  Drv_icm20602.o [1]
+  .bss               zero     0x20001e60     0x50  DY_LocCtrl.o [1]
+  .bss               zero     0x20001eb0     0x50  DY_LocCtrl.o [1]
+  .bss               zero     0x20001f00     0x48  DY_AttCtrl.o [1]
+  .bss               zero     0x20001f48     0x48  DY_AttCtrl.o [1]
+  .bss               zero     0x20001f90     0x40  DY_FcData.o [4]
+  .bss               zero     0x20001fd0     0x3c  Drv_icm20602.o [1]
+  .bss               zero     0x2000200c     0x38  OpticalFlow.o [1]
+  .bss               zero     0x20002044     0x34  DY_DT.o [1]
+  .bss               zero     0x20002078     0x34  DY_OF.o [1]
+  .bss               zero     0x200020ac     0x30  DY_LocCtrl.o [1]
+  .bss               zero     0x200020dc     0x30  DY_LocCtrl.o [1]
+  .bss               zero     0x2000210c     0x2c  Drv_spl06.o [1]
+  .bss               zero     0x20002138     0x2c  DY_FlightCtrl.o [1]
+  .bss               zero     0x20002164     0x28  DY_AltCtrl.o [1]
+  .bss               zero     0x2000218c     0x28  DY_AltCtrl.o [1]
+  .bss               zero     0x200021b4     0x24  DY_AttCtrl.o [1]
+  .bss               zero     0x200021d8     0x24  DY_LocCtrl.o [1]
+  .bss               zero     0x200021fc     0x24  DY_LocCtrl.o [1]
+  .bss               zero     0x20002220     0x24  DY_Imu.o [4]
+  .bss               zero     0x20002244     0x20  Drv_pwm_in.o [1]
+  .bss               zero     0x20002264     0x1c  Drv_icm20602.o [1]
+  .bss               zero     0x20002280     0x1c  DY_AttCtrl.o [1]
+  .bss               zero     0x2000229c     0x1c  DY_FcData.o [4]
+  .bss               zero     0x200022b8     0x1c  DY_MotionCal.o [4]
+  .bss               zero     0x200022d4     0x18  Drv_icm20602.o [1]
+  .bss               zero     0x200022ec     0x18  Drv_icm20602.o [1]
+  .bss               zero     0x20002304     0x18  Drv_icm20602.o [1]
+  .bss               zero     0x2000231c     0x18  DY_AltCtrl.o [1]
+  .bss               zero     0x20002334     0x18  DY_AltCtrl.o [1]
+  .bss               zero     0x2000234c     0x18  DY_AttCtrl.o [1]
+  .bss               zero     0x20002364     0x18  DY_Scheduler.o [1]
+  .bss               zero     0x2000237c     0x18  DY_MotionCal.o [4]
+  .bss               zero     0x20002394     0x18  DY_MotionCal.o [4]
+  .bss               zero     0x200023ac     0x14  DY_DT.o [1]
+  .bss               zero     0x200023c0     0x14  DY_RC.o [1]
+  .bss               zero     0x200023d4     0x10  Drv_icm20602.o [1]
+  .bss               zero     0x200023e4     0x10  Drv_pwm_in.o [1]
+  .bss               zero     0x200023f4     0x10  DY_AttCtrl.o [1]
+  .bss               zero     0x20002404     0x10  DY_MotorCtrl.o [1]
+  .bss               zero     0x20002414     0x10  DY_RC.o [1]
+  .bss               zero     0x20002424      0xc  Drv_icm20602.o [1]
+  .bss               zero     0x20002430      0xc  Drv_icm20602.o [1]
+  .bss               zero     0x2000243c      0xc  Drv_icm20602.o [1]
+  .bss               zero     0x20002448      0xc  Drv_w25qxx.o [1]
+  .bss               zero     0x20002454      0xc  DY_Flight_Log.o [1]
+  .bss               zero     0x20002460      0xc  DY_Scheduler.o [1]
+  .bss               zero     0x2000246c      0xc  OpticalFlow.o [1]
+  .bss               zero     0x20002478      0xc  OpticalFlow.o [1]
+  .bss               zero     0x20002484      0xc  DY_FcData.o [4]
+  .bss               zero     0x20002490      0xc  DY_Imu.o [4]
+  .bss               zero     0x2000249c      0xc  DY_Imu.o [4]
+  .bss               zero     0x200024a8      0xc  DY_Imu.o [4]
+  .bss               zero     0x200024b4      0x8  Drv_ak8975.o [1]
+  .bss               zero     0x200024bc      0x8  Drv_icm20602.o [1]
+  .bss               zero     0x200024c4      0x8  Drv_icm20602.o [1]
+  .bss               zero     0x200024cc      0x8  Drv_led.o [1]
+  .bss               zero     0x200024d4      0x8  Drv_led.o [1]
+  .bss               zero     0x200024dc      0x8  Drv_led.o [1]
+  .bss               zero     0x200024e4      0x8  DY_FlightDataCal.o [1]
+  .bss               zero     0x200024ec      0x8  DY_LocCtrl.o [1]
+  .bss               zero     0x200024f4      0x8  DY_MagProcess.o [1]
+  .bss               zero     0x200024fc      0x8  DY_MagProcess.o [1]
+  .bss               zero     0x20002504      0x8  DY_MagProcess.o [1]
+  .bss               zero     0x2000250c      0x8  DY_MagProcess.o [1]
+  .bss               zero     0x20002514      0x8  DY_MotorCtrl.o [1]
+  .bss               zero     0x2000251c      0x8  DY_MotorCtrl.o [1]
+  .bss               zero     0x20002524      0x8  DY_FcData.o [4]
+  .bss               zero     0x2000252c      0x4  BSP_Init.o [1]
+  .bss               zero     0x20002530      0x4  Drv_adc.o [1]
+  .bss               zero     0x20002534      0x4  Drv_led.o [1]
+  .bss               zero     0x20002538      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x2000253c      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002540      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002544      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002548      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x2000254c      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002550      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002554      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002558      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x2000255c      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002560      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002564      0x4  Drv_pwm_in.o [1]
+  .bss               zero     0x20002568      0x4  Drv_spl06.o [1]
+  .bss               zero     0x2000256c      0x4  Drv_spl06.o [1]
+  .bss               zero     0x20002570      0x4  Drv_spl06.o [1]
+  .bss               zero     0x20002574      0x4  Drv_spl06.o [1]
+  .bss               zero     0x20002578      0x4  Drv_spl06.o [1]
+  .bss               zero     0x2000257c      0x4  Drv_spl06.o [1]
+  .bss               zero     0x20002580      0x4  Drv_spl06.o [1]
+  .bss               zero     0x20002584      0x4  Drv_time.o [1]
+  .bss               zero     0x20002588      0x4  Drv_time.o [1]
+  .bss               zero     0x2000258c      0x4  DY_AltCtrl.o [1]
+  .bss               zero     0x20002590      0x4  DY_AttCtrl.o [1]
+  .bss               zero     0x20002594      0x4  DY_AttCtrl.o [1]
+  .bss               zero     0x20002598      0x4  DY_AttCtrl.o [1]
+  .bss               zero     0x2000259c      0x4  DY_AttCtrl.o [1]
+  .bss               zero     0x200025a0      0x4  DY_AttCtrl.o [1]
+  .bss               zero     0x200025a4      0x4  DY_FlightCtrl.o [1]
+  .bss               zero     0x200025a8      0x4  DY_FlightCtrl.o [1]
+  .bss               zero     0x200025ac      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025b0      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025b4      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025b8      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025bc      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025c0      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025c4      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025c8      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025cc      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025d0      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025d4      0x4  DY_FlightDataCal.o [1]
+  .bss               zero     0x200025d8      0x4  DY_Parameter.o [1]
+  .bss               zero     0x200025dc      0x4  DY_power.o [1]
+  .bss               zero     0x200025e0      0x4  DY_RC.o [1]
+  .bss               zero     0x200025e4      0x4  DY_Tracking.o [1]
+  .bss               zero     0x200025e8      0x4  OpticalFlow.o [1]
+  .bss               zero     0x200025ec      0x4  OpticalFlow.o [1]
+  .bss               zero     0x200025f0      0x4  DY_Imu.o [4]
+  .bss               zero     0x200025f4      0x4  DY_Imu.o [4]
+  .bss               zero     0x200025f8      0x4  DY_Imu.o [4]
+  .bss               zero     0x200025fc      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002600      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002604      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002608      0x4  DY_Imu.o [4]
+  .bss               zero     0x2000260c      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002610      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002614      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002618      0x4  DY_Imu.o [4]
+  .bss               zero     0x2000261c      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002620      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002624      0x4  DY_Imu.o [4]
+  .bss               zero     0x20002628      0x4  DY_Imu.o [4]
+  .bss               zero     0x2000262c      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x20002630      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x20002634      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x20002638      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x2000263c      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x20002640      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x20002644      0x4  DY_MotionCal.o [4]
+  .bss               zero     0x20002648      0x4  DY_FlyControl.o [3]
+  .bss               zero     0x2000264c      0x4  DY_FlyControl.o [3]
+  .bss               zero     0x20002650      0x4  DY_Filter.o [4]
+  .bss               zero     0x20002654      0x4  DY_Filter.o [4]
+  .bss               zero     0x20002658      0x2  Drv_icm20602.o [1]
+  .bss               zero     0x2000265a      0x2  Drv_icm20602.o [1]
+  .bss               zero     0x2000265c      0x2  Drv_icm20602.o [1]
+  .bss               zero     0x2000265e      0x2  Drv_led.o [1]
+  .bss               zero     0x20002660      0x2  Drv_led.o [1]
+  .bss               zero     0x20002662      0x2  Drv_vl53l0x.o [1]
+  .bss               zero     0x20002664      0x2  Drv_vl53l0x.o [1]
+  .bss               zero     0x20002666      0x2  DY_AltCtrl.o [1]
+  .bss               zero     0x20002668      0x2  DY_AltCtrl.o [1]
+  .bss               zero     0x2000266a      0x2  DY_AltCtrl.o [1]
+  .bss               zero     0x2000266c      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x2000266e      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x20002670      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x20002672      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x20002674      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x20002676      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x20002678      0x2  DY_FlightCtrl.o [1]
+  .bss               zero     0x2000267a      0x2  DY_FlightDataCal.o [1]
+  .bss               zero     0x2000267c      0x2  DY_MagProcess.o [1]
+  .bss               zero     0x2000267e      0x2  DY_MotorCtrl.o [1]
+  .bss               zero     0x20002680      0x2  DY_OF.o [1]
+  .bss               zero     0x20002682      0x2  DY_OF.o [1]
+  .bss               zero     0x20002684      0x2  DY_OF.o [1]
+  .bss               zero     0x20002686      0x2  DY_OF.o [1]
+  .bss               zero     0x20002688      0x2  DY_OF.o [1]
+  .bss               zero     0x2000268a      0x2  DY_OF.o [1]
+  .bss               zero     0x2000268c      0x2  DY_OF.o [1]
+  .bss               zero     0x2000268e      0x2  DY_power.o [1]
+  .bss               zero     0x20002690      0x2  DY_RC.o [1]
+  .bss               zero     0x20002692      0x2  DY_RC.o [1]
+  .bss               zero     0x20002694      0x2  DY_RC.o [1]
+  .bss               zero     0x20002696      0x2  DY_RC.o [1]
+  .bss               zero     0x20002698      0x2  DY_RC.o [1]
+  .bss               zero     0x2000269a      0x2  DY_RC.o [1]
+  .bss               zero     0x2000269c      0x2  DY_Tracking.o [1]
+  .bss               zero     0x2000269e      0x2  DY_Tracking.o [1]
+  .bss               zero     0x200026a0      0x2  DY_Tracking.o [1]
+  .bss               zero     0x200026a2      0x2  OpticalFlow.o [1]
+  .bss               zero     0x200026a4      0x2  OpticalFlow.o [1]
+  .bss               zero     0x200026a6      0x2  OpticalFlow.o [1]
+  .bss               zero     0x200026a8      0x2  OpticalFlow.o [1]
+  .bss               zero     0x200026aa      0x2  DY_Imu.o [4]
+  .bss               zero     0x200026ac      0x1  Drv_icm20602.o [1]
+  .bss               zero     0x200026ad      0x1  Drv_led.o [1]
+  .bss               zero     0x200026ae      0x1  Drv_led.o [1]
+  .bss               zero     0x200026af      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b0      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b1      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b2      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b3      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b4      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b5      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b6      0x1  Drv_usart.o [1]
+  .bss               zero     0x200026b7      0x1  Drv_vl53l0x.o [1]
+  .bss               zero     0x200026b8      0x1  DY_DT.o [1]
+  .bss               zero     0x200026b9      0x1  DY_DT.o [1]
+  .bss               zero     0x200026ba      0x1  DY_DT.o [1]
+  .bss               zero     0x200026bb      0x1  DY_DT.o [1]
+  .bss               zero     0x200026bc      0x1  DY_DT.o [1]
+  .bss               zero     0x200026bd      0x1  DY_FlightCtrl.o [1]
+  .bss               zero     0x200026be      0x1  DY_FlightCtrl.o [1]
+  .bss               zero     0x200026bf      0x1  DY_FlightCtrl.o [1]
+  .bss               zero     0x200026c0      0x1  DY_FlightCtrl.o [1]
+  .bss               zero     0x200026c1      0x1  DY_FlightCtrl.o [1]
+  .bss               zero     0x200026c2      0x1  DY_FlightCtrl.o [1]
+  .bss               zero     0x200026c3      0x1  DY_FlightDataCal.o [1]
+  .bss               zero     0x200026c4      0x1  DY_FlightDataCal.o [1]
+  .bss               zero     0x200026c5      0x1  DY_FlightDataCal.o [1]
+  .bss               zero     0x200026c6      0x1  DY_FlightDataCal.o [1]
+  .bss               zero     0x200026c7      0x1  DY_FlightDataCal.o [1]
+  .bss               zero     0x200026c8      0x1  DY_MagProcess.o [1]
+  .bss               zero     0x200026c9      0x1  DY_OF.o [1]
+  .bss               zero     0x200026ca      0x1  DY_OF.o [1]
+  .bss               zero     0x200026cb      0x1  DY_OF.o [1]
+  .bss               zero     0x200026cc      0x1  DY_OF.o [1]
+  .bss               zero     0x200026cd      0x1  DY_OF.o [1]
+  .bss               zero     0x200026ce      0x1  DY_OF.o [1]
+  .bss               zero     0x200026cf      0x1  DY_OF.o [1]
+  .bss               zero     0x200026d0      0x1  DY_power.o [1]
+  .bss               zero     0x200026d1      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d2      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d3      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d4      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d5      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d6      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d7      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d8      0x1  DY_RC.o [1]
+  .bss               zero     0x200026d9      0x1  vl53l0x_platform.o [1]
+  .bss               zero     0x200026da      0x1  DY_MotionCal.o [4]
+  .bss               zero     0x200026db      0x1  DY_Filter.o [4]
+                            - 0x200026dc   0x2290
+
+"P3", part 3 of 3:                          0x400
+  .noinit            uninit   0x200026dc    0x400  startup_msp432e401y_ewarm.o [1]
+                            - 0x20002adc    0x400
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x2290:
+          0x2000044c  0x2290
+
+Copy/packbits (__iar_packbits_init3)
+    1 source range, total size 0x33a (75% of destination):
+          0x00018508   0x33a
+    1 destination range, total size 0x44b:
+          0x20000000   0x44b
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                       ro code  ro data  rw data
+    ------                       -------  -------  -------
+D:\IAR\savelocation\DeYan_UAV\Debug\Obj: [1]
+    BSP_Init.o                       396       16        4
+    DY_AltCtrl.o                   1 360               138
+    DY_AttCtrl.o                   2 956               508
+    DY_DT.o                        8 276        7      742
+    DY_FlightCtrl.o                2 420       10       74
+    DY_FlightDataCal.o               844                59
+    DY_Flight_Log.o                  316                12
+    DY_LocCtrl.o                     764               336
+    DY_MagProcess.o                1 368                35
+    DY_MotorCtrl.o                   396                34
+    DY_OF.o                          668        3       77
+    DY_Parameter.o                 1 000       60    4 100
+    DY_RC.o                        1 844        1       62
+    DY_Scheduler.o                   496       63      120
+    DY_Tracking.o                                       10
+    DY_power.o                       428        3       11
+    Drv_adc.o                        216                 4
+    Drv_ak8975.o                     256                 8
+    Drv_icm20602.o                 3 244       41      327
+    Drv_led.o                      3 024       14       52
+    Drv_pwm_in.o                   2 584                96
+    Drv_pwm_out.o                    548
+    Drv_soft_i2c.o                   968
+    Drv_spi.o                        504
+    Drv_spl06.o                    1 756                72
+    Drv_time.o                       200                 8
+    Drv_usart.o                    1 212             1 032
+    Drv_vl53l0x.o                    120                 5
+    Drv_w25qxx.o                   1 080                12
+    OpticalFlow.o                  2 032        3      100
+    main.o                            28
+    startup_msp432e401y_ewarm.o       14      520    1 024
+    system_msp432e401y.o              36        3        4
+    vl53l0x_api.o                  4 412      514      684
+    vl53l0x_api_calibration.o      2 416       12       16
+    vl53l0x_api_core.o             6 000
+    vl53l0x_api_strings.o            288       68
+    vl53l0x_i2c.o                    282
+    vl53l0x_platform.o               740               453
+    ------------------------------------------------------
+    Total:                        55 492    1 338   10 219
+
+command line: [2]
+    ------------------------------------------------------
+    Total:
+
+DeYan_UAV.a: [3]
+    DY_FlyControl.o                  272               136
+    ------------------------------------------------------
+    Total:                           272               136
+
+FlyControl_Algorithm.a: [4]
+    DY_FcData.o                       44               112
+    DY_Filter.o                      528                 9
+    DY_Imu.o                       3 020      192      390
+    DY_Math.o                        632    1 028
+    DY_MotionCal.o                   660               105
+    DY_Pid.o                         264
+    ------------------------------------------------------
+    Total:                         5 148    1 220      616
+
+dl7M_tln.a: [5]
+    abort.o                            6
+    abs.o                              8
+    exit.o                             4
+    low_level_init.o                   4
+    ------------------------------------------------------
+    Total:                            22
+
+m7M_tls.a: [6]
+    DblAdd.o                         376
+    DblMul.o                         418
+    DblSub.o                         210
+    DblToFlt.o                       104
+    DblToU32.o                        40
+    FltToDbl.o                        72
+    S32ToDbl.o                        34
+    fpinit_M.o                        34
+    tan32.o                          444
+    ------------------------------------------------------
+    Total:                         1 732
+
+msp432e4_driverlib.a: [7]
+    adc_MSP432E411Y.obj              178
+    gpio_MSP432E411Y.obj             376
+    sysctl_MSP432E411Y.obj         1 224
+    systick_MSP432E411Y.obj           12
+    ------------------------------------------------------
+    Total:                         1 790
+
+rt7M_tl.a: [8]
+    ABImemclr4.o                       6
+    ABImemcpy_unaligned.o            118
+    ABImemset48.o                     50
+    cexit.o                           10
+    cmain.o                           30
+    cstartup_M.o                      12
+    data_init.o                       40
+    packbits_init.o                  156
+    strcpy_unaligned.o                68
+    zero_init3.o                      64
+    ------------------------------------------------------
+    Total:                           554
+
+shb_l.a: [9]
+    exit.o                            20
+    ------------------------------------------------------
+    Total:                            20
+
+    Gaps                              12        6
+    Linker created                             44
+----------------------------------------------------------
+    Grand Total:                  65 042    2 608   10 971
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address    Size  Type      Object
+-----                      -------    ----  ----      ------
+.iar.init_table$$Base   0x000183b8           --   Gb  - Linker created -
+.iar.init_table$$Limit  0x000183e4           --   Gb  - Linker created -
+?main                   0x000183e5          Code  Gb  cmain.o [8]
+ADC0SS3_IRQHandler      0x00018161    0x1a  Code  Gb  Drv_adc.o [1]
+ADC0_Init               0x000180c9    0x98  Code  Gb  Drv_adc.o [1]
+ADCClockConfigSet       0x00018235    0x1e  Code  Gb  adc_MSP432E411Y.obj [7]
+ADCIntClearEx           0x0001822f     0x6  Code  Gb  adc_MSP432E411Y.obj [7]
+ADCSequenceStepConfigure
+                        0x000181a1    0x8e  Code  Gb  adc_MSP432E411Y.obj [7]
+All_Init                0x00017f47   0x150  Code  Gb  BSP_Init.o [1]
+All_PID_Init            0x0000ab01    0x18  Code  Gb  DY_FlightCtrl.o [1]
+Alt_1level_Ctrl         0x0000d811   0x180  Code  Gb  DY_AltCtrl.o [1]
+Alt_1level_PID_Init     0x0000d7c1    0x3e  Code  Gb  DY_AltCtrl.o [1]
+Alt_2level_Ctrl         0x0000d679   0x148  Code  Gb  DY_AltCtrl.o [1]
+Alt_2level_PID_Init     0x0000d62b    0x4e  Code  Gb  DY_AltCtrl.o [1]
+Att_1level_Ctrl         0x0000d20d   0x226  Code  Gb  DY_AttCtrl.o [1]
+Att_1level_PID_Init     0x0000ca3b   0x11a  Code  Gb  DY_AttCtrl.o [1]
+Att_2level_Ctrl         0x0000cc01   0x5e6  Code  Gb  DY_AttCtrl.o [1]
+Att_2level_PID_Init     0x0000c931   0x10a  Code  Gb  DY_AttCtrl.o [1]
+Auto_Take_Off_Land_Task
+                        0x0000d4bd   0x16e  Code  Gb  DY_AltCtrl.o [1]
+Auto_Take_Off_Land_Task::take_off_ok_cnt
+                        0x2000266a     0x2  Data  Lc  DY_AltCtrl.o [1]
+BootLoader_Setup        0x00017f3d     0xa  Code  Gb  BSP_Init.o [1]
+BrdNum                  0x20002648     0x4  Data  Gb  DY_FlyControl.o [3]
+CH_N                    0x20002414    0x10  Data  Gb  DY_RC.o [1]
+Center_Pos_Set          0x0000bea9    0x3e  Code  Gb  Drv_icm20602.o [1]
+Checksum_Function       0x0000c871    0x14  Code  Gb  DY_FlyControl.o [3]
+DT_RxBuffer             0x20001b3c   0x100  Data  Lc  DY_DT.o [1]
+DT_data_cnt             0x200026b9     0x1  Data  Lc  DY_DT.o [1]
+DY_CountTime_Flag       0x200026c1     0x1  Data  Gb  DY_FlightCtrl.o [1]
+DY_DT_Data_Exchange     0x00008219   0x48e  Code  Gb  DY_DT.o [1]
+DY_DT_Data_Exchange::cnt
+                        0x200026b8     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::location_cnt
+                        0x20000448     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::motopwm_cnt
+                        0x20000445     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::power_cnt
+                        0x20000446     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::rcdata_cnt
+                        0x20000444     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::senser2_cnt
+                        0x20000441     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::senser_cnt
+                        0x20000440     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::speed_cnt
+                        0x20000447     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::status_cnt
+                        0x20000443     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Exchange::user_cnt
+                        0x20000442     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Receive_Anl  0x000087f9   0x134  Code  Gb  DY_DT.o [1]
+DY_DT_Data_Receive_Anl_Task
+                        0x000086a7    0x28  Code  Gb  DY_DT.o [1]
+DY_DT_Data_Receive_Prepare
+                        0x000086cf   0x126  Code  Gb  DY_DT.o [1]
+DY_DT_Data_Receive_Prepare::_data_len
+                        0x200026bb     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_Data_Receive_Prepare::state
+                        0x200026bc     0x1  Data  Lc  DY_DT.o [1]
+DY_DT_GetParame         0x00008aef    0x28  Code  Gb  DY_DT.o [1]
+DY_DT_ParListToParUsed  0x00008b25   0x45e  Code  Gb  DY_DT.o [1]
+DY_DT_ParUsedToParList  0x00008fd5   0x462  Code  Gb  DY_DT.o [1]
+DY_DT_SendCmd           0x00008931    0xb6  Code  Gb  DY_DT.o [1]
+DY_DT_SendParame        0x000089e7   0x108  Code  Gb  DY_DT.o [1]
+DY_DT_SendStr           0x0000c8b9    0x44  Code  Gb  DY_FlyControl.o [3]
+DY_DT_SendString        0x0000a11b    0x9c  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Data         0x00008209     0xe  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Location     0x00009709   0x15c  Code  Gb  DY_DT.o [1]
+DY_DT_Send_MotoPWM      0x00009fc3   0x158  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Power        0x00009f09    0xba  Code  Gb  DY_DT.o [1]
+DY_DT_Send_RCData       0x00009d3f   0x1ca  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Senser       0x000099f9   0x23c  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Senser2      0x00009c35   0x10a  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Speed        0x000095e1   0x126  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Status       0x0000986d   0x182  Code  Gb  DY_DT.o [1]
+DY_DT_Send_User         0x0000a1b7    0x9c  Code  Gb  DY_DT.o [1]
+DY_DT_Send_VER          0x00009451    0x7a  Code  Gb  DY_DT.o [1]
+DY_DT_Send_Version      0x000094cb   0x116  Code  Gb  DY_DT.o [1]
+DY_Debug_Height_Mode    0x200026bf     0x1  Data  Gb  DY_FlightCtrl.o [1]
+DY_Debug_Mode           0x200026be     0x1  Data  Gb  DY_FlightCtrl.o [1]
+DY_Debug_Yaw_Mode       0x200026c0     0x1  Data  Gb  DY_FlightCtrl.o [1]
+DY_Flight_Control       0x00017bd1   0x13c  Code  Gb  DY_Flight_Log.o [1]
+DY_Land_Flag            0x200026c2     0x1  Data  Gb  DY_FlightCtrl.o [1]
+DY_OF_Check             0x0000b599    0x8a  Code  Gb  DY_OF.o [1]
+DY_OF_DataAnl           0x0000b623    0xd6  Code  Gb  DY_OF.o [1]
+DY_OF_DataAnl_Task      0x0000b4a1     0xa  Code  Gb  DY_OF.o [1]
+DY_OF_GetOneByte        0x0000b4ab    0xee  Code  Gb  DY_OF.o [1]
+DY_OF_GetOneByte::_data_len
+                        0x200026ce     0x1  Data  Lc  DY_OF.o [1]
+DY_OF_GetOneByte::state
+                        0x200026cf     0x1  Data  Lc  DY_OF.o [1]
+DY_PMW_OF_DX2           0x200026a2     0x2  Data  Gb  OpticalFlow.o [1]
+DY_PMW_OF_DX2FIX        0x200026a6     0x2  Data  Gb  OpticalFlow.o [1]
+DY_PMW_OF_DY2           0x200026a4     0x2  Data  Gb  OpticalFlow.o [1]
+DY_PMW_OF_DY2FIX        0x200026a8     0x2  Data  Gb  OpticalFlow.o [1]
+DY_Parame               0x2000044c  0x1000  Data  Gb  DY_Parameter.o [1]
+DY_Parame_Read          0x0000a9ff    0x30  Code  Gb  DY_Parameter.o [1]
+DY_Parame_Write         0x0000a9db    0x24  Code  Lc  DY_Parameter.o [1]
+DY_Parame_Write_task    0x0000aa2f    0x80  Code  Gb  DY_Parameter.o [1]
+DY_Rc_Pwm_In            0x20002244    0x20  Data  Gb  Drv_pwm_in.o [1]
+DY_Task_ExeTime         0x200025a8     0x4  Data  Gb  DY_FlightCtrl.o [1]
+DefaultTuningSettings   0x200001b8    0xf4  Data  Gb  vl53l0x_api.o [1]
+Default_Handler         0x000184a1     0x2  Code  Lc  startup_msp432e401y_ewarm.o [1]
+Delay_ms                0x000179f5    0x18  Code  Gb  Drv_time.o [1]
+Delay_us                0x000179df    0x16  Code  Gb  Drv_time.o [1]
+Drv_AK8975CSPin_Init    0x00017441    0x2e  Code  Gb  Drv_ak8975.o [1]
+Drv_AK8975_Read         0x000174ab    0x38  Code  Gb  Drv_ak8975.o [1]
+Drv_Icm20602CSPin_Init  0x0000b73d    0x3c  Code  Gb  Drv_icm20602.o [1]
+Drv_Icm20602Reg_Init    0x0000b7f5   0x168  Code  Gb  Drv_icm20602.o [1]
+Drv_Icm20602_Read       0x0000b95d    0x10  Code  Gb  Drv_icm20602.o [1]
+Drv_LED_Init            0x00012965    0x76  Code  Gb  Drv_led.o [1]
+Drv_SPI2_RW             0x0000e4ed    0x34  Code  Gb  Drv_spi.o [1]
+Drv_SPI2_Receive        0x0000e55d    0x28  Code  Gb  Drv_spi.o [1]
+Drv_SPI2_init           0x0000e44d    0xa0  Code  Gb  Drv_spi.o [1]
+Drv_SPI_Init            0x0000e38d    0x90  Code  Gb  Drv_spi.o [1]
+Drv_SPI_RW              0x0000e41d    0x30  Code  Gb  Drv_spi.o [1]
+Drv_SPL06CSPin_Init     0x00015bf9    0x3c  Code  Gb  Drv_spl06.o [1]
+Drv_Spl0601_Init        0x00016065    0x54  Code  Gb  Drv_spl06.o [1]
+Drv_Spl0601_Read        0x000161e9    0x9e  Code  Gb  Drv_spl06.o [1]
+Drv_Vl53_Init           0x00017d0d    0x22  Code  Gb  Drv_vl53l0x.o [1]
+Drv_Vl53_RunTask        0x00017d2f    0x44  Code  Gb  Drv_vl53l0x.o [1]
+EEPROM_Init             0x0000c821    0x38  Code  Gb  DY_FlyControl.o [3]
+Encryption_Algorithm    0x0000c859    0x18  Code  Gb  DY_FlyControl.o [3]
+Fc_Sensor_Get           0x000170f5    0x48  Code  Gb  DY_FlightDataCal.o [1]
+Fc_Sensor_Get::cnt      0x200026c3     0x1  Data  Lc  DY_FlightDataCal.o [1]
+Flash_Init              0x0000c429   0x19c  Code  Gb  Drv_w25qxx.o [1]
+Flash_PageRead          0x0000c689    0x54  Code  Gb  Drv_w25qxx.o [1]
+Flash_PageWrite         0x0000c62f    0x5a  Code  Gb  Drv_w25qxx.o [1]
+Flash_ReadID            0x0000c6dd    0x40  Code  Lc  Drv_w25qxx.o [1]
+Flash_SectorErase       0x0000c5e3    0x4c  Code  Gb  Drv_w25qxx.o [1]
+Flash_SectorsRead       0x0000c749    0x36  Code  Gb  Drv_w25qxx.o [1]
+Flash_SectorsRead2      0x0000c885    0x34  Code  Gb  DY_FlyControl.o [3]
+Flash_SectorsWrite      0x0000c77f    0x68  Code  Gb  Drv_w25qxx.o [1]
+Flash_SendByte          0x0000c3e9    0x40  Code  Lc  Drv_w25qxx.o [1]
+Flash_WaitForEnd        0x0000c71d    0x2c  Code  Lc  Drv_w25qxx.o [1]
+Flash_WriteEnable       0x0000c5c5    0x1e  Code  Lc  Drv_w25qxx.o [1]
+Flight_Mode_Set         0x0000b2dd   0x106  Code  Gb  DY_FlightCtrl.o [1]
+Flight_State_Task       0x0000acb5   0x422  Code  Gb  DY_FlightCtrl.o [1]
+Flight_State_Task::max_speed_lim
+                        0x200025a4     0x4  Data  Lc  DY_FlightCtrl.o [1]
+GPIODirModeSet          0x0000e215    0x30  Code  Gb  gpio_MSP432E411Y.obj [7]
+GPIOPadConfigSet        0x0000e245   0x116  Code  Gb  gpio_MSP432E411Y.obj [7]
+GPIOPinTypeGPIOOutput   0x0000e363    0x2a  Code  Gb  gpio_MSP432E411Y.obj [7]
+GPIOPinWrite            0x0000e35b     0x8  Code  Gb  gpio_MSP432E411Y.obj [7]
+GetSysTime_us           0x000179a5    0x3a  Code  Gb  Drv_time.o [1]
+I2C_Soft_Init           0x000120d5    0x46  Code  Gb  Drv_soft_i2c.o [1]
+I2c_Soft_Ask            0x000121bf    0x52  Code  Gb  Drv_soft_i2c.o [1]
+I2c_Soft_NoAsk          0x00012211    0x52  Code  Gb  Drv_soft_i2c.o [1]
+I2c_Soft_ReadByte       0x0001234b    0x78  Code  Lc  Drv_soft_i2c.o [1]
+I2c_Soft_SendByte       0x000122cd    0x7e  Code  Lc  Drv_soft_i2c.o [1]
+I2c_Soft_Start          0x0001211b    0x52  Code  Lc  Drv_soft_i2c.o [1]
+I2c_Soft_Stop           0x0001216d    0x52  Code  Lc  Drv_soft_i2c.o [1]
+I2c_Soft_WaitAsk        0x00012263    0x6a  Code  Lc  Drv_soft_i2c.o [1]
+IIC_Read_nByte          0x00012427    0x76  Code  Gb  Drv_soft_i2c.o [1]
+IIC_Write_nByte         0x000123d5    0x52  Code  Gb  Drv_soft_i2c.o [1]
+IMU_Update_Task         0x0001713d    0x7a  Code  Gb  DY_FlightDataCal.o [1]
+IMU_update              0x000135a1   0x9dc  Code  Gb  DY_Imu.o [4]
+IMU_update::ki_use      0x20002624     0x4  Data  Lc  DY_Imu.o [4]
+IMU_update::kp_use      0x20002620     0x4  Data  Lc  DY_Imu.o [4]
+IMU_update::mkp_use     0x20002628     0x4  Data  Lc  DY_Imu.o [4]
+InitRegisters           0x000153c1   0x25c  Code  Lc  OpticalFlow.o [1]
+InterruptThresholdSettings
+                        0x20000000   0x1b8  Data  Gb  vl53l0x_api.o [1]
+LED_1ms_DRV             0x000129db   0x146  Code  Gb  Drv_led.o [1]
+LED_1ms_DRV::led_cnt    0x200024cc     0x8  Data  Lc  Drv_led.o [1]
+LED_Brightness          0x20000400    0x10  Data  Gb  Drv_led.o [1]
+LED_Switch              0x0000b0f1    0x88  Code  Lc  DY_FlightCtrl.o [1]
+LED_Task                0x00012e15   0x6e4  Code  Gb  Drv_led.o [1]
+LED_Task::k             0x20002660     0x2  Data  Lc  Drv_led.o [1]
+LED_state               0x200026ad     0x1  Data  Gb  Drv_led.o [1]
+LED_state_old           0x200026ae     0x1  Data  Lc  Drv_led.o [1]
+Loc_1level_Ctrl         0x0000da81   0x228  Code  Gb  DY_LocCtrl.o [1]
+Loc_1level_PID_Init     0x0000da0d    0x72  Code  Gb  DY_LocCtrl.o [1]
+Loop_1000Hz             0x0001778d    0x70  Code  Lc  DY_Scheduler.o [1]
+Loop_100Hz              0x00017809    0x72  Code  Lc  DY_Scheduler.o [1]
+Loop_200Hz              0x00017805     0x2  Code  Lc  DY_Scheduler.o [1]
+Loop_20Hz               0x00017885     0xe  Code  Lc  DY_Scheduler.o [1]
+Loop_2Hz                0x00017893     0xc  Code  Lc  DY_Scheduler.o [1]
+Loop_500Hz              0x000177fd     0x8  Code  Lc  DY_Scheduler.o [1]
+Loop_50Hz               0x0001787b     0xa  Code  Lc  DY_Scheduler.o [1]
+MPU6050_Data_Offset     0x0000bc25   0x27e  Code  Gb  Drv_icm20602.o [1]
+MPU6050_Data_Offset::off_cnt
+                        0x200026ac     0x1  Data  Lc  Drv_icm20602.o [1]
+Mag_Cal_Reset           0x00016799    0x7c  Code  Lc  DY_MagProcess.o [1]
+Mag_Cal_XY              0x00016815    0x88  Code  Lc  DY_MagProcess.o [1]
+Mag_Cal_Z               0x0001689d    0x4a  Code  Lc  DY_MagProcess.o [1]
+Mag_Data_Deal_Task      0x000168e9   0x3cc  Code  Gb  DY_MagProcess.o [1]
+Mag_Data_Deal_Task::cali_cnt
+                        0x2000267c     0x2  Data  Lc  DY_MagProcess.o [1]
+Mag_Data_Deal_Task::mag_cal_angle
+                        0x2000250c     0x8  Data  Lc  DY_MagProcess.o [1]
+Mag_Get                 0x000174e3    0x4c  Code  Gb  Drv_ak8975.o [1]
+Mag_Update_Task         0x000171b7    0x28  Code  Gb  DY_FlightDataCal.o [1]
+Motor_Ctrl_Task         0x00017a45   0x18c  Code  Gb  DY_MotorCtrl.o [1]
+OF_ALT                  0x20002688     0x2  Data  Gb  DY_OF.o [1]
+OF_ALT2                 0x2000268a     0x2  Data  Gb  DY_OF.o [1]
+OF_DX                   0x200026cb     0x1  Data  Gb  DY_OF.o [1]
+OF_DX2                  0x20002680     0x2  Data  Gb  DY_OF.o [1]
+OF_DX2FIX               0x20002684     0x2  Data  Gb  DY_OF.o [1]
+OF_DY                   0x200026cc     0x1  Data  Gb  DY_OF.o [1]
+OF_DY2                  0x20002682     0x2  Data  Gb  DY_OF.o [1]
+OF_DY2FIX               0x20002686     0x2  Data  Gb  DY_OF.o [1]
+OF_LIGHT                0x200026ca     0x1  Data  Gb  DY_OF.o [1]
+OF_QUA                  0x200026c9     0x1  Data  Gb  DY_OF.o [1]
+OpticalFlow_DataFusion_Task
+                        0x00015775   0x258  Code  Gb  OpticalFlow.o [1]
+OpticalFlow_Init        0x0001562f    0xce  Code  Gb  OpticalFlow.o [1]
+OpticalFlow_RawData     0x20002478     0xc  Data  Gb  OpticalFlow.o [1]
+PID_Rest                0x0000a719   0x11e  Code  Gb  DY_Parameter.o [1]
+PID_calculate           0x0000e585   0x108  Code  Gb  DY_Pid.o [4]
+PMW3901_Data_Prepare    0x0001570b    0x68  Code  Gb  OpticalFlow.o [1]
+PMW3901_Read            0x000156fd     0xe  Code  Gb  OpticalFlow.o [1]
+PWM_IN_Init             0x00014101   0x4de  Code  Gb  Drv_pwm_in.o [1]
+PWM_Out_Init            0x00017541   0x13a  Code  Gb  Drv_pwm_out.o [1]
+ParValList              0x2000144c   0x190  Data  Gb  DY_DT.o [1]
+Para_Data_Init          0x0000b499     0x8  Code  Gb  DY_FcData.o [4]
+Parame_Copy_Fc2para     0x0000a8cd    0x78  Code  Lc  DY_Parameter.o [1]
+Parame_Copy_Para2fc     0x0000a837    0x96  Code  Lc  DY_Parameter.o [1]
+Parame_Reset            0x0000a945    0x96  Code  Gb  DY_Parameter.o [1]
+Plane_Votage            0x200025dc     0x4  Data  Gb  DY_power.o [1]
+Power_UpdateTask        0x00017d85   0x1ac  Code  Gb  DY_power.o [1]
+Power_UpdateTask::voltage_s16
+                        0x2000268e     0x2  Data  Lc  DY_power.o [1]
+RC_duty_task            0x00014ddd    0xea  Code  Gb  DY_RC.o [1]
+Rc_Pwm_In               0x200023e4    0x10  Data  Gb  Drv_pwm_in.o [1]
+Region$$Table$$Base     0x000183b8           --   Gb  - Linker created -
+Region$$Table$$Limit    0x000183e4           --   Gb  - Linker created -
+RegisterRead            0x000152c1    0x78  Code  Lc  OpticalFlow.o [1]
+RegisterRead_nByte      0x00015339    0x88  Code  Lc  OpticalFlow.o [1]
+RegisterWrite           0x0001524d    0x74  Code  Lc  OpticalFlow.o [1]
+ResetOpticalFlowData    0x0001561d    0x12  Code  Lc  OpticalFlow.o [1]
+Scheduler_Run           0x00017903    0x5c  Code  Gb  DY_Scheduler.o [1]
+Scheduler_Setup         0x0001789f    0x64  Code  Gb  DY_Scheduler.o [1]
+Sensor_Data_Prepare     0x0000beed   0x47e  Code  Gb  Drv_icm20602.o [1]
+SetPwm                  0x0001767b    0xb6  Code  Gb  Drv_pwm_out.o [1]
+Set_Att_1level_Ki       0x0000cb55    0x64  Code  Gb  DY_AttCtrl.o [1]
+Set_Att_2level_Ki       0x0000cbb9    0x46  Code  Gb  DY_AttCtrl.o [1]
+Swtich_State_Task       0x0000b181   0x15c  Code  Gb  DY_FlightCtrl.o [1]
+SysCtlClockFreqSet      0x000124c9   0x262  Code  Gb  sysctl_MSP432E411Y.obj [7]
+SysCtlDelay             0x000124c1     0x8  Code  Gb  sysctl_MSP432E411Y.obj [7]
+SysCtlPeripheralReady   0x0001249d    0x24  Code  Gb  sysctl_MSP432E411Y.obj [7]
+SysTickValueGet         0x00017f31     0x6  Code  Gb  systick_MSP432E411Y.obj [7]
+SysTick_Configuration   0x0001797d    0x28  Code  Gb  Drv_time.o [1]
+SysTick_GetTick         0x00017a19     0x6  Code  Gb  Drv_time.o [1]
+SysTick_Handler         0x00017a1f    0x16  Code  Gb  Drv_time.o [1]
+SystemCoreClock         0x20000438     0x4  Data  Gb  system_msp432e401y.o [1]
+SystemInit              0x00018371    0x14  Code  Gb  system_msp432e401y.o [1]
+TIMER0A_IRQHandler      0x000145df    0xe2  Code  Gb  Drv_pwm_in.o [1]
+TIMER0A_IRQHandler::temp_cnt1
+                        0x20002538     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER0A_IRQHandler::temp_cnt1_2
+                        0x2000253c     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER1A_IRQHandler      0x000146c1    0xe2  Code  Gb  Drv_pwm_in.o [1]
+TIMER1A_IRQHandler::temp_cnt2
+                        0x20002540     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER1A_IRQHandler::temp_cnt2_2
+                        0x20002544     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER2A_IRQHandler      0x0001490d    0xb0  Code  Gb  Drv_pwm_in.o [1]
+TIMER2A_IRQHandler::temp_cnt5
+                        0x20002558     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER2A_IRQHandler::temp_cnt5_2
+                        0x2000255c     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER3A_IRQHandler      0x000147a3    0xba  Code  Gb  Drv_pwm_in.o [1]
+TIMER3A_IRQHandler::temp_cnt3
+                        0x20002548     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER3A_IRQHandler::temp_cnt3_2
+                        0x2000254c     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER4A_IRQHandler      0x0001485d    0xb0  Code  Gb  Drv_pwm_in.o [1]
+TIMER4A_IRQHandler::temp_cnt4
+                        0x20002550     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER4A_IRQHandler::temp_cnt4_2
+                        0x20002554     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER5A_IRQHandler      0x000149bd    0xb0  Code  Gb  Drv_pwm_in.o [1]
+TIMER5A_IRQHandler::temp_cnt6
+                        0x20002560     0x4  Data  Lc  Drv_pwm_in.o [1]
+TIMER5A_IRQHandler::temp_cnt6_2
+                        0x20002564     0x4  Data  Lc  Drv_pwm_in.o [1]
+Tx2Buffer               0x2000173c   0x100  Data  Gb  Drv_usart.o [1]
+Tx2Counter              0x200026af     0x1  Data  Gb  Drv_usart.o [1]
+Tx3Buffer               0x2000183c   0x100  Data  Gb  Drv_usart.o [1]
+Tx3Counter              0x200026b1     0x1  Data  Gb  Drv_usart.o [1]
+Tx4Buffer               0x2000193c   0x100  Data  Gb  Drv_usart.o [1]
+Tx4Counter              0x200026b3     0x1  Data  Gb  Drv_usart.o [1]
+Tx5Buffer               0x20001a3c   0x100  Data  Gb  Drv_usart.o [1]
+Tx5Counter              0x200026b5     0x1  Data  Gb  Drv_usart.o [1]
+UART2_IRQHandler        0x0000a25d    0x82  Code  Gb  Drv_usart.o [1]
+UART3_IRQHandler        0x0000a3a7    0x8e  Code  Gb  Drv_usart.o [1]
+UART4_IRQHandler        0x0000a521    0x6a  Code  Gb  Drv_usart.o [1]
+UART5_IRQHandler        0x0000a623    0x64  Code  Gb  Drv_usart.o [1]
+Uart3_Init              0x0000a2df    0xc8  Code  Gb  Drv_usart.o [1]
+Uart3_Send              0x0000a435    0x54  Code  Gb  Drv_usart.o [1]
+Uart4_Init              0x0000a489    0x98  Code  Gb  Drv_usart.o [1]
+Uart5_Init              0x0000a58b    0x98  Code  Gb  Drv_usart.o [1]
+VL53L0X_CheckAndLoadInterruptSettings
+                        0x00010b97    0x96  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_ClearInterruptMask
+                        0x00011131    0x58  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_DataInit        0x0001009d   0x1ea  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_FastRead        0x00011467    0x2e  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_GetDeviceInfo   0x00010085     0xc  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetDeviceMode   0x000105c7     0xc  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetDeviceParameters
+                        0x000104c9    0xd6  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetFractionEnable
+                        0x000105d3    0x22  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetInterMeasurementPeriodMilliSeconds
+                        0x00010833    0x48  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetInterruptMaskStatus
+                        0x00011189    0x2a  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetInterruptThresholds
+                        0x000110e1    0x42  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetLimitCheckEnable
+                        0x0001099b    0x28  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetLimitCheckValue
+                        0x00010a45    0xc0  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetMeasurementDataReady
+                        0x00010d41    0x4e  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetMeasurementTimingBudgetMicroSeconds
+                        0x00010601     0xc  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetOffsetCalibrationDataMicroMeter
+                        0x00010091     0xc  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetRangingMeasurementData
+                        0x00010d8f   0x18a  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetSequenceStepEnables
+                        0x0001075f    0x8a  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetSequenceStepTimeout
+                        0x000107e9    0x4a  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetVcselPulsePeriod
+                        0x0001061d     0xe  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetWrapAroundCheckEnable
+                        0x00010b05    0x46  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetXTalkCompensationEnable
+                        0x0001087b     0xc  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_GetXTalkCompensationRateMegaCps
+                        0x00010887    0x3e  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_Init            0x000113f1    0x76  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_LINKOK          0x200026b7     0x1  Data  Gb  Drv_vl53l0x.o [1]
+VL53L0X_PerformSingleMeasurement
+                        0x00010b4b    0x4c  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_PerformSingleRangingMeasurement
+                        0x00010f19    0x42  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_RdByte          0x000112ab    0x1e  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_RdDWord         0x000112e7    0x1e  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_RdWord          0x000112c9    0x1e  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_ReadMulti       0x000111e9    0x26  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_SetDeviceMode   0x0001059f    0x28  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetGpioConfig   0x00010f5b   0x186  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetLimitCheckEnable
+                        0x000108d5    0xc6  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetLimitCheckValue
+                        0x000109c3    0x82  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetMeasurementTimingBudgetMicroSeconds
+                        0x000105f5     0xc  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetRefCalibration
+                        0x000108c5    0x10  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetReferenceSpads
+                        0x000111b3     0xe  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetSequenceStepEnable
+                        0x0001062b    0xe6  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_SetVcselPulsePeriod
+                        0x0001060d    0x10  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_StartMeasurement
+                        0x00010c2d   0x114  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_StaticInit      0x00010287   0x234  Code  Gb  vl53l0x_api.o [1]
+VL53L0X_UpdateByte      0x0001124f    0x5c  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_WrByte          0x0001120f    0x20  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_WrWord          0x0001122f    0x20  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_WriteMulti      0x000111c1    0x28  Code  Gb  vl53l0x_platform.o [1]
+VL53L0X_calc_dmax       0x0000fa15   0x128  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_calc_macro_period_ps
+                        0x0000ef4f    0x18  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_calc_sigma_estimate
+                        0x0000fb3d   0x260  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_calc_timeout_mclks
+                        0x0000efa9    0x2c  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_calc_timeout_us
+                        0x0000efd5    0x2e  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_check_part_used
+                        0x00011e61    0x4e  Code  Gb  vl53l0x_api_strings.o [1]
+VL53L0X_decode_timeout  0x0000ef93    0x16  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_decode_vcsel_period
+                        0x0000e94f     0xa  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_device_read_strobe
+                        0x0000e991    0x5a  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_encode_timeout  0x0000ef67    0x2c  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_encode_vcsel_period
+                        0x0000e959     0xc  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_get_device_info
+                        0x00011eaf    0xba  Code  Gb  vl53l0x_api_strings.o [1]
+VL53L0X_get_info_from_device
+                        0x0000e9eb   0x564  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_get_measurement_timing_budget_micro_seconds
+                        0x0000f7d1   0x118  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_get_offset_calibration_data_micro_meter
+                        0x000114e9    0x54  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_get_pal_range_status
+                        0x0000fda9   0x2dc  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_get_total_signal_rate
+                        0x0000f9f1    0x24  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_get_total_xtalk_rate
+                        0x0000f9bb    0x36  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_get_vcsel_pulse_period
+                        0x0000f64d    0x46  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_isqrt           0x0000e965    0x2c  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_load_tuning_settings
+                        0x0000f8e9    0xd2  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_measurement_poll_for_completion
+                        0x0000e915    0x3a  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_perform_phase_calibration
+                        0x00011d33    0xa4  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_perform_ref_calibration
+                        0x00011dd7    0x56  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_perform_ref_spad_management
+                        0x0001175b   0x31a  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_perform_single_ref_calibration
+                        0x00011b57    0x52  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_perform_vhv_calibration
+                        0x00011c89    0xaa  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_read_byte       0x00012039    0x10  Code  Gb  vl53l0x_i2c.o [1]
+VL53L0X_read_dword      0x0001206d    0x34  Code  Gb  vl53l0x_i2c.o [1]
+VL53L0X_read_multi      0x00011fa7    0x20  Code  Gb  vl53l0x_i2c.o [1]
+VL53L0X_read_word       0x00012049    0x24  Code  Gb  vl53l0x_i2c.o [1]
+VL53L0X_ref_calibration_io
+                        0x00011ba9    0xe0  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_set_measurement_timing_budget_micro_seconds
+                        0x0000f693   0x13e  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_set_ref_calibration
+                        0x00011e2d    0x2c  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_set_reference_spads
+                        0x00011a75    0xe2  Code  Gb  vl53l0x_api_calibration.o [1]
+VL53L0X_set_vcsel_pulse_period
+                        0x0000f2dd   0x370  Code  Gb  vl53l0x_api_core.o [1]
+VL53L0X_write_byte      0x00011fc7    0x12  Code  Gb  vl53l0x_i2c.o [1]
+VL53L0X_write_multi     0x00011f87    0x20  Code  Gb  vl53l0x_i2c.o [1]
+VL53L0X_write_word      0x00011fd9    0x60  Code  Gb  vl53l0x_i2c.o [1]
+WCZ_Acc_Get_Task        0x000171e1    0x26  Code  Gb  DY_FlightDataCal.o [1]
+WCZ_Data_Calc           0x0000df81   0x20c  Code  Gb  DY_MotionCal.o [4]
+WCZ_Data_Calc::cyc_xn   0x200026da     0x1  Data  Lc  DY_MotionCal.o [4]
+WCZ_Data_Reset          0x0000e18d    0x34  Code  Gb  DY_MotionCal.o [4]
+WCZ_Fus_Task            0x00017207   0x1b4  Code  Gb  DY_FlightDataCal.o [1]
+__aeabi_d2f             0x0001665d          Code  Gb  DblToFlt.o [6]
+__aeabi_d2uiz           0x00017765          Code  Gb  DblToU32.o [6]
+__aeabi_dadd            0x000164e5          Code  Gb  DblAdd.o [6]
+__aeabi_dmul            0x000162f9          Code  Gb  DblMul.o [6]
+__aeabi_f2d             0x0001649d          Code  Gb  FltToDbl.o [6]
+__aeabi_i2d             0x000162d5          Code  Gb  S32ToDbl.o [6]
+__aeabi_memclr4         0x00011f81          Code  Gb  ABImemclr4.o [8]
+__cmain                 0x000183e5          Code  Gb  cmain.o [8]
+__exit                  0x000182f5    0x14  Code  Gb  exit.o [9]
+__iar_Memset4_word      0x000120a1          Code  Gb  ABImemset48.o [8]
+__iar_Memset8_word      0x000120a1          Code  Gb  ABImemset48.o [8]
+__iar_dadd              0x000166c5          Code  Gb  DblSub.o [6]
+__iar_data_init3        0x00018349    0x28  Code  Gb  data_init.o [8]
+__iar_dsub              0x000164f5          Code  Gb  DblAdd.o [6]
+__iar_dsubStart         0x00016507          Code  Gb  DblAdd.o [6]
+__iar_init_vfp          0x00018395          Code  Gb  fpinit_M.o [6]
+__iar_packbits_init3    0x00018253    0x9c  Code  Gb  packbits_init.o [8]
+__iar_program_start     0x000184af          Code  Gb  cstartup_M.o [8]
+__iar_systems$$module {Abs}
+                        0x00000001          Data  Gb  command line/config [2]
+__iar_tan32             0x00015a3d   0x1bc  Code  Gb  tan32.o [6]
+__iar_tan_medium32      0x00015a3d   0x1bc  Code  Gb  tan32.o [6]
+__iar_tan_mediumf       0x00015a3d   0x1bc  Code  Gb  tan32.o [6]
+__iar_unaligned_memcpy  0x0000e68d          Code  Gb  ABImemcpy_unaligned.o [8]
+__iar_unaligned_memcpy4
+                        0x0000e6ad          Code  Gb  ABImemcpy_unaligned.o [8]
+__iar_unaligned_memcpy8
+                        0x0000e6ad          Code  Gb  ABImemcpy_unaligned.o [8]
+__iar_unaligned_strcpy  0x000114a5          Code  Gb  strcpy_unaligned.o [8]
+__iar_zero_init3        0x00018309    0x40  Code  Gb  zero_init3.o [8]
+__low_level_init        0x00018403     0x4  Code  Gb  low_level_init.o [5]
+__vector_table          0x00008000   0x208  Data  Gb  startup_msp432e401y_ewarm.o [1]
+_call_main              0x000183f1          Code  Gb  cmain.o [8]
+_data_cnt               0x200026cd     0x1  Data  Lc  DY_OF.o [1]
+_datatemp               0x20002078    0x34  Data  Lc  DY_OF.o [1]
+_exit                   0x00018429          Code  Gb  cexit.o [8]
+_main                   0x000183ff          Code  Gb  cmain.o [8]
+abort                   0x000182ef     0x6  Code  Gb  abort.o [5]
+abs                     0x00011e59     0x8  Code  Gb  abs.o [5]
+acc_auto_sum_temp       0x20002424     0xc  Data  Gb  Drv_icm20602.o [1]
+acc_f1                  0x2000243c     0xc  Data  Lc  Drv_icm20602.o [1]
+acc_sum_cnt             0x20002658     0x2  Data  Gb  Drv_icm20602.o [1]
+acc_z_auto              0x200024bc     0x8  Data  Gb  Drv_icm20602.o [1]
+acc_z_auto_cnt          0x2000265c     0x2  Data  Gb  Drv_icm20602.o [1]
+adc0_value              0x20002530     0x4  Data  Gb  Drv_adc.o [1]
+ak8975_Trig             0x0001748f    0x1c  Code  Lc  Drv_ak8975.o [1]
+ak8975_buf              0x200024b4     0x8  Data  Lc  Drv_ak8975.o [1]
+ak8975_enable           0x0001746f    0x20  Code  Lc  Drv_ak8975.o [1]
+alt_3                   0x20002570     0x4  Data  Gb  Drv_spl06.o [1]
+alt_arg_1               0x20002334    0x18  Data  Gb  DY_AltCtrl.o [1]
+alt_arg_2               0x2000231c    0x18  Data  Gb  DY_AltCtrl.o [1]
+alt_high                0x2000257c     0x4  Data  Gb  Drv_spl06.o [1]
+alt_val_1               0x2000218c    0x28  Data  Gb  DY_AltCtrl.o [1]
+alt_val_2               0x20002164    0x28  Data  Gb  DY_AltCtrl.o [1]
+ano_dt_data_ok          0x200026ba     0x1  Data  Lc  DY_DT.o [1]
+arg_1                   0x20001f48    0x48  Data  Gb  DY_AttCtrl.o [1]
+arg_2                   0x20001f00    0x48  Data  Gb  DY_AttCtrl.o [1]
+att_1l_ct               0x20002280    0x1c  Data  Gb  DY_AttCtrl.o [1]
+att_2l_ct               0x200021b4    0x24  Data  Gb  DY_AttCtrl.o [1]
+auto_taking_off_speed   0x20002666     0x2  Data  Lc  DY_AltCtrl.o [1]
+baro2tof_offset         0x200025c0     0x4  Data  Gb  DY_FlightDataCal.o [1]
+baro_Offset             0x2000256c     0x4  Data  Gb  Drv_spl06.o [1]
+baro_fix                0x200025d0     0x4  Data  Gb  DY_FlightDataCal.o [1]
+baro_fix1               0x200025c8     0x4  Data  Gb  DY_FlightDataCal.o [1]
+baro_fix2               0x200025cc     0x4  Data  Gb  DY_FlightDataCal.o [1]
+baro_h_offset           0x200025b0     0x4  Data  Gb  DY_FlightDataCal.o [1]
+baro_height             0x200025ac     0x4  Data  Gb  DY_FlightDataCal.o [1]
+baro_offset_ok          0x200026c6     0x1  Data  Lc  DY_FlightDataCal.o [1]
+baro_pressure           0x20002580     0x4  Data  Gb  Drv_spl06.o [1]
+calculate_RPY           0x00013f89   0x106  Code  Gb  DY_Imu.o [4]
+cali_acc                0x2000269a     0x2  Data  Gb  DY_RC.o [1]
+cali_gyro               0x20002698     0x2  Data  Gb  DY_RC.o [1]
+cali_mag                0x200025e0     0x4  Data  Gb  DY_RC.o [1]
+center_pos              0x20001fd0    0x3c  Data  Gb  Drv_icm20602.o [1]
+ch_watch_dog            0x00014b3f    0x76  Code  Gb  DY_RC.o [1]
+ch_watch_dog_feed       0x00014b19    0x26  Code  Gb  DY_RC.o [1]
+chn_en_bit              0x200026d1     0x1  Data  Gb  DY_RC.o [1]
+count2                  0x200026b0     0x1  Data  Gb  Drv_usart.o [1]
+count3                  0x200026b2     0x1  Data  Gb  Drv_usart.o [1]
+count4                  0x200026b4     0x1  Data  Gb  Drv_usart.o [1]
+count5                  0x200026b6     0x1  Data  Gb  Drv_usart.o [1]
+ct_val                  0x200023f4    0x10  Data  Lc  DY_AttCtrl.o [1]
+ctrl_parameter_change_task
+                        0x0000ab19    0x22  Code  Gb  DY_FlightCtrl.o [1]
+cwd_cnt                 0x200023c0    0x14  Data  Lc  DY_RC.o [1]
+data_save               0x0000b475    0x1a  Code  Gb  DY_FcData.o [4]
+data_to_send            0x20002044    0x34  Data  Gb  DY_DT.o [1]
+dy_flag                 0x20002454     0xc  Data  Gb  DY_Flight_Log.o [1]
+dy_height               0x20002668     0x2  Data  Gb  DY_AltCtrl.o [1]
+dy_ov_height            0x200026a0     0x2  Data  Gb  DY_Tracking.o [1]
+dy_ov_pit               0x2000269c     0x2  Data  Gb  DY_Tracking.o [1]
+dy_ov_rol               0x2000269e     0x2  Data  Gb  DY_Tracking.o [1]
+dy_ov_yaw               0x200025e4     0x4  Data  Gb  DY_Tracking.o [1]
+dy_pit                  0x20002674     0x2  Data  Gb  DY_FlightCtrl.o [1]
+dy_rol                  0x20002676     0x2  Data  Gb  DY_FlightCtrl.o [1]
+dy_yaw                  0x200025a0     0x4  Data  Gb  DY_AttCtrl.o [1]
+enable_ref_spads        0x00011615    0xb8  Code  Gb  vl53l0x_api_calibration.o [1]
+enable_spad_bit         0x000115c5    0x30  Code  Gb  vl53l0x_api_calibration.o [1]
+err_delay               0x20002664     0x2  Data  Lc  Drv_vl53l0x.o [1]
+err_i_comp              0x2000258c     0x4  Data  Lc  DY_AltCtrl.o [1]
+exit                    0x00018425     0x4  Code  Gb  exit.o [5]
+exp_pit_tmp             0x2000259c     0x4  Data  Lc  DY_AttCtrl.o [1]
+exp_rol_tmp             0x20002598     0x4  Data  Lc  DY_AttCtrl.o [1]
+f                       0x200023ac    0x14  Data  Gb  DY_DT.o [1]
+fail_safe               0x00014ec7    0x4a  Code  Gb  DY_RC.o [1]
+fail_safe_check         0x00014f11    0xd2  Code  Gb  DY_RC.o [1]
+fail_safe_check::cnt    0x20002696     0x2  Data  Lc  DY_RC.o [1]
+fail_safe_check::cnt2   0x200026d3     0x1  Data  Lc  DY_RC.o [1]
+fast_atan2              0x0000dd19   0x12e  Code  Gb  DY_Math.o [4]
+fast_atan_table         0x00016cf0   0x404  Data  Gb  DY_Math.o [4]
+fb_speed_fix            0x200024ec     0x8  Data  Lc  DY_LocCtrl.o [1]
+fix_inte_filter         0x0000e78b    0x80  Code  Gb  DY_Filter.o [4]
+flag                    0x2000229c    0x1c  Data  Gb  DY_FcData.o [4]
+flash_info              0x20002448     0xc  Data  Lc  Drv_w25qxx.o [1]
+flight_mode_old         0x2000044a     0x1  Data  Gb  DY_FlightCtrl.o [1]
+flying_cnt              0x2000266e     0x2  Data  Gb  DY_FlightCtrl.o [1]
+fs                      0x20002138    0x2c  Data  Gb  DY_FlightCtrl.o [1]
+g_d_sum                 0x20000420     0xc  Data  Gb  Drv_icm20602.o [1]
+g_old                   0x200024c4     0x8  Data  Gb  Drv_icm20602.o [1]
+g_pppui32XTALtoVCO      0x0001277c   0x1b0  Data  Lc  sysctl_MSP432E411Y.obj [7]
+g_pui32VCOFrequencies   0x0001295c     0x8  Data  Lc  sysctl_MSP432E411Y.obj [7]
+g_pui32Xtals            0x00012754    0x28  Data  Lc  sysctl_MSP432E411Y.obj [7]
+g_sXTALtoMEMTIM         0x0001292c    0x30  Data  Lc  sysctl_MSP432E411Y.obj [7]
+g_ui32SysClock          0x2000252c     0x4  Data  Gb  BSP_Init.o [1]
+getDatafromEEPROM       0x20001c3c    0x80  Data  Gb  DY_FlyControl.o [3]
+get_next_good_spad      0x0001153d    0x6c  Code  Gb  vl53l0x_api_calibration.o [1]
+get_ref_spad_map        0x00011605    0x10  Code  Gb  vl53l0x_api_calibration.o [1]
+get_sequence_step_timeout
+                        0x0000f003   0x164  Code  Gb  vl53l0x_api_core.o [1]
+group_n_cnt             0x200024dc     0x8  Data  Lc  Drv_led.o [1]
+gyr_f1                  0x20002430     0xc  Data  Lc  Drv_icm20602.o [1]
+gyro_sum_cnt            0x2000265a     0x2  Data  Gb  Drv_icm20602.o [1]
+height                  0x20002574     0x4  Data  Gb  Drv_spl06.o [1]
+icm20602_enable         0x0000b779    0x24  Code  Lc  Drv_icm20602.o [1]
+icm20602_readbuf        0x0000b79d    0x2e  Code  Lc  Drv_icm20602.o [1]
+icm20602_writebyte      0x0000b7cb    0x2a  Code  Lc  Drv_icm20602.o [1]
+imu_data                0x200002ac    0xe8  Data  Gb  DY_Imu.o [4]
+imu_reset_val           0x20002618     0x4  Data  Lc  DY_Imu.o [4]
+imu_state               0x200003e8    0x18  Data  Gb  DY_Imu.o [4]
+inte_fix_filter         0x0000e705    0x86  Code  Gb  DY_Filter.o [4]
+is_aperture             0x000115a9    0x16  Code  Gb  vl53l0x_api_calibration.o [1]
+land_discriminat        0x0000abb5    0xf6  Code  Gb  DY_FlightCtrl.o [1]
+landing_cnt             0x20002670     0x2  Data  Gb  DY_FlightCtrl.o [1]
+ld_delay_cnt            0x20002672     0x2  Data  Lc  DY_FlightCtrl.o [1]
+led_accuracy            0x2000043c     0x2  Data  Gb  Drv_led.o [1]
+led_breath              0x00012b21   0x170  Code  Gb  Drv_led.o [1]
+led_breath::dir         0x20002534     0x4  Data  Lc  Drv_led.o [1]
+led_cnt_res_check       0x00012de7    0x24  Code  Gb  Drv_led.o [1]
+led_cnt_restar          0x00012da5    0x42  Code  Gb  Drv_led.o [1]
+led_flash               0x00012c91   0x114  Code  Gb  Drv_led.o [1]
+led_times               0x2000265e     0x2  Data  Lc  Drv_led.o [1]
+length_limit            0x0000def1    0x84  Code  Gb  DY_Math.o [4]
+loc_arg_1               0x200020ac    0x30  Data  Gb  DY_LocCtrl.o [1]
+loc_arg_1_fix           0x200020dc    0x30  Data  Gb  DY_LocCtrl.o [1]
+loc_ctrl_1              0x200021d8    0x24  Data  Gb  DY_LocCtrl.o [1]
+loc_ctrl_2              0x200021fc    0x24  Data  Gb  DY_LocCtrl.o [1]
+loc_val_1               0x20001e60    0x50  Data  Gb  DY_LocCtrl.o [1]
+loc_val_1_fix           0x20001eb0    0x50  Data  Gb  DY_LocCtrl.o [1]
+lpfValue                0x20000434     0x4  Data  Lc  OpticalFlow.o [1]
+mag                     0x20002504     0x8  Data  Gb  DY_MagProcess.o [1]
+mag_cal_step            0x200026c8     0x1  Data  Lc  DY_MagProcess.o [1]
+mag_val                 0x200024e4     0x8  Data  Lc  DY_FlightDataCal.o [1]
+mag_val_f               0x200024a8     0xc  Data  Lc  DY_Imu.o [4]
+mag_yaw_calculate       0x00013575    0x26  Code  Gb  DY_Imu.o [4]
+mag_yaw_err             0x20002614     0x4  Data  Lc  DY_Imu.o [4]
+main                    0x00018409    0x1c  Code  Gb  main.o [1]
+max_t                   0x200024f4     0x8  Data  Lc  DY_MagProcess.o [1]
+max_yaw_speed           0x20002590     0x4  Data  Lc  DY_AttCtrl.o [1]
+mc                      0x20002404    0x10  Data  Gb  DY_MotorCtrl.o [1]
+min_t                   0x200024fc     0x8  Data  Lc  DY_MagProcess.o [1]
+motionBurst             0x2000246c     0xc  Data  Gb  OpticalFlow.o [1]
+motionless_check        0x0000ba89   0x190  Code  Gb  Drv_icm20602.o [1]
+motor                   0x20002514     0x8  Data  Gb  DY_MotorCtrl.o [1]
+motor_prepara_cnt       0x2000267e     0x2  Data  Lc  DY_MotorCtrl.o [1]
+motor_step              0x2000251c     0x8  Data  Gb  DY_MotorCtrl.o [1]
+mpu_auto_az             0x0000b96d   0x11a  Code  Gb  Drv_icm20602.o [1]
+mpu_buffer              0x200023d4    0x10  Data  Gb  Drv_icm20602.o [1]
+ms_cnt                  0x200024d4     0x8  Data  Lc  Drv_led.o [1]
+my_abs                  0x0000dd09    0x10  Code  Gb  DY_Math.o [4]
+my_deadzone             0x0000debd    0x32  Code  Gb  DY_Math.o [4]
+my_sqrt                 0x0000de89    0x1c  Code  Gb  DY_Math.o [4]
+my_sqrt_reciprocal      0x0000de47    0x42  Code  Gb  DY_Math.o [4]
+of_check_cnt            0x2000042c     0x4  Data  Lc  DY_OF.o [1]
+of_check_f              0x2000268c     0x2  Data  Lc  DY_OF.o [1]
+of_light_delay          0x20002678     0x2  Data  Lc  DY_FlightCtrl.o [1]
+of_light_ok             0x200026bd     0x1  Data  Lc  DY_FlightCtrl.o [1]
+one_key_land            0x0000abab     0xa  Code  Gb  DY_FlightCtrl.o [1]
+one_key_take_off        0x0000ab8f    0x1c  Code  Gb  DY_FlightCtrl.o [1]
+one_key_take_off_task   0x0000ab3b    0x54  Code  Gb  DY_FlightCtrl.o [1]
+one_key_taof_start      0x2000266c     0x2  Data  Lc  DY_FlightCtrl.o [1]
+p_spl0601               0x20002568     0x4  Data  Lc  Drv_spl06.o [1]
+para_sta                0x200025d8     0x4  Data  Gb  DY_Parameter.o [1]
+perform_ref_signal_measurement
+                        0x000116cd    0x8e  Code  Gb  vl53l0x_api_calibration.o [1]
+pmw_lastOutX            0x200025e8     0x4  Data  Lc  OpticalFlow.o [1]
+pmw_lastOutY            0x200025ec     0x4  Data  Lc  OpticalFlow.o [1]
+pmw_pixel_flow          0x2000200c    0x38  Data  Gb  OpticalFlow.o [1]
+q0q1                    0x200025f0     0x4  Data  Lc  DY_Imu.o [4]
+q0q2                    0x200025f4     0x4  Data  Lc  DY_Imu.o [4]
+q0q3                    0x20002610     0x4  Data  Lc  DY_Imu.o [4]
+q1q1                    0x200025f8     0x4  Data  Lc  DY_Imu.o [4]
+q1q2                    0x2000260c     0x4  Data  Lc  DY_Imu.o [4]
+q1q3                    0x200025fc     0x4  Data  Lc  DY_Imu.o [4]
+q2q2                    0x20002600     0x4  Data  Lc  DY_Imu.o [4]
+q2q3                    0x20002604     0x4  Data  Lc  DY_Imu.o [4]
+q3q3                    0x20002608     0x4  Data  Lc  DY_Imu.o [4]
+refArrayQuadrants       0x20000410    0x10  Data  Gb  vl53l0x_api_calibration.o [1]
+ref_height_get_1        0x200025b4     0x4  Data  Gb  DY_FlightDataCal.o [1]
+ref_height_get_2        0x200025b8     0x4  Data  Gb  DY_FlightDataCal.o [1]
+ref_height_old          0x2000262c     0x4  Data  Gb  DY_MotionCal.o [4]
+ref_height_used         0x200025bc     0x4  Data  Gb  DY_FlightDataCal.o [1]
+ref_speed_old           0x20002630     0x4  Data  Gb  DY_MotionCal.o [4]
+ref_tof_height          0x2000267a     0x2  Data  Gb  DY_FlightDataCal.o [1]
+reset_cnt               0x200026aa     0x2  Data  Lc  DY_Imu.o [4]
+reset_imu_f             0x200026c4     0x1  Data  Lc  DY_FlightDataCal.o [1]
+retInitStatus           0x2000264c     0x4  Data  Gb  DY_FlyControl.o [3]
+rolling_flag            0x2000234c    0x18  Data  Gb  DY_AttCtrl.o [1]
+save                    0x20001f90    0x40  Data  Gb  DY_FcData.o [4]
+sched_tasks             0x20000394    0x54  Data  Lc  DY_Scheduler.o [1]
+sens_hd_check           0x20002484     0xc  Data  Gb  DY_FcData.o [4]
+sensor                  0x20001e10    0x50  Data  Gb  Drv_icm20602.o [1]
+sensor_val              0x200022d4    0x18  Data  Gb  Drv_icm20602.o [1]
+sensor_val_ref          0x20002304    0x18  Data  Gb  Drv_icm20602.o [1]
+sensor_val_rot          0x200022ec    0x18  Data  Gb  Drv_icm20602.o [1]
+sequence_step_enabled   0x00010711    0x4e  Code  Gb  vl53l0x_api.o [1]
+set_ref_spad_map        0x000115f5    0x10  Code  Gb  vl53l0x_api_calibration.o [1]
+set_sequence_step_timeout
+                        0x0000f167   0x176  Code  Gb  vl53l0x_api_core.o [1]
+set_yaw_av_tmp          0x20002594     0x4  Data  Lc  DY_AttCtrl.o [1]
+signal_intensity        0x20002690     0x2  Data  Gb  DY_RC.o [1]
+simple_3d_trans         0x0000e80d    0xf4  Code  Gb  DY_Filter.o [4]
+simple_3d_trans::h_tmp_x
+                        0x20002650     0x4  Data  Lc  DY_Filter.o [4]
+simple_3d_trans::h_tmp_y
+                        0x20002654     0x4  Data  Lc  DY_Filter.o [4]
+simple_3d_trans::pn     0x200026db     0x1  Data  Lc  DY_Filter.o [4]
+speed_mode_old          0x20000449     0x1  Data  Gb  DY_FlightCtrl.o [1]
+spl0601                 0x2000210c    0x2c  Data  Lc  Drv_spl06.o [1]
+spl0601_get_calib_param
+                        0x00015dd5   0x1be  Code  Gb  Drv_spl06.o [1]
+spl0601_get_pressure    0x00016125    0xc2  Code  Gb  Drv_spl06.o [1]
+spl0601_get_raw_pressure
+                        0x00016007    0x5e  Code  Gb  Drv_spl06.o [1]
+spl0601_get_raw_temp    0x00015fa3    0x64  Code  Gb  Drv_spl06.o [1]
+spl0601_get_temperature
+                        0x000160b9    0x6c  Code  Gb  Drv_spl06.o [1]
+spl0601_rateset         0x00015ca7   0x12e  Code  Gb  Drv_spl06.o [1]
+spl0601_read            0x00015c7d    0x2a  Code  Lc  Drv_spl06.o [1]
+spl0601_start_continuous
+                        0x00015f93    0x10  Code  Gb  Drv_spl06.o [1]
+spl0601_write           0x00015c59    0x24  Code  Lc  Drv_spl06.o [1]
+spl06_enable            0x00015c35    0x24  Code  Lc  Drv_spl06.o [1]
+stick_fun_0             0x200026d2     0x1  Data  Gb  DY_RC.o [1]
+stick_fun_1             0x200026d4     0x1  Data  Gb  DY_RC.o [1]
+stick_fun_2             0x200026d5     0x1  Data  Gb  DY_RC.o [1]
+stick_fun_3             0x200026d6     0x1  Data  Gb  DY_RC.o [1]
+stick_fun_4             0x200026d7     0x1  Data  Gb  DY_RC.o [1]
+stick_fun_5_magcali     0x200026d8     0x1  Data  Gb  DY_RC.o [1]
+stick_function          0x0001506d   0x16a  Code  Gb  DY_RC.o [1]
+stick_function_check    0x00014fe9    0x56  Code  Gb  DY_RC.o [1]
+stick_function_check_longpress
+                        0x0001503f    0x2e  Code  Gb  DY_RC.o [1]
+sum_temp                0x20002264    0x1c  Data  Gb  Drv_icm20602.o [1]
+switchs                 0x20002524     0x8  Data  Gb  DY_FcData.o [4]
+sysTickUptime           0x20002584     0x4  Data  Gb  Drv_time.o [1]
+sys_time                0x00017a0d     0xc  Code  Gb  Drv_time.o [1]
+systemStack             0x200026dc   0x400  Data  Lc  startup_msp432e401y_ewarm.o [1]
+systime_ms              0x20002588     0x4  Data  Gb  Drv_time.o [1]
+t                       0x20002220    0x24  Data  Gb  DY_Imu.o [4]
+t_temp                  0x2000261c     0x4  Data  Gb  DY_Imu.o [4]
+tanf                    0x00015a3d   0x1bc  Code  Gb  tan32.o [6]
+temperature             0x20002578     0x4  Data  Gb  Drv_spl06.o [1]
+test_dT_1000hz          0x20002460     0xc  Data  Gb  DY_Scheduler.o [1]
+test_rT                 0x20002364    0x18  Data  Gb  DY_Scheduler.o [1]
+test_si_cnt             0x20002694     0x2  Data  Gb  DY_RC.o [1]
+tof2baro_offset         0x200025c4     0x4  Data  Gb  DY_FlightDataCal.o [1]
+tof_height_mm           0x20002662     0x2  Data  Gb  Drv_vl53l0x.o [1]
+tof_offset_ok           0x200026c7     0x1  Data  Lc  DY_FlightDataCal.o [1]
+unlock                  0x00014bb5   0x228  Code  Gb  DY_RC.o [1]
+unlock_f                0x20002692     0x2  Data  Gb  DY_RC.o [1]
+unlock_time             0x2000043e     0x2  Data  Gb  DY_RC.o [1]
+val_1                   0x20001d34    0x78  Data  Gb  DY_AttCtrl.o [1]
+val_2                   0x20001cbc    0x78  Data  Gb  DY_AttCtrl.o [1]
+vec_3dh_transition      0x0000e90d     0x8  Code  Gb  DY_Filter.o [4]
+vec_err                 0x20002490     0xc  Data  Lc  DY_Imu.o [4]
+vec_err_i               0x2000249c     0xc  Data  Lc  DY_Imu.o [4]
+vl53l0x_dev             0x200015dc   0x160  Data  Gb  vl53l0x_platform.o [1]
+vl53l0x_dev_info        0x20001dac    0x64  Data  Gb  vl53l0x_platform.o [1]
+vl53l0x_measure_init    0x00011305    0xec  Code  Gb  vl53l0x_platform.o [1]
+vl53l0x_status          0x200026d9     0x1  Data  Gb  vl53l0x_platform.o [1]
+voltage_f               0x20000430     0x4  Data  Lc  DY_power.o [1]
+voltage_init_ok         0x200026d0     0x1  Data  Lc  DY_power.o [1]
+w2h_2d_trans            0x00013535    0x3e  Code  Gb  DY_Imu.o [4]
+wcz_acc                 0x20002644     0x4  Data  Lc  DY_MotionCal.o [4]
+wcz_acc_deadzone        0x20002640     0x4  Data  Lc  DY_MotionCal.o [4]
+wcz_acc_fus             0x200022b8    0x1c  Data  Gb  DY_MotionCal.o [4]
+wcz_acc_use             0x200025d4     0x4  Data  Gb  DY_FlightDataCal.o [1]
+wcz_f_pause             0x200026c5     0x1  Data  Lc  DY_FlightDataCal.o [1]
+wcz_hei_fus             0x20002394    0x18  Data  Gb  DY_MotionCal.o [4]
+wcz_ref_acc             0x2000263c     0x4  Data  Gb  DY_MotionCal.o [4]
+wcz_ref_height          0x20002634     0x4  Data  Gb  DY_MotionCal.o [4]
+wcz_ref_speed           0x20002638     0x4  Data  Gb  DY_MotionCal.o [4]
+wcz_spe_fus             0x2000237c    0x18  Data  Gb  DY_MotionCal.o [4]
+
+
+[1] = D:\IAR\savelocation\DeYan_UAV\Debug\Obj
+[2] = command line
+[3] = DeYan_UAV.a
+[4] = FlyControl_Algorithm.a
+[5] = dl7M_tln.a
+[6] = m7M_tls.a
+[7] = msp432e4_driverlib.a
+[8] = rt7M_tl.a
+[9] = shb_l.a
+
+  65 042 bytes of readonly  code memory
+   2 608 bytes of readonly  data memory
+  10 971 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

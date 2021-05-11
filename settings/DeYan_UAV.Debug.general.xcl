@@ -1,0 +1,15 @@
+"D:\IAR\arm\bin\armproc.dll" 
+
+"D:\IAR\arm\bin\armxds2.dll" 
+
+"D:\IAR\savelocation\DeYan_UAV\Debug\Exe\DeYan_UAV.out" 
+
+--plugin "D:\IAR\arm\bin\armbat.dll" 
+
+--device_macro "D:\IAR\arm\config\debugger\TexasInstruments\MSP432E401Y.dmac" 
+
+--flash_loader "D:\IAR\arm\config\flashloader\TexasInstruments\FlashMSP432E401Y.board" 
+
+
+
+
