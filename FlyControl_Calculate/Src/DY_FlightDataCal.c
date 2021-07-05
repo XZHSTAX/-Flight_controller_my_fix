@@ -9,19 +9,21 @@
 #include "Drv_led.h"
 #include "DY_OF.h"
 
+
+// 获取陀螺仪、加速度计、电子罗盘，气压计的原始数据
 void Fc_Sensor_Get()
 {
 	static u8 cnt;
 	if(flag.start_ok)   // 如果初始化OK
 	{
-		/*读取陀螺仪和加速度计数据*/
-		Drv_Icm20602_Read();
+		/*读取陀螺仪和加速度计数据，读完后会放到mpu_buffer中*/
+		Drv_Icm20602_Read();     
 		
 		cnt ++;
 		cnt %= 20;
 		if(cnt==0)     // 相当于每20ms读取一次电子罗盘磁力计和气压计
 		{
-			/*读取电子罗盘磁力计数据*/
+			/*读取电子罗盘磁力计数据，读完后放到ak8975_buf中*/
 			Drv_AK8975_Read();
 			/*读取气压计数据*/
 			baro_height = (s32)Drv_Spl0601_Read();

@@ -304,6 +304,7 @@ void Center_Pos_Set()
 
 static float gyr_f1[VEC_XYZ],acc_f1[VEC_XYZ];
 
+// 用于把mpu_buffer中的原始数据进行滤波，矫正等处理，变为可用数据，存入结构体sensor中
 void Sensor_Data_Prepare(u8 dT_ms)
 {
   	float hz = 0 ;

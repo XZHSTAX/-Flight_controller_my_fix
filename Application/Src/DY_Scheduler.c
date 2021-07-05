@@ -43,19 +43,19 @@ static void Loop_1000Hz(void)	//1ms执行一次
 	test_rT[3] = test_dT_1000hz[1] = GetSysTime_us ();
 	test_dT_1000hz[2] = (u32)(test_dT_1000hz[1] - test_dT_1000hz[0]) ;
     //////////////////////////////////////////////////////////////////////	
-	/*传感器数据读取*/
+	/*-传感器数据读取*/
 	Fc_Sensor_Get();            //读取ICM20602（1ms）、AK8975+SPL0601（20ms）原始数据
 	
-	/*惯性传感器数据准备*/
+	/*-惯性传感器数据准备*/
 	Sensor_Data_Prepare(1);     //ICM20602数据处理（滤波、转换）==>陀螺仪（度每秒、弧度每秒）+加速度计（厘米每平方秒）
 	
-	/*姿态解算更新*/
+	/*~~~姿态解算更新*/
 	IMU_Update_Task(1);         //使用四元数法进行姿态更新
 	
-	/*获取WC_Z加速度*/
+	/*~~~获取WC_Z加速度*/
 	WCZ_Acc_Get_Task();         //地理坐标系下Z轴的运动加速度==>wcz_acc_use
 	
-	/*飞行状态任务*/
+	/*~~~飞行状态任务*/
 	Flight_State_Task(1,CH_N);
 	
 	/*开关状态任务*/
@@ -193,7 +193,6 @@ void Scheduler_Run(void)
 		//获取系统当前时间，单位ms
 		uint32_t tnow = SysTick_GetTick();
 
-		// 相当于每个“线程”运行固定长的时间，不到时间不运行下一个“线程”
 		//进行判断，如果当前时间减去上一次执行的时间，大于等于该线程的执行周期，则执行线程
 		if(tnow - sched_tasks[index].last_run >= sched_tasks[index].interval_ticks)
 		{

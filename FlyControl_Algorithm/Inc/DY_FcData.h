@@ -152,7 +152,7 @@ typedef struct
       //控制状态
       u8 manual_locked;
       u8 unlock_en;
-      u8 fly_ready;//unlocked
+      u8 fly_ready;  //unlocked 准备起飞
       u8 thr_low;
       u8 locking;
       u8 taking_off; //起飞
