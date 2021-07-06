@@ -34,6 +34,7 @@ void Fc_Sensor_Get()
 extern s32 sensor_val_ref[];
 
 static u8 reset_imu_f;
+// 姿态计算，更新，融合，输入sensor.Gyro_rad sensor.Acc_cmss；输出：imu_data
 void IMU_Update_Task(u8 dT_ms)
 {
         ////////////////////////////////////////////////////////////////////////		

@@ -179,13 +179,16 @@ void land_discriminat(s16 dT_ms)
 /***************PIT、ROL控制变量初始化+OpenMv***************/
 s16 dy_pit = 0,dy_rol = 0;
 /***********************************************************/
+// 飞行任务控制（遥控器？）
+// 传入的第一个参数表示这个程序执行的间隔
+// 第二个参数是DY_RC中的全局数组，暂时不知道是干什么用的，可能是飞行器的姿态角？
 void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 {
 	s16 thr_deadzone;
 	static float max_speed_lim;
 	/*设置油门摇杆量*/
-	thr_deadzone = (flag.wifi_ch_en != 0) ? 0 : 50;
-	fs.speed_set_h_norm[Z] = my_deadzone(CH_N[CH_THR],0,thr_deadzone) *0.0023f;     //-1.035~1.035	油门归一值
+	thr_deadzone = (flag.wifi_ch_en != 0) ? 0 : 50;                                  // 如果wifi_ch_en标志位不等于0  thr_deadzone=0
+	fs.speed_set_h_norm[Z] = my_deadzone(CH_N[CH_THR],0,thr_deadzone) *0.0023f;     //-1.035~1.035	油门归一值,油门遥感中间位置；thr表示俯仰角，即z方向
 	fs.speed_set_h_norm_lpf[Z] += 0.2f *(fs.speed_set_h_norm[Z] - fs.speed_set_h_norm_lpf[Z]);
 	
 	/*推油门起飞*/
@@ -228,15 +231,15 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 	float speed_set_tmp[2];
     
 	/*速度设定量，正负参考ANO坐标参考方向*/
-	fs.speed_set_h_norm[X] = (my_deadzone(+CH_N[CH_PIT],0,50) *0.0022f);
-	fs.speed_set_h_norm[Y] = (my_deadzone(-CH_N[CH_ROL],0,50) *0.0022f);
+	fs.speed_set_h_norm[X] = (my_deadzone(+CH_N[CH_PIT],0,50) *0.0022f); // 对 X方向的速度进行控制，pitch表示
+	fs.speed_set_h_norm[Y] = (my_deadzone(-CH_N[CH_ROL],0,50) *0.0022f); // 对 y方向的速度进行控制，pitch表示
 		
-	LPF_1_(3.0f,dT_ms*1e-3f,fs.speed_set_h_norm[X],fs.speed_set_h_norm_lpf[X]);
+	LPF_1_(3.0f,dT_ms*1e-3f,fs.speed_set_h_norm[X],fs.speed_set_h_norm_lpf[X]); // 滤波
 	LPF_1_(3.0f,dT_ms*1e-3f,fs.speed_set_h_norm[Y],fs.speed_set_h_norm_lpf[Y]);
 	
-	max_speed_lim = MAX_SPEED;
+	max_speed_lim = MAX_SPEED; // 最大水平速度
 	
-	if(switchs.of_flow_on || switchs.dy_pmw3901_on)		//使用光流模块
+	if(switchs.of_flow_on || switchs.dy_pmw3901_on)		//使用光流模块，就修改最大水平速度
 	{
 		max_speed_lim = 1.5f *wcz_hei_fus.out;
 		max_speed_lim = LIMIT(max_speed_lim,50,150);
@@ -245,7 +248,7 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 	speed_set_tmp[X] = max_speed_lim *fs.speed_set_h_norm_lpf[X];
 	speed_set_tmp[Y] = max_speed_lim *fs.speed_set_h_norm_lpf[Y];
 	
-	length_limit(&speed_set_tmp[X],&speed_set_tmp[Y],max_speed_lim,fs.speed_set_h_cms);
+	length_limit(&speed_set_tmp[X],&speed_set_tmp[Y],max_speed_lim,fs.speed_set_h_cms);// 这里做了个限制幅度？
 
 /***************OpenMv控制模式***************/
 	if(DY_Debug_Mode == 1)

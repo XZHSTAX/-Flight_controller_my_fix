@@ -46,10 +46,10 @@ enum
 	
 enum
 {
-      CH_ROL = 0,
-      CH_PIT ,
-      CH_THR ,
-      CH_YAW ,
+      CH_ROL = 0, // 横滚角
+      CH_PIT , // 俯仰角
+      CH_THR , // 
+      CH_YAW , // 偏航角
       AUX1 ,
       AUX2 ,
       AUX3 ,

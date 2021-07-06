@@ -120,3 +120,6 @@ void Sensor_Data_Prepare(u8 dT_ms);
 void Center_Pos_Set(void);
 ```
 
+# 学习日志
+
+7.6 今日在看`DY_FlightCtrl.c`中的`Flight_State_Task`函数，明天需要看`DY_RC.c`来进一步了解。

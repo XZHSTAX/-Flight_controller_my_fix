@@ -44,14 +44,15 @@ enum
 		
 };
 
+// 飞行状态
 typedef struct
 {
-	s16 alt_ctrl_speed_set;
-	s16 speed_set_h[VEC_XYZ];	
-	float speed_set_h_cms[VEC_XYZ];
+	s16 alt_ctrl_speed_set;            // 高度控制速度设置变量
+	s16 speed_set_h[VEC_XYZ];	       // 速度设置向量
+	float speed_set_h_cms[VEC_XYZ];    // 速度设置向量,单位：cm/s
 	
-	float speed_set_h_norm[VEC_XYZ];
-	float speed_set_h_norm_lpf[VEC_XYZ];
+	float speed_set_h_norm[VEC_XYZ];   // 速度设定值/最大速度值
+	float speed_set_h_norm_lpf[VEC_XYZ];// 速度设定值/最大速度值 的滤波值
 	
 }_flight_state_st;
 extern _flight_state_st fs;
