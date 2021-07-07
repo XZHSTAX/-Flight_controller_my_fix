@@ -120,6 +120,15 @@ void Sensor_Data_Prepare(u8 dT_ms);
 void Center_Pos_Set(void);
 ```
 
+## 遥控器控制
+
+此飞控的遥控器接收器只能使用PWM模式，**6通道信号**；数据通过`Drv_pwm_in.c`文件，接收到`Rc_Pwm_In`数组中，然后在`DY_RC.c`的`RC_duty_task`函数中变为+-500摇杆量存储在`CH_N`数组中。
+
 # 学习日志
 
 7.6 今日在看`DY_FlightCtrl.c`中的`Flight_State_Task`函数，明天需要看`DY_RC.c`来进一步了解。
+
+
+
+7.7 今天搞明白了遥控器是如何控制的，PID的如何运算的，其输入输出和配置如何，下一步就是要开始看每一个具体的环路控制了。
+

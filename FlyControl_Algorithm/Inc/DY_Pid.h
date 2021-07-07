@@ -9,8 +9,8 @@ typedef struct
 	u8 fb_d_mode;
 	float kp;			 //比例系数
 	float ki;			 //积分系数
-	float kd_ex;		 	 //微分系数
-	float kd_fb; //previous_d 微分先行
+	float kd_ex;		 	 //微分系数（期望微分系数）
+	float kd_fb; //previous_d 微分先行（反馈微分系数）
 //	float inc_hz;  //不完全微分低通系数
 //	float k_inc_d_norm; //Incomplete 不完全微分 归一（0,1）
 	float k_ff;		 //前馈 
@@ -19,15 +19,15 @@ typedef struct
 
 typedef struct
 {
-	float err;
-	float exp_old;
-	float feedback_old;
+	float err;           // 误差，当前值
+	float exp_old;       // 上次的期望值
+	float feedback_old;  // 上次的反馈值
 	
-	float fb_d;
+	float fb_d;          // 反馈的微分值
 	float fb_d_ex;
-	float exp_d;
+	float exp_d;         // 期望的微分值
 //	float err_d_lpf;
-	float err_i;
+	float err_i;         // 误差累计值
 	float ff;
 	float pre_d;
 

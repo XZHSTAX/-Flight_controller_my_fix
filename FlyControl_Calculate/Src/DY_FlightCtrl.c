@@ -116,6 +116,7 @@ void one_key_land()
 	flag.auto_take_off_land = AUTO_LAND;
 }
 
+// 飞行状态结构体变量
 _flight_state_st fs;
 
 s16 flying_cnt,landing_cnt;
@@ -182,6 +183,7 @@ s16 dy_pit = 0,dy_rol = 0;
 // 飞行任务控制（遥控器？）
 // 传入的第一个参数表示这个程序执行的间隔
 // 第二个参数是DY_RC中的全局数组，暂时不知道是干什么用的，可能是飞行器的姿态角？
+// 此函数输出的或许是系统的设定值？
 void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 {
 	s16 thr_deadzone;
@@ -232,7 +234,7 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
     
 	/*速度设定量，正负参考ANO坐标参考方向*/
 	fs.speed_set_h_norm[X] = (my_deadzone(+CH_N[CH_PIT],0,50) *0.0022f); // 对 X方向的速度进行控制，pitch表示
-	fs.speed_set_h_norm[Y] = (my_deadzone(-CH_N[CH_ROL],0,50) *0.0022f); // 对 y方向的速度进行控制，pitch表示
+	fs.speed_set_h_norm[Y] = (my_deadzone(-CH_N[CH_ROL],0,50) *0.0022f); // 对 y方向的速度进行控制，roll表示
 		
 	LPF_1_(3.0f,dT_ms*1e-3f,fs.speed_set_h_norm[X],fs.speed_set_h_norm_lpf[X]); // 滤波
 	LPF_1_(3.0f,dT_ms*1e-3f,fs.speed_set_h_norm[Y],fs.speed_set_h_norm_lpf[Y]);

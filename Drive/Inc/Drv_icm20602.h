@@ -352,10 +352,10 @@ typedef struct
 	s16 Gyro_Original[VEC_XYZ];
 	
 	s16 Acc[VEC_XYZ];
-	s32 Acc_cmss[VEC_XYZ];     // 加速度计数据 厘米/平方秒
+	s32 Acc_cmss[VEC_XYZ];     // 机体线加速度 厘米/平方秒
 	float Gyro[VEC_XYZ];
-	float Gyro_deg[VEC_XYZ];   // 陀螺仪数据 度/秒
-	float Gyro_rad[VEC_XYZ];   // 陀螺仪数据 弧度/秒
+	float Gyro_deg[VEC_XYZ];   // 机体角速度 度/秒
+	float Gyro_rad[VEC_XYZ];   // 机体角速度 弧度/秒
 
 	s16 Tempreature;
 	float Tempreature_C;

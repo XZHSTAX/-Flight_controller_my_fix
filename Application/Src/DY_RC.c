@@ -45,6 +45,12 @@ void ch_watch_dog(u8 dT_ms)//如果是PPM模式，也只能检测前8通道
 
 u16 signal_intensity;
 
+/* 遥控器的遥感量
+0 : CH_ROL横滚角
+1 : CH_PIT俯仰角
+3 : CH_THR
+4 : CH_YAW偏航角
+*/
 s16 CH_N[CH_NUM] = {0,0,0,0};
 
 _stick_f_lp_st unlock_f;
@@ -165,12 +171,14 @@ void unlock(u8 dT_ms)
 	}
 }
 
+// 遥控器控制任务，CH_N在此函数中被赋值
+// 其包含功能：转换摇杆数据，解锁检测，摇杆功能检测，喂狗，失控保护检测。
 void RC_duty_task(u8 dT_ms) //建议2ms调用一次
 {
 	if(flag.start_ok)	
 	{
 		/////////////获得通道数据////////////////////////
-		if(DY_Parame.set.pwmInMode == PWM)
+		if(DY_Parame.set.pwmInMode == PWM)  // 接收机模式只有PWM模式，已经被写死，其他模式的枚举没有定义，也无响应函数
 		{
 			for(u8 i=0;i<CH_NUM;i++)
 			{
@@ -336,6 +344,7 @@ _stick_f_lp_st cali_gyro,cali_acc,cali_surface;
 _stick_f_c_st cali_mag;
 
 u8 stick_fun_1,stick_fun_2,stick_fun_3,stick_fun_4,stick_fun_5_magcali;
+//摇杆触发功能监测
 void stick_function(u8 dT_ms)
 {
 	//////////////状态监测
