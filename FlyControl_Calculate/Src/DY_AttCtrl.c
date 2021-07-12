@@ -8,6 +8,9 @@
 #include "DY_LocCtrl.h"
 #include "DY_MotorCtrl.h"
 
+// 1 ---> 角速度参数
+// 2 ---> 角度参数
+
 //角度环控制参数
 _PID_arg_st arg_2[VEC_RPY] ; 
 
@@ -16,7 +19,7 @@ _PID_arg_st arg_1[VEC_RPY] ;
 
 
 //角度环控制数据
-_PID_val_st val_2[VEC_RPY];
+_PID_val_st val_2[VEC_RPY]; // 一次性制造3个结构体，用于存放 滚动、俯仰、偏航角数据
 
 //角速度环控制数据
 _PID_val_st val_1[VEC_RPY];
@@ -90,6 +93,7 @@ void Att_1level_PID_Init()
 #endif
 }
 
+// 设置角速度环的Ki
 void Set_Att_1level_Ki(u8 mode)
 {
 	if(mode == 0)
@@ -107,6 +111,7 @@ void Set_Att_1level_Ki(u8 mode)
 	}
 }
 
+// 设置角度环的Ki
 void Set_Att_2level_Ki(u8 mode)
 {
 	if(mode == 0)
@@ -158,8 +163,9 @@ void Att_2level_Ctrl(float dT_s,s16 *CH_N)
 	att_2l_ct.exp_rol = LIMIT(att_2l_ct.exp_rol,-MAX_ANGLE,MAX_ANGLE);
 	att_2l_ct.exp_pit = LIMIT(att_2l_ct.exp_pit,-MAX_ANGLE,MAX_ANGLE);
 	
-
+	// 总之以上操作使得我们获得了滚动角、俯仰角的期望值
 	//////////////////////////////////////////////////////////////
+	// 根据速度模式确定 偏航最高速度
 	if(flag.speed_mode == 3)
 	{
 		max_yaw_speed = MAX_SPEED_YAW;
@@ -197,6 +203,9 @@ void Att_2level_Ctrl(float dT_s,s16 *CH_N)
 	/*限制为+-180度*/
 	if(att_2l_ct.exp_yaw<-180) att_2l_ct.exp_yaw += 360;
 	else if(att_2l_ct.exp_yaw>180) att_2l_ct.exp_yaw -= 360;	
+
+	// 到此，我们获得了滚动角、俯仰角、偏航角的的期望值
+	//////////////////////////////////////////////////////////////////////////////
 	
 	/*计算YAW角度误差*/
 	att_2l_ct.yaw_err = (att_2l_ct.exp_yaw - att_2l_ct.fb_yaw);
@@ -220,42 +229,43 @@ void Att_2level_Ctrl(float dT_s,s16 *CH_N)
 		}
 	}
 
-	/*赋值反馈角度值*/
+	/*赋值反馈角度值，使用imu测量值作为反馈*/
 	att_2l_ct.fb_yaw = imu_data.yaw ;
 		
 	att_2l_ct.fb_rol = (imu_data.rol ) ;
 	att_2l_ct.fb_pit = (imu_data.pit ) ;
 			
+	// 滚动角PID控制，PID输出将放置在 val_2[ROL]->out中
+	PID_calculate( dT_s,            //周期（单位：秒）
+					0 ,				//前馈值
+					att_2l_ct.exp_rol ,				//期望值（设定值）
+					att_2l_ct.fb_rol ,			//反馈值（）
+					&arg_2[ROL], //PID参数结构体
+					&val_2[ROL],	//PID数据结构体
+	                5,//积分误差限幅
+					5 *flag.taking_off			//integration limit，积分限幅
+					);
 	
+	// 俯仰角PID控制，PID输出将放置在 val_2[PIT]->out中									
 	PID_calculate( dT_s,            //周期（单位：秒）
-										0 ,				//前馈值
-										att_2l_ct.exp_rol ,				//期望值（设定值）
-										att_2l_ct.fb_rol ,			//反馈值（）
-										&arg_2[ROL], //PID参数结构体
-										&val_2[ROL],	//PID数据结构体
-	                  5,//积分误差限幅
-										5 *flag.taking_off			//integration limit，积分限幅
-										 )	;
-										
+					0 ,				//前馈值
+					att_2l_ct.exp_pit ,				//期望值（设定值）
+					att_2l_ct.fb_pit ,			//反馈值（）
+					&arg_2[PIT], //PID参数结构体
+					&val_2[PIT],	//PID数据结构体
+	                5,//积分误差限幅
+					5 *flag.taking_off		//integration limit，积分限幅
+						);
+	// 偏航角PID控制，PID输出将放置在 val_2[YAW]->out中
 	PID_calculate( dT_s,            //周期（单位：秒）
-										0 ,				//前馈值
-										att_2l_ct.exp_pit ,				//期望值（设定值）
-										att_2l_ct.fb_pit ,			//反馈值（）
-										&arg_2[PIT], //PID参数结构体
-										&val_2[PIT],	//PID数据结构体
-	                  5,//积分误差限幅
-										5 *flag.taking_off		//integration limit，积分限幅
-										 )	;
-	
-	PID_calculate( dT_s,            //周期（单位：秒）
-										0 ,				//前馈值
-										att_2l_ct.yaw_err ,				//期望值（设定值）
-										0 ,			//反馈值（）
-										&arg_2[YAW], //PID参数结构体
-										&val_2[YAW],	//PID数据结构体
-	                  5,//积分误差限幅
-										5 *flag.taking_off			//integration limit，积分限幅
-										 )	;
+					0 ,				//前馈值
+					att_2l_ct.yaw_err ,				//期望值（设定值）
+					0 ,			//反馈值（）
+					&arg_2[YAW], //PID参数结构体
+					&val_2[YAW],	//PID数据结构体
+	                5,//积分误差限幅
+					5 *flag.taking_off			//integration limit，积分限幅
+						);
 
 }
 
@@ -268,7 +278,7 @@ void Att_1level_Ctrl(float dT_s)
 	ctrl_parameter_change_task();
 	
 
-    /*目标角速度赋值*/
+    /*目标角速度赋值，角速度的期望值来自于角度PID控制器的输出*/
      for(u8 i = 0;i<3;i++)
     {
         att_1l_ct.exp_angular_velocity[i] = val_2[i].out;
@@ -279,7 +289,7 @@ void Att_1level_Ctrl(float dT_s)
     att_1l_ct.exp_angular_velocity[PIT] = LIMIT(att_1l_ct.exp_angular_velocity[PIT],-MAX_ROLLING_SPEED,MAX_ROLLING_SPEED);
 
 
-	/*反馈角速度赋值*/
+	/*反馈角速度赋值，来自加速度计测量*/
 	att_1l_ct.fb_angular_velocity[ROL] =  sensor.Gyro_deg[X];
 	att_1l_ct.fb_angular_velocity[PIT] = -sensor.Gyro_deg[Y];
 	att_1l_ct.fb_angular_velocity[YAW] = -sensor.Gyro_deg[Z];
@@ -301,7 +311,8 @@ void Att_1level_Ctrl(float dT_s)
         
          ct_val[i] = (val_1[i].out);
      }
-										 
+	// 到这一步，副控制器的输出参数已经确定，下面就是控制电机了
+
 	/*赋值，最终比例调节*/
 	mc.ct_val_rol =                   FINAL_P *ct_val[ROL];
 	mc.ct_val_pit = X_PROPORTION_X_Y *FINAL_P *ct_val[PIT];

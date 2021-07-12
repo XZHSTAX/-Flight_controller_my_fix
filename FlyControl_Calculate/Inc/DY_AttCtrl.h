@@ -46,12 +46,12 @@ extern _att_1l_ct_st att_1l_ct;
 
 typedef struct
 {
-	float yaw_err;
-  float exp_rol_adj;
+	float yaw_err;     // 偏航角误差
+    float exp_rol_adj; 
 	float exp_pit_adj;
 	
-	float exp_rol,exp_pit,exp_yaw;
-	float fb_rol,fb_pit,fb_yaw;
+	float exp_rol,exp_pit,exp_yaw; // 滚动角、俯仰角、偏航角误差
+	float fb_rol,fb_pit,fb_yaw;    // 滚动角、俯仰角、偏航角反馈值
 
 }_att_2l_ct_st;
 extern _att_2l_ct_st att_2l_ct;

@@ -16,15 +16,16 @@
 // pid_arg为pid的参数
 // pid_val为PID运算过程中储存值
 // 因此，传入对应的arg和val便可以用于不同环的控制
+// 控制器的输出将会放置在 pid_val->out 中
 float PID_calculate( float dT_s,            //周期（单位：秒）
-										float in_ff,				//前馈值
-										float expect,				//期望值（设定值）
-										float feedback,			//反馈值（）
-										_PID_arg_st *pid_arg, //PID参数结构体
-										_PID_val_st *pid_val,	//PID数据结构体
-										float inte_d_lim,//积分误差限幅
-										float inte_lim			//integration limit，积分限幅									
-										 )	
+					float in_ff,				//前馈值
+					float expect,				//期望值（设定值）
+					float feedback,			//反馈值（）
+					_PID_arg_st *pid_arg, //PID参数结构体
+					_PID_val_st *pid_val,	//PID数据结构体
+					float inte_d_lim,//积分误差限幅
+					float inte_lim			//integration limit，积分限幅									
+					)	
 {
 	float differential,hz;
 	hz = safe_div(1.0f,dT_s,0);  // 获取频率
