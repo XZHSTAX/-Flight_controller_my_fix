@@ -11,6 +11,8 @@
 #define NCS_PIN_H GPIOPinWrite(GPIO_PORTQ_BASE, GPIO_PIN_1, GPIO_PIN_1);
 #define NCS_PIN_L GPIOPinWrite(GPIO_PORTQ_BASE, GPIO_PIN_1, ~GPIO_PIN_1);
 
+// DY or ATK-PMW3901 光流驱动，使用SPI接收光流信息
+
 motionBurst_t motionBurst;
 
 //光流电源控制

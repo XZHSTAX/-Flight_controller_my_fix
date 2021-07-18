@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "opticalflow.h": "c"
+        "opticalflow.h": "c",
+        "dy_altctrl.h": "c",
+        "dy_flightctrl.h": "c",
+        "drv_vl53l0x.h": "c"
     }
 }

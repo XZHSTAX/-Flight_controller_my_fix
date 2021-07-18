@@ -300,6 +300,7 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 	}
 	
 	/*飞行状态复位*/
+	// 如果有错误导致flag.flying=0，那么需要把其他标志位也复位
 	if(flag.fly_ready == 0)
 	{
 		flag.flying = 0;

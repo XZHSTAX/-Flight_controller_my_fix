@@ -228,13 +228,13 @@ VL53L0X_Error vl53l0x_measure_init ( VL53L0X_Dev_t *pMyDevice )
 	}
 	else
 	{
-		//校准SPAD，校准后的两个结果refSpadCount，isApertureSpads
+		//鏍″噯SPAD锛屾牎鍑嗗悗鐨勪袱涓粨鏋渞efSpadCount锛宨sApertureSpads
 		Status = VL53L0X_PerformRefSpadManagement ( pMyDevice, &refSpadCount, &isApertureSpads );
 		if ( Status != VL53L0X_ERROR_NONE )
 		{
 			return Status;
 		}
-		//校准温度相关参数，校准后的两个结果VhvSettings，PhaseCal
+		//鏍″噯娓╁害鐩稿叧鍙傛暟锛屾牎鍑嗗悗鐨勪袱涓粨鏋淰hvSettings锛孭haseCal
 		Status = VL53L0X_PerformRefCalibration ( pMyDevice, &VhvSettings, &PhaseCal );
 		if ( Status != VL53L0X_ERROR_NONE )
 		{
@@ -322,7 +322,7 @@ u8 VL53L0X_IfDataReady ( void )
 {
 	uint32_t InterruptMask;
 
-	VL53L0X_GetInterruptMaskStatus ( &vl53l0x_dev, &InterruptMask );//IIC通信1字节
+	VL53L0X_GetInterruptMaskStatus ( &vl53l0x_dev, &InterruptMask );//IIC閫氫俊1瀛楄妭
     if ( InterruptMask == VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY )
 		return 1;
 	else
@@ -333,8 +333,8 @@ u16 VL53L0X_FastRead( void )
 	u8 datatemp[2];
 	VL53L0X_Error Status = VL53L0X_ERROR_NONE;
 	
-	Status = VL53L0X_ReadMulti ( &vl53l0x_dev, 0x1E, datatemp, 2 );	//IIC通信2字节
-	//VL53L0X_ClearInterruptMask ( &vl53l0x_dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY );//IIC通信3字节
+	Status = VL53L0X_ReadMulti ( &vl53l0x_dev, 0x1E, datatemp, 2 );	//IIC閫氫俊2瀛楄妭
+	//VL53L0X_ClearInterruptMask ( &vl53l0x_dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY );//IIC閫氫俊3瀛楄妭
 	if(Status != VL53L0X_ERROR_NONE)
 		return 0xffff;
 	return VL53L0X_MAKEUINT16 ( datatemp[1], datatemp[0] );

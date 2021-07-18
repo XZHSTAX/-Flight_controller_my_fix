@@ -36,16 +36,16 @@ Application
 ├─Inc  
 └─Src
         BSP_Init.c        // 初始化所有（底层驱动、中断配置）
-        DY_DT.c
+        DY_DT.c           // 数据传输
         DY_Flight_Log.c
-        DY_OF.c
+        DY_OF.c          // 匿名optical flow 光流的驱动(使用uart4中断接收数据) 本项目未用到
         DY_Parameter.c
         DY_power.c
         DY_RC.c          // 遥控器通道数据处理
         DY_Scheduler.c   // 任务调度（所有的任务及其调度方式）
         DY_Tracking.c
         main.c
-        OpticalFlow.c
+        OpticalFlow.c    // DY or ATK-PMW3901 光流驱动，使用SPI接收光流信息
 ```
 
 此文件夹存放了`main.c`文件，整个系统的启动、初始化、电源管理都在此处。`Inc`中存放的是对应的`.h`文件，这里不再打印。
@@ -97,11 +97,11 @@ Drive
 │      Drv_spl06.c
 │      Drv_time.c
 │      Drv_usart.c
-│      Drv_vl53l0x.c
+│      Drv_vl53l0x.c      // TOF激光测距模块驱动
 │      Drv_w25qxx.c
 │      uartstdio.c
 │      
-└─Vl53l0x
+└─Vl53l0x                 // TOF激光测距模块库函数
     ├─Inc     
     └─Src
             vl53l0x_api.c
@@ -125,7 +125,7 @@ Drive
 
 # 模块学习
 
-## ICM20602
+## 1. ICM20602
 
 姿态传感器，其中有1个3轴陀螺仪和1个3轴加速度计。使用I2C或SPI通讯，工程中使用的是SPI通讯，其接线图如下：
 
@@ -143,11 +143,23 @@ void Sensor_Data_Prepare(u8 dT_ms);
 void Center_Pos_Set(void);
 ```
 
-## 遥控器控制
+## 2. 遥控器控制
 
 此飞控的遥控器接收器只能使用PWM模式，**6通道信号**；数据通过`Drv_pwm_in.c`文件，接收到`Rc_Pwm_In`数组中，然后在`DY_RC.c`的`RC_duty_task`函数中变为+-500摇杆量存储在`CH_N`数组中。
 
-## PID模块
+## 3. 飞行状态控制 Flight_State_Task
+
+<img src="figure\2021-07-18-12-07-11.jpg" alt="2021-07-18-12-07-11" style="zoom: 50%;" />
+
+此函数接收摇杆量`CH_N`，转换为速度量`fs.speed_set_h`。作为后面环的控制。但如果启用OpenMV控制，则变为：
+
+<img src="figure\2021-07-18-12-11-13.jpg" alt="2021-07-18-12-11-13" style="zoom:50%;" />
+
+OpenMV模式下，`fs.speed_set_h[Z]`将在`DY_AltCtrl.c`中被赋值。
+
+所以说，这个函数的主要功能就是把摇杆量转换为后续控制环所需设定值，这里所有的设定值皆为速度量。此外函数中还有对标志位的检测
+
+## 4. PID模块
 
 此程序中所有的PID计算都由`DY_Pid.c` 中的 `PID_calculate` 函数完成，其参数列表如下：
 
@@ -214,19 +226,57 @@ pid_val->fb_d = (feedback - pid_val->feedback_old) *hz;
 //微分 = 期望微分系数 * 期望微分值 - 反馈微分系数 * 反馈微分值	
 differential = (pid_arg->kd_ex *pid_val->exp_d - pid_arg->kd_fb *pid_val->fb_d);
 ```
+## 5. 位置控制
 
-## 角度控制模块
+位置控制环函数为`DY_LocCtrl.c`，主要控制函数如下：
+
+```C
+void Loc_1level_Ctrl(u16 dT_ms,s16 *CH_N)
+```
+
+其中参数`CH_N`，并未被用到，输入输出结果如下：
+
+<img src="figure\2021-07-18-11-45-07.jpg" alt="2021-07-18-11-45-07" style="zoom: 67%;" />
+
+这里的反馈值是光流传输回来的，暂且不清楚是什么。其会输出一个数组，这个数组将作为角度环的设定值。
+
+## 6. 角度控制模块 
 
 角度控制是通过串级控制实现的，实现的文件为`DY_AttCtrl.c`，主要函数为：`Att_2level_Ctrl`角度控制器和`Att_1level_Ctrl`角速度控制器，方框图如下：
 
-![image-20210712211933002](C:\Users\谢祖浩\AppData\Roaming\Typora\typora-user-images\image-20210712211933002.png)
+![image-20210712211933002](figure\image-20210712211933002.png)
 
 联系函数内容可以做出下图：
 
-![image-20210712213041089](C:\Users\谢祖浩\AppData\Roaming\Typora\typora-user-images\image-20210712213041089.png)
+![image-20210712213041089](figure\2021-07-18-09-12-17.jpg)
 
 设定值`CH_N[YAM]`来自遥控器的输入，是偏航角的设定值，但其余两个设定值暂不清楚。
 
+## 7. 电机控制模块
+
+### 初始化与判断
+
+如果`flag.fly_ready==1`，那么飞控就会依次使4个电机达到怠速状态，然后置位`flag.motor_preparation`，表示电机已经准备完成。
+
+如果`flag.fly_ready==0`，那么`flag.motor_preparation`只会为0，且`motor_step`一直为0，这样，电机就会停止转动。所以通过改变`flag.fly_ready`就可以控制电机立即刹车。
+
+### 核心部分——控制分配
+
+电机控制模块为：`DY_MotorCtrl.c`文件，其核心代码如下：
+
+```C
+if(flag.motor_preparation == 1)
+{		
+    motor_step[m1] = mc.ct_val_thr  +mc.ct_val_yaw -mc.ct_val_rol +mc.ct_val_pit;
+    motor_step[m2] = mc.ct_val_thr  -mc.ct_val_yaw +mc.ct_val_rol +mc.ct_val_pit;
+    motor_step[m3] = mc.ct_val_thr  +mc.ct_val_yaw +mc.ct_val_rol -mc.ct_val_pit;
+    motor_step[m4] = mc.ct_val_thr  -mc.ct_val_yaw -mc.ct_val_rol -mc.ct_val_pit;
+}
+```
+
+`motor_step`数组为4个电机转速对应的值，而`mc.ct_val_thr`和等式右的值来自高度环和角度环的输出，这些输出需要按一定的原则分配到4个电机上，才能实现控制任务，这里就是在完成控制任务的分配。
+
+在完成控制任务分配后，对分配值进行限幅操作，赋值给数组`motor`，最后使用函数`SetPwm`把数值转化为占空比，输出到4个电机。
 
 # 重要参数与标志位
 
@@ -239,6 +289,62 @@ C语言中，统一文件夹下的全局变量可以在不同的C文件中调用
 初次定义于`DY_RC.c`中，为遥控器的遥感量，在`RC_duty_task`函数中被赋值。
 
 被作为参数传入函数`Flight_State_Task(u8 dT_ms,s16 *CH_N)`中，或许作为设定值？暂时不太清楚。
+
+## 标志位
+
+```c
+typedef struct
+{
+      //基本状态/传感器
+      u8 start_ok;	//系统初始化OK
+      u8 sensor_ok;
+      u8 motionless;
+      u8 power_state;
+      u8 wifi_ch_en;
+      u8 rc_loss;	
+      u8 gps_ok;	
+      u8 gps_signal_bad;
+
+
+      //控制状态
+      u8 manual_locked;
+      u8 unlock_en;
+      u8 fly_ready;  //unlocked 准备起飞，非常重要
+      u8 thr_low;
+      u8 locking;
+      u8 taking_off; //起飞
+      u8 set_yaw;
+      u8 ct_loc_hold;
+      u8 ct_alt_hold;
+
+
+      //飞行状态
+      u8 flying;             // 正在飞行
+      u8 auto_take_off_land;
+      u8 home_location_ok;	
+      u8 speed_mode;
+      u8 thr_mode;	
+      u8 flight_mode;
+      u8 gps_mode_en;
+      u8 motor_preparation;
+      u8 locked_rotor;
+}_flag;
+```
+
+`fly_ready=1`表示已经准备好起飞，此时`flag.taking_off`才能被置位。此外更重要的是：只有当`fly_ready==1`时，标志位`motor_preparation`才可能置位，才会开始对电机的控制，否则电机的输入PWM占空比为0，电机停转。下表为`fly_ready`赋值处及其意义。
+
+| 赋值 |                             位置                             |                             意义                             |
+| :--: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|  0   |        文件`DY_FlightCtrl.c`，函数`land_discriminat`         | 油门最终输出量小于250并且没有在手动解锁上锁过程中，持续1.5秒，认为着陆，然后上锁 |
+|  0   |        文件`DY_FlightCtrl.c`，函数`Flight_State_Task`        |                    机体倾角过大，需要停机                    |
+|  1   |        文件`DY_FlightCtrl.c`，函数`one_key_take_off`         |                           一键起飞                           |
+| 0/1  | 文件`DY_RC.c`，函数`unlock`,函数`stick_function_check_longpress` |    摇杆满足条件unlock_time时间后，才会执行锁定和解锁动作     |
+|  1   |文件`DY_RC.c`，函数`unlock`|如果`flag.fly_ready == 2`(但好像不太可能？)|
+
+只有`flag.taking_off`被置位时，才会设置垂直方向速度，否则就设置垂直方向速度为0；
+
+当`flag.taking_off=1`被维持1s后，`flag.flying`被置位，表示飞机已经起飞。
+
 
 
 
@@ -253,6 +359,14 @@ C语言中，统一文件夹下的全局变量可以在不同的C文件中调用
 ---
 
 7.12 今天搞明白了飞行器角度的控制方法`DY_AttCtrl.c`，但角度控制中的设定值来源`loc_ctrl_1.out[Y]`，变量暂不清楚是何作用，其来自于`DY_LocCtrl.c`位置环控制，此外电机控制`DY_MotorCtrl.c`也初露端倪，下一步就是搞懂这两块的代码。
+
+---
+
+7.18 今日任务，读懂`DY_LocCtrl.c`，`DY_MotorCtrl.c`；搞明白光流，高度环和位置环，另外知道设定值到底是哪个变量，进行飞行实验。
+
+今日完成`DY_MotorCtrl.c`，想要加入一个远程zigbee紧急停车模块，下一步要测试`Uart4_Init`等的波特率，看波特率到底如何设置，如何通信和如何解析接收数据。
+
+---
 
 
 
