@@ -24,6 +24,8 @@
 #include "DY_MagProcess.h"
 #include "DY_Power.h"
 #include "DY_OF.h"
+#include "operation.h"
+
 
 #include "OpticalFlow.h"        //ATK-PMW3901光流模块
 #include "DY_Flight_Log.h"      //OpenmMv控制
@@ -37,6 +39,8 @@ u32 test_dT_1000hz[3];
 // [4] 执行完Loop_1000Hz的时刻
 // [5] 本次执行Loop_1000Hz的时长
 u32 test_rT[6];
+
+
 static void Loop_1000Hz(void)	//1ms执行一次
 { 
 	test_dT_1000hz[0] = test_dT_1000hz[1];
@@ -82,7 +86,7 @@ static void Loop_500Hz(void)	//2ms执行一次
 
 static void Loop_200Hz(void)	//5ms执行一次
 {
-  
+	
 }
 
 static void Loop_100Hz(void)	//10ms执行一次
@@ -124,6 +128,14 @@ static void Loop_100Hz(void)	//10ms执行一次
 
 	/*灯光控制*/	
 	LED_Task(10);
+
+	////////////////////////////自定义函数开始/////////////////////////////
+	/*计时*/
+	our_delay_time();
+
+	our_take_off();
+
+	// our_landing();
     //////////////////////////////////////////////////////////////////////		
     test_rT[1]= GetSysTime_us ();
     test_rT[2] = (u32)(test_rT[1] - test_rT[0]) ;	    

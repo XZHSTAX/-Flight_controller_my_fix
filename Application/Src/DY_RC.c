@@ -181,7 +181,11 @@ void RC_duty_task(u8 dT_ms) //建议2ms调用一次
 		if(DY_Parame.set.pwmInMode == PWM)  // 接收机模式只有PWM模式，已经被写死，其他模式的枚举没有定义，也无响应函数
 		{
 			for(u8 i=0;i<CH_NUM;i++)
-			{
+			{	
+				if(i==5) // 保证第五通道不被归0，为保证一键起飞
+				{
+					continue;
+				}	
 				if(Rc_Pwm_In[i]!=0)//该通道有值，=0说明该通道未插线
 				{
 					CH_N[i] = 1.2f *((s16)Rc_Pwm_In[i] - 1500); //1100 -- 1900us,处理成+-500摇杆量

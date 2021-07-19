@@ -54,13 +54,14 @@ void Auto_Take_Off_Land_Task(u8 dT_ms)//
 		
 		auto_taking_off_speed = LIMIT(auto_taking_off_speed,0,150);		//限幅 0~150
 		
+		// 当时间超过25s或者飞行高度与设定高度之差在5cm内，就认为飞机已经起飞
 		if(take_off_ok_cnt>=2500 || (DY_Parame.set.auto_take_off_height - wcz_hei_fus.out <5))//(auto_ref_height>AUTO_TAKE_OFF_HEIGHT)
 		{
 			flag.auto_take_off_land = AUTO_TAKE_OFF_FINISH;
 			
 			
 		}
-
+		// 如果超过10s，且竖直方向有速度，就认为已经起飞
 		if(take_off_ok_cnt >1000 && ABS(fs.speed_set_h_norm[Z])>0.1f)// 一定已经taking_off
 		{
 			flag.auto_take_off_land = AUTO_TAKE_OFF_FINISH;

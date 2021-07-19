@@ -2405,6 +2405,9 @@
             <name>$PROJ_DIR$\Application\Src\main.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\Application\Src\operation.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\Application\Src\OpticalFlow.c</name>
         </file>
     </group>

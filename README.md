@@ -278,6 +278,73 @@ if(flag.motor_preparation == 1)
 
 在完成控制任务分配后，对分配值进行限幅操作，赋值给数组`motor`，最后使用函数`SetPwm`把数值转化为占空比，输出到4个电机。
 
+# 功能实现
+
+## 一键起飞与降落
+
+首先，原版的一键起飞和降落是通过摇杆的旋钮实现的，旋钮通道CH5和CH6的值就会改变。数据通过`Drv_pwm_in.c`文件，接收到`Rc_Pwm_In`数组中，然后在`DY_RC.c`的`RC_duty_task`函数中变为+-500摇杆量存储在`CH_N`数组中。
+
+在文件`DY_FlightCtrl.c`的函数`Flight_Mode_Set`中，会通过判断`CH_N[AUX1]`来判断是否要一键降落，通过判断`CH_N[AUX2]`来判断是否要一键起飞。
+
+```c
+	if(CH_N[AUX2]<-200)
+	{
+	  // 若启用一键起飞后，OpemMV控制高度模式没有启动，则启动；
+	  // 同时启用one_key_take_off，置位标志位one_key_taof_start和flag.fly_ready
+      if(DY_Debug_Height_Mode==0)
+      {
+        DY_Debug_Height_Mode = 1;
+        one_key_take_off();
+        dy_height = 30;
+      }
+      // 若启用一键起飞后，OpemMV控制高度模式已经启动
+      else
+      {
+		// 如果当前高度高于1.2m且没有开始计数，就使得高度设定值为0，开始计数
+        if(tof_height_mm>=1200 && DY_CountTime_Flag==0)
+        {
+          dy_height = 0;
+          DY_CountTime_Flag = 1;
+        }
+        if(DY_CountTime_Flag)
+        {
+          DY_Task_ExeTime++;
+		  // 如果计数15s后，就启用一键降落(DY_Land_Flag为防止one_key_land被执行多次)
+          if(DY_Task_ExeTime>=1500 && DY_Land_Flag==0) // 10ms*1500 = 15s
+          {
+            DY_Land_Flag = 1;
+            one_key_land();     //一键降落
+          }
+//          if(DY_Task_ExeTime>=1000 && DY_Debug_Mode==0)
+//          {
+//            DY_Debug_Mode = 1;
+//            MAP_UARTCharPut(UART5_BASE, 'H');     //OpenMv开始工作
+//          }
+        }
+      }
+	}
+```
+
+<img src="D:\IAR\savelocation\DeYan_UAV\figure\2021-07-19-22-06-16.jpg" alt="2021-07-19-22-06-16" style="zoom:50%;" />
+
+因为我们的遥控器没有CH5和CH6通道，所以我们必须手动进入这个判断。我们的期望是，当飞机启动一段时间后，在20s内完成一键起飞和降落的功能。
+
+使用的起飞函数如下：
+
+```C
+void our_take_off()
+{   
+    if(flag.auto_take_off_land != AUTO_TAKE_OFF_FINISH && our_delay_times[0] <200)
+    {
+        // DY_Debug_Height_Mode = 1;
+        one_key_take_off();
+        dy_height = 30;
+    }
+}
+```
+
+`our_delay_times[0]`是一个计时器
+
 # 重要参数与标志位
 
 ## 全局变量
@@ -371,6 +438,8 @@ typedef struct
 7.19 1：完成紧急刹车的布置，当按下stm32板子上的按钮（现在为重启）后，无人机的电机会自动停止旋转。
 
 实现原理是使得`fly_ready=0`，无人机上的zigbee和串口4连接，接收并解析stm32上zigbee传来的信息，当数据的数据包部分第一个数据为`0x66`，直接使得`fly_ready=0`，完成刹车。
+
+2:想要完成一键起飞，但失败了，不知道是什么原因，下一步查看MV和控制器的互动。
 
 
 

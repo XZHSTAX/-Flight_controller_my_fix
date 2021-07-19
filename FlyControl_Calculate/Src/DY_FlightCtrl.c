@@ -75,7 +75,7 @@ void one_key_roll()
 			}
 }
 
-static u16 one_key_taof_start;
+static u16 one_key_taof_start; // 标志位，当其为1，则one_key_take_off_task的任务才会真正启动
 /*一键起飞任务（主要功能为延迟）*/
 void one_key_take_off_task(u16 dt_ms)
 {
@@ -83,21 +83,17 @@ void one_key_take_off_task(u16 dt_ms)
 	{
 		one_key_taof_start += dt_ms;
 		
-		
-		if(one_key_taof_start > 1400 && flag.motor_preparation == 1)		//1400*10=14000ms=14s
+		if(one_key_taof_start > 1400 && flag.motor_preparation == 1)		//1400*10=14000ms=14s 延迟
 		{
 			one_key_taof_start = 0;
 				if(flag.auto_take_off_land == AUTO_TAKE_OFF_NULL)
 				{
 					flag.auto_take_off_land = AUTO_TAKE_OFF;
 					//解锁、起飞
-
 					flag.taking_off = 1;
 				}
-			
 		}
 	}
-
 }
 
 /*一键起飞*/
@@ -126,7 +122,6 @@ extern s32 ref_height_get;
 float stop_baro_hpf;
 
 /*降落检测*/
-
 static s16 ld_delay_cnt ;
 void land_discriminat(s16 dT_ms)
 {	
@@ -240,7 +235,7 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 	LPF_1_(3.0f,dT_ms*1e-3f,fs.speed_set_h_norm[Y],fs.speed_set_h_norm_lpf[Y]);
 	
 	max_speed_lim = MAX_SPEED; // 最大水平速度
-	
+	  
 	if(switchs.of_flow_on || switchs.dy_pmw3901_on)		//使用光流模块，就修改最大水平速度
 	{
 		max_speed_lim = 1.5f *wcz_hei_fus.out;
@@ -300,7 +295,6 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 	}
 	
 	/*飞行状态复位*/
-	// 如果有错误导致flag.flying=0，那么需要把其他标志位也复位
 	if(flag.fly_ready == 0)
 	{
 		flag.flying = 0;
@@ -478,12 +472,12 @@ void Swtich_State_Task(u8 dT_ms)
 u8 speed_mode_old = 255;
 u8 flight_mode_old = 255;
 
-u8 DY_Debug_Mode = 0;   //启用OpenMv控制
-u8 DY_Debug_Height_Mode = 0;
+u8 DY_Debug_Mode = 0;        //启用OpenMv控制
+u8 DY_Debug_Height_Mode = 0; // OpenMV控制高度，当其为1时，由OpenMV设置高度环设定值
 u8 DY_Debug_Yaw_Mode = 0;
 u32 DY_Task_ExeTime = 0;
-u8 DY_CountTime_Flag = 0;
-u8 DY_Land_Flag = 0;
+u8 DY_CountTime_Flag = 0;   // 计数标志位，当为1时开始计数（没什么卵用）
+u8 DY_Land_Flag = 0;        // 标志位，防止Flight_Mode_Set中，one_key_land被执行多次
 
 void Flight_Mode_Set(u8 dT_ms)
 {
@@ -507,6 +501,7 @@ void Flight_Mode_Set(u8 dT_ms)
 		}
 	}
 	
+	// 一键降落的判断
 	if(CH_N[AUX1]<-200)		        //-500`-200
 	{
 		flag.flight_mode = ATT_STAB;		//姿态模式
@@ -528,8 +523,12 @@ void Flight_Mode_Set(u8 dT_ms)
 		
 	}
 	
+	// 一键起飞的判断
 	if(CH_N[AUX2]<-200)
 	{
+	  // 若启用一键起飞后，OpemMV控制高度模式没有启动，则启动；
+	  // 同时启用one_key_take_off，置位标志位one_key_taof_start和flag.fly_ready
+	  // 若启用一键起飞后，OpemMV控制高度模式已经启动
       if(DY_Debug_Height_Mode==0)
       {
         DY_Debug_Height_Mode = 1;
@@ -538,6 +537,7 @@ void Flight_Mode_Set(u8 dT_ms)
       }
       else
       {
+		// 如果当前高度高于1.2m且没有开始计数，就使得高度设定值为0，开始计数
         if(tof_height_mm>=1200 && DY_CountTime_Flag==0)
         {
           dy_height = 0;
@@ -546,7 +546,8 @@ void Flight_Mode_Set(u8 dT_ms)
         if(DY_CountTime_Flag)
         {
           DY_Task_ExeTime++;
-          if(DY_Task_ExeTime>=1500 && DY_Land_Flag==0)
+		  // 如果计数15s后，就启用一键降落(DY_Land_Flag为防止one_key_land被执行多次)
+          if(DY_Task_ExeTime>=1500 && DY_Land_Flag==0) // 10ms*1500 = 15s
           {
             DY_Land_Flag = 1;
             one_key_land();     //一键降落
