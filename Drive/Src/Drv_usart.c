@@ -9,6 +9,16 @@
 #include "DY_OF.h"
 //#include "DY_OF_Ctrl.h"
 #include "DY_Tracking.h"
+#include "DY_FcData.h"
+
+extern _flag flag;
+u8 counter=0;
+u8 data_brake[20] ={0};
+u8 Wanning[] = {"\nNO,I will crash!\n"};
+
+u8 Note[] = {"\nHave shut down the engine!\n"};
+
+void zigbee_data_process(u8 data,u8 data_story[],u8 i);
 
 void Uart2_Init(u32 bound)      //PA6、PA7
 {
@@ -214,6 +224,7 @@ void UART4_IRQHandler(void)
 {
   u32 uart4_status;
   u8 comdata;
+  u8 i=0;
   
   uart4_status = MAP_UARTIntStatus(UART4_BASE, true);
   
@@ -231,7 +242,31 @@ void UART4_IRQHandler(void)
 //    while(MAP_UARTCharsAvail(UART4_BASE))
 //    {
       comdata = (u8)MAP_UARTCharGet(UART4_BASE);
-      DY_OF_GetOneByte(comdata);
+      // DY_OF_GetOneByte(comdata);
+      MAP_UARTCharPut(UART4_BASE, comdata);
+      if(comdata != 0xff)
+      {
+        zigbee_data_process(comdata,data_brake,counter);
+        counter++;
+      }
+      else
+      {
+        for(i=0;i<counter;i++)
+        {
+          MAP_UARTCharPut(UART4_BASE,data_brake[i]);
+        }
+        if(data_brake[6] == 0x66)
+        {
+          Uart4_Send(Wanning,sizeof(Wanning));
+          flag.fly_ready = 0;
+          Uart4_Send(Note,sizeof(Note));
+          MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
+        }
+        MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
+        counter = 0;
+      }
+      
+      // MAP_UARTCharPut(UART4_BASE,comdata);
       
 //    }
   }
@@ -313,8 +348,7 @@ void UART5_IRQHandler(void)
 //    }
   }
   if(uart5_status == UART_INT_TX)
-  {
-//    MAP_UARTIntClear(UART5_BASE, uart5_status);
+  {//    MAP_UARTIntClear(UART5_BASE, uart5_status);
     /*****发送中断服务函数*****/
     MAP_UARTCharPut(UART5_BASE, Tx5Buffer[Tx5Counter++]);
     if(Tx5Counter == count5)
@@ -335,6 +369,12 @@ void Uart5_Send(u8 *DataToSend, u8 data_num)
   {
     MAP_UARTIntEnable(UART5_BASE, UART_INT_TX);
   }
+}
+
+
+void zigbee_data_process(u8 data,u8 data_story[],u8 i)
+{
+  data_story[i] = data;
 }
 
 /******************* (C) COPYRIGHT 2018 DY EleTe *****END OF FILE************/
