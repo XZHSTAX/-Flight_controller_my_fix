@@ -134,9 +134,11 @@ static void Loop_100Hz(void)	//10ms执行一次
 
 	our_take_off();
 
-	// our_landing();
+	our_landing();
+
+	our_mission();
     //////////////////////////////////////////////////////////////////////		
-    test_rT[1]= GetSysTime_us ();
+    test_rT[1]= GetSysTime_us();
     test_rT[2] = (u32)(test_rT[1] - test_rT[0]) ;	    
 }
 

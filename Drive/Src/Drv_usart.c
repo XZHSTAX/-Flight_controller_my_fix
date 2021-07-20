@@ -392,6 +392,10 @@ void zigbee_data_Sent(u8 data[],u8 size_of_data)
   data_processed[5] = 0x49;
   for(i=6;i<6+size_of_data;i++)
   {
+    if(data[i-6] == 0xff || data[i-6] == 0xfe) // 偷个懒，如果出现需要转义的字符，就不转义，直接换为0xfd
+    {
+      data[i-6] = 0xfd;
+    }
     data_processed[i] = data[i-6];
   }
   data_processed[i] = 0xFF;

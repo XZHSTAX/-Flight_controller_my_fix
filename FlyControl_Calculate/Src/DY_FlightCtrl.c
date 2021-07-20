@@ -18,6 +18,10 @@
 #include "Drv_vl53l0x.h"
 #include "DY_OF.h"
 
+
+
+
+
 /*PID参数初始化*/
 void All_PID_Init(void)
 {
@@ -75,7 +79,8 @@ void one_key_roll()
 			}
 }
 
-static u16 one_key_taof_start; // 标志位，当其为1，则one_key_take_off_task的任务才会真正启动
+// static u16 one_key_taof_start; // 标志位，当其为1，则one_key_take_off_task的任务才会真正启动
+u16 one_key_taof_start;
 /*一键起飞任务（主要功能为延迟）*/
 void one_key_take_off_task(u16 dt_ms)
 {
@@ -534,14 +539,14 @@ void Flight_Mode_Set(u8 dT_ms)
       {
         DY_Debug_Height_Mode = 1;
         one_key_take_off();
-        dy_height = 30;
+        // dy_height = 30;
       }
       else
       {
 		// 如果当前高度高于1.2m且没有开始计数，就使得高度设定值为0，开始计数
         if(tof_height_mm>=1200 && DY_CountTime_Flag==0)
         {
-          dy_height = 0;
+    	  dy_height = 0;
           DY_CountTime_Flag = 1;
         }
         if(DY_CountTime_Flag)
@@ -551,7 +556,7 @@ void Flight_Mode_Set(u8 dT_ms)
           if(DY_Task_ExeTime>=1500 && DY_Land_Flag==0) // 10ms*1500 = 15s
           {
             DY_Land_Flag = 1;
-            one_key_land();     //一键降落
+            // one_key_land();     //一键降落
           }
 //          if(DY_Task_ExeTime>=1000 && DY_Debug_Mode==0)
 //          {

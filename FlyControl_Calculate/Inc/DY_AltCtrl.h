@@ -21,4 +21,5 @@ void Alt_2level_Ctrl(float dT_s);
 void Auto_Take_Off_Land_Task(u8 dT_ms);
 
 extern s16 dy_height;
+extern s16 auto_taking_off_speed;
 #endif

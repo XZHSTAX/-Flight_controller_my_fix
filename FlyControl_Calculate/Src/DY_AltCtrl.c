@@ -11,7 +11,8 @@
 
 #include "DY_FlightCtrl.h"
 
-static s16 auto_taking_off_speed;
+// static s16 auto_taking_off_speed;
+s16 auto_taking_off_speed;
 
 /***************高度控制变量初始化***************/
 s16 dy_height = 0;

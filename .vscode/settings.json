@@ -3,6 +3,7 @@
         "opticalflow.h": "c",
         "dy_altctrl.h": "c",
         "dy_flightctrl.h": "c",
-        "drv_vl53l0x.h": "c"
+        "drv_vl53l0x.h": "c",
+        "dy_imu.h": "c"
     }
 }

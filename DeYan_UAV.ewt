@@ -2481,6 +2481,30 @@
         </file>
     </group>
     <group>
+        <name>FlyControl_Algorithm</name>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_FcData.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_Filter.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_Imu.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_Math.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_MotionCal.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_Navigate.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\FlyControl_Algorithm\src\DY_Pid.c</name>
+        </file>
+    </group>
+    <group>
         <name>FlyControl_Calculate</name>
         <file>
             <name>$PROJ_DIR$\FlyControl_Calculate\Inc\config.h</name>

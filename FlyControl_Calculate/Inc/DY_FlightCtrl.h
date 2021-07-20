@@ -85,6 +85,7 @@ void Flight_State_Task(u8,s16 *CH_N);
 void Flight_Mode_Set(u8 dT_ms);
 
 void Swtich_State_Task(u8 dT_ms);
+extern u16 one_key_taof_start;
 
 #endif
 /******************* (C) COPYRIGHT 2018 DY EleTe *****END OF FILE************/
