@@ -49,10 +49,10 @@ void Auto_Take_Off_Land_Task(u8 dT_ms)//
 		
 /***************刘德祥修改***************/
 		auto_taking_off_speed = AUTO_TAKE_OFF_KP *(DY_Parame.set.auto_take_off_height - wcz_hei_fus.out);
-//		auto_taking_off_speed = AUTO_TAKE_OFF_KP *(DY_Parame.set.auto_take_off_height - wcz_hei_fus.out);
+
 /*******************************/
 		
-		auto_taking_off_speed = LIMIT(auto_taking_off_speed,0,150);		//限幅 0~150
+		auto_taking_off_speed = LIMIT(auto_taking_off_speed,0,300);		//限幅 0~150
 		
 		// 当时间超过25s或者飞行高度与设定高度之差在5cm内，就认为飞机已经起飞
 		if(take_off_ok_cnt>=2500 || (DY_Parame.set.auto_take_off_height - wcz_hei_fus.out <5))//(auto_ref_height>AUTO_TAKE_OFF_HEIGHT)

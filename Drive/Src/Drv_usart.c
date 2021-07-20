@@ -18,6 +18,7 @@ u8 Wanning[] = {"\nNO,I will crash!\n"};
 
 u8 Note[] = {"\nHave shut down the engine!\n"};
 
+
 void zigbee_data_process(u8 data,u8 data_story[],u8 i);
 
 void Uart2_Init(u32 bound)      //PA6、PA7
@@ -375,6 +376,32 @@ void Uart5_Send(u8 *DataToSend, u8 data_num)
 void zigbee_data_process(u8 data,u8 data_story[],u8 i)
 {
   data_story[i] = data;
+}
+
+// 用于发送一些数据，data是要发送的数据，size_of_data是数据个数,会直接通过串口4，然后zigbee发给32
+// 注意data 中不可以有ff或fe(没做转义)
+void zigbee_data_Sent(u8 data[],u8 size_of_data)
+{
+  u8 data_processed[20]={0};
+  u8 i=0;
+  data_processed[0] = 0xfe;
+  data_processed[1] = size_of_data+4;
+  data_processed[2] = 0x91;
+  data_processed[3] = 0x90;
+  data_processed[4] = 0x3e;
+  data_processed[5] = 0x49;
+  for(i=6;i<6+size_of_data;i++)
+  {
+    data_processed[i] = data[i-6];
+  }
+  data_processed[i] = 0xFF;
+  
+  for(i=0;i<7+size_of_data;i++)
+  {
+    MAP_UARTCharPut(UART4_BASE, data_processed[i]);
+    // printf("%x ",data_processed[i]);
+  }
+
 }
 
 /******************* (C) COPYRIGHT 2018 DY EleTe *****END OF FILE************/

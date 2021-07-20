@@ -22,6 +22,7 @@ void Uart4_Send(u8 *DataToSend, u8 data_num);
 void Uart5_Init(u32 bound);
 void Uart5_Send(u8 *DataToSend, u8 data_num);
 
+void zigbee_data_Sent(u8 data[],u8 size_of_data);
 #endif
 
 /******************* (C) COPYRIGHT 2018 DY EleTe *****END OF FILE************/

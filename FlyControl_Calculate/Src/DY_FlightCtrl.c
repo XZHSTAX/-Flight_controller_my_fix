@@ -270,6 +270,7 @@ void Flight_State_Task(u8 dT_ms,s16 *CH_N)
 		{
 
 			flag.fly_ready = 0;
+						
 		}
 	}
     
