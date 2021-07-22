@@ -17,7 +17,7 @@
 #include "DY_RC.h"
 #include "Drv_vl53l0x.h"
 #include "DY_OF.h"
-
+#include "operation.h"
 
 
 
@@ -39,6 +39,9 @@ void All_PID_Init(void)
 	
 	/*位置速度控制PID初始化*/
 	Loc_1level_PID_Init();
+
+	/*自定义高度控制PID控制器初始化*/
+	our_height_pid_Init();
 	
 }
 
@@ -81,13 +84,18 @@ void one_key_roll()
 
 // static u16 one_key_taof_start; // 标志位，当其为1，则one_key_take_off_task的任务才会真正启动
 u16 one_key_taof_start;
+
 /*一键起飞任务（主要功能为延迟）*/
+// 主要功能：置位flag.auto_take_off_land，flag.taking_off；
+// 需要条件：1.one_key_taof_start != 0
+//----------2.延时14秒，且电机处于怠速状态
+//----------3.flag.auto_take_off_land = AUTO_TAKE_OFF
 void one_key_take_off_task(u16 dt_ms)
 {
 	if(one_key_taof_start != 0)
 	{
 		one_key_taof_start += dt_ms;
-		
+		// 延时14秒，且电机处于怠速状态，就给flag.auto_take_off_land，flag.taking_off = 1;
 		if(one_key_taof_start > 1400 && flag.motor_preparation == 1)		//1400*10=14000ms=14s 延迟
 		{
 			one_key_taof_start = 0;
@@ -539,7 +547,7 @@ void Flight_Mode_Set(u8 dT_ms)
       {
         DY_Debug_Height_Mode = 1;
         one_key_take_off();
-        // dy_height = 30;
+        dy_height = 30;
       }
       else
       {

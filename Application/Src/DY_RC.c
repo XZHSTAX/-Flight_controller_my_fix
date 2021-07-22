@@ -249,19 +249,19 @@ void fail_safe_check(u8 dT_ms) //dT秒调用一次
 		
 		if(cnt2>=2)
 		{
-			cnt2 = 0;
+			// cnt2 = 0;
 			
-			flag.rc_loss = 1; //认为丢失遥控信号
+			// flag.rc_loss = 1; //认为丢失遥控信号
 			
-			fail_safe();
+			// fail_safe();
 			
-			if(LED_state >115 && LED_state!= 9)
-			{
-				LED_state = 11;
-			}
+			// if(LED_state >115 && LED_state!= 9)
+			// {
+			// 	LED_state = 11;
+			// }
 		
-			if(flag.fly_ready)
-			 flag.auto_take_off_land = AUTO_LAND; //如果解锁，自动降落标记置位
+			// if(flag.fly_ready)
+			//  flag.auto_take_off_land = AUTO_LAND; //如果解锁，自动降落标记置位
 				
 		}
 		else if(cnt2<=-2) //认为信号正常

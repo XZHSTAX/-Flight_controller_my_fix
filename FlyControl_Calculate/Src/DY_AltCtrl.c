@@ -12,6 +12,7 @@
 #include "DY_FlightCtrl.h"
 
 // static s16 auto_taking_off_speed;
+// 起飞时的附加速度，起飞后为0
 s16 auto_taking_off_speed;
 
 /***************高度控制变量初始化***************/
@@ -19,7 +20,15 @@ s16 dy_height = 0;
 
 #define AUTO_TAKE_OFF_KP 2.0f
 ////extern _filter_1_st wz_spe_f1;
-void Auto_Take_Off_Land_Task(u8 dT_ms)//
+// 一键起飞任务，判断标志位，为flag.auto_take_off_land标志位赋值
+// 主要功能: 置位flag.auto_take_off_land;调用one_key_take_off_task
+// 所需条件：1.flag.fly_ready=1
+// ---------2.flag.taking_off = 1
+// ---------3.flag.auto_take_off_land = AUTO_TAKE_OFF_NULL
+// 主要功能： 为auto_taking_off_speed赋值
+// 所需条件：flag.auto_take_off_land ==AUTO_TAKE_OFF
+void Auto_Take_Off_Land_Task(u8 dT_ms)
+
 {
 	static u16 take_off_ok_cnt;
 	
@@ -53,13 +62,12 @@ void Auto_Take_Off_Land_Task(u8 dT_ms)//
 
 /*******************************/
 		
-		auto_taking_off_speed = LIMIT(auto_taking_off_speed,0,300);		//限幅 0~150
+		auto_taking_off_speed = LIMIT(auto_taking_off_speed,0,150);		//限幅 0~150 
 		
 		// 当时间超过25s或者飞行高度与设定高度之差在5cm内，就认为飞机已经起飞
 		if(take_off_ok_cnt>=2500 || (DY_Parame.set.auto_take_off_height - wcz_hei_fus.out <5))//(auto_ref_height>AUTO_TAKE_OFF_HEIGHT)
 		{
 			flag.auto_take_off_land = AUTO_TAKE_OFF_FINISH;
-			
 			
 		}
 		// 如果超过10s，且竖直方向有速度，就认为已经起飞
@@ -75,10 +83,8 @@ void Auto_Take_Off_Land_Task(u8 dT_ms)//
 		
 		if(flag.auto_take_off_land ==AUTO_TAKE_OFF_FINISH)
 		{
-			auto_taking_off_speed = 0;
-			
+			auto_taking_off_speed = 0;	
 		}
-		
 	}
 
 
@@ -117,7 +123,7 @@ void Alt_2level_Ctrl(float dT_s)
 	}
 /*****************************************************/
 	
-	fs.alt_ctrl_speed_set = fs.speed_set_h[Z] + auto_taking_off_speed;
+	fs.alt_ctrl_speed_set = fs.speed_set_h[Z] + auto_taking_off_speed; //一旦flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH， auto_taking_off_speed这一项就等于0，也就是说auto_taking_off_speed只在起飞或者降落过程中使用
 	
 	loc_ctrl_2.fb[Z] = wcz_hei_fus.out;
 	
@@ -137,7 +143,7 @@ void Alt_2level_Ctrl(float dT_s)
 	{
 		if(flag.ct_alt_hold == 1)		//定高悬停		flag.ct_alt_hold标志位由程序控制
 		{
-			PID_calculate( dT_s,            //周期（单位：秒）
+			PID_calculate(dT_s,            //周期（单位：秒）
 						0,				//前馈值
 						loc_ctrl_2.exp[Z],				//期望值（设定值）
 						loc_ctrl_2.fb[Z],			//反馈值（）

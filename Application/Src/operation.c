@@ -33,34 +33,45 @@
 #include "DY_Pid.h"
 
 
-_our_flags our_flags={0,0,0};
+_our_flags our_flags={0,0,1};
+_PID_arg_st our_height_pid;//自定义高度控制PID
+_PID_val_st our_height_pid_val;//自定义高度控制PID数据
+   
+u32 our_delay_times[2] = {0,0};
+//our_delay_times[0]用于起飞延时，计算总时间并降落
+//our_delay_times[1]用于定高悬停计时
 
-u32 our_delay_times[2] = {0};
+float Height_Set = 0.0f; //设定高度值
 
 
+/*******************************************************
+* Function name ：our_take_off
+* Description   : 放入DY_scheduler.c 10ms线程中，延迟10s,模拟摇杆启动一键起飞任务
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
 void our_take_off()
 {   
     if(our_delay_times[0] > 1000)
     {
         CH_N[AUX2] = -210;
-        // DY_Debug_Height_Mode = 1;
-        // one_key_take_off();
-        // dy_height = 30;
+
     }
-    // if(flag.auto_take_off_land != AUTO_TAKE_OFF_FINISH && our_delay_times[0] <200 ) // 10ms*2000  = 20s
-    // {
-    //     DY_Debug_Height_Mode = 1;
-    //     one_key_take_off();
-    //     dy_height = 30;
-    // }
+
 }
-
-
-void our_mission()
+/*******************************************************
+* Function name ：our_mission_updown_repeat
+* Description   : 放入DY_scheduler.c 10ms线程中，延迟fly_time启动一键起飞任务
+                  如果飞机高度在upper_limit和lower_limit之内，每个5s转换方向（先降后升）
+                  如果飞机高度在upper_limit和lower_limit之外，调整速度方向进入阈值
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void our_mission_updown_repeat()
 {
-    if((our_delay_times[0] > 5000) && (flag.auto_take_off_land == 2))
+    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH))
     {
-        if(wcz_hei_fus.out>50.0&&wcz_hei_fus.out<150.0)
+        if(wcz_hei_fus.out>lower_limit&&wcz_hei_fus.out<upper_limit)
         {
             if((our_delay_times[0]%500)==0&&our_flags.UAV_up==0)
             { 
@@ -75,20 +86,89 @@ void our_mission()
             else
                 ;
         }
-        else if(wcz_hei_fus.out<=50.0)
+        else if(wcz_hei_fus.out<=lower_limit)
         {
-            dy_height = 5;
+            dy_height = 10;
         }
-        else if(wcz_hei_fus.out>=150.0)
+        else if(wcz_hei_fus.out>=upper_limit)
         {
-            dy_height = -5;
+            dy_height = -10;
         }
         else
             dy_flag.stop == 1;     
     }
 }
 
+/*******************************************************
+* Function name ：our_mission_height_control
+* Description   : 放入DY_scheduler.c 10ms线程中，定高任务
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void our_mission_height_control()
+{   
+    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
+    {
+        if(our_delay_times[1] <= 1000 )
+        {
+            Height_Set = 50;
+        }
+        else if(our_delay_times[1] > 1000 &&  our_delay_times[1] < 2000)
+        {
+            Height_Set = 100;
+        }
+        else if(our_delay_times[1] > 2000 &&  our_delay_times[1] < 3000)
+        {
+            Height_Set = 150;
+        }
+        else if(our_delay_times[1] > 3000 &&  our_delay_times[1] < 4000)
+        {
+            Height_Set = 50;
+        }
+        else 
+            Height_Set = 100;
+        
+        if(flag.ct_alt_hold)
+        {
+            our_delay_times[1] += 1;
+        }
+        PID_calculate(10e-3f,      //周期（单位：秒）
+                0,				        //前馈值
+                Height_Set,				//期望值（设定值）
+                wcz_hei_     fus.out,	    //反馈值（）
+                &our_height_pid, //PID参数结构体
+                &our_height_pid_val,	//PID数据结构体
+                100,        //积分误差限幅
+                0			//integration limit，积分限幅									
+                );	 
+        dy_height =  our_height_pid_val.out; 
+    }
+}
 
+
+
+/*******************************************************
+* Function name ：our_height_pid_Init
+* Description   : 放入All_PID_Init(void)中，初始化定高控制的PID参数
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void our_height_pid_Init()
+{   
+    our_height_pid.kp = 1.0f;  //比例系数
+    our_height_pid.ki = 3.0f;  //积分系数
+    our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
+    our_height_pid.kd_fb = 0.01f;  //previous_d 微分先行（反馈微分系数）
+    our_height_pid.k_ff = 0.0f;    //前馈系数
+}
+
+
+/*******************************************************
+* Function name ：our_delay_time
+* Description   : 放入DY_scheduler.c 10ms线程中，返回重要标志位给stm32
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
 void our_delay_time()
 {
     static u8 data[] = {6,6,6,6,6,6,6,6};
@@ -106,15 +186,18 @@ void our_delay_time()
         data[7] = (auto_taking_off_speed&0x00ff);
         zigbee_data_Sent(data,sizeof(data));
     }
- //   if(our_delay_times[0]==2000 && our_flags.delaying==0) //10ms*2000 = 20s
- //   {
- //       our_flags.delaying = 1;
- //   }   
 }
 
-void our_landing()
+
+/*******************************************************
+* Function name ：our_landing
+* Description   : 放入DY_scheduler.c 10ms线程中，一键降落任务
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void our_landing() 
 {
-    if(our_delay_times[0] > 18000)
+    if(our_delay_times[0] > fly_land_time)
     {
         one_key_land();
     }

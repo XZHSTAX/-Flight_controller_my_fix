@@ -115,7 +115,7 @@ Drive
 
 
 
-## 代码整体逻辑展示
+## 代码整体逻辑展示 
 
 如图，摘自网络大佬博客，更详细、高清的框图请见大佬公开 [思维导图]: https://www.processon.com/view/link/5d374332e4b0b3e4dcd01d3a
 
@@ -171,7 +171,7 @@ float PID_calculate(float dT_s,            //周期（单位：秒）
 					_PID_arg_st *pid_arg,  //PID参数结构体
 					_PID_val_st *pid_val,  //PID数据结构体
 					float inte_d_lim,      //积分误差限幅
-					float inte_lim		   //integration limit，积分限幅								)
+					float inte_lim		   //integration limit，积分限幅)
 ```
 
 其中`pid_arg`中储存的是如 P,I,D之类的参数；`pid_val`中储存的是如上次的误差，上次的反馈值等在位置式PID中需要用到的储存量。也就是说，给定特定的 arg和val就可组成特定的PID控制器。
@@ -226,6 +226,12 @@ pid_val->fb_d = (feedback - pid_val->feedback_old) *hz;
 //微分 = 期望微分系数 * 期望微分值 - 反馈微分系数 * 反馈微分值	
 differential = (pid_arg->kd_ex *pid_val->exp_d - pid_arg->kd_fb *pid_val->fb_d);
 ```
+$$
+\frac{dx}{dt} = \lim\limits_{t\to 0} \frac{x(t+dt)-x(t)}{dt} = \frac{x(t_2)-x(t_1)}{T} = [x(t_2)-x(t_1)]f
+$$
+
+
+
 ## 5. 位置控制
 
 位置控制环函数为`DY_LocCtrl.c`，主要控制函数如下：
@@ -252,7 +258,31 @@ void Loc_1level_Ctrl(u16 dT_ms,s16 *CH_N)
 
 设定值`CH_N[YAM]`来自遥控器的输入，是偏航角的设定值，但其余两个设定值暂不清楚。
 
-## 7. 电机控制模块
+## 7.  高度环控制
+
+高度环控制由`DY_AltCtrl.c`中的，`Alt_2level_Ctrl`和`Alt_1level_Ctrl`两个函数完成。也是串级控制，内环为速度环，外环为高度环。
+
+<img src="D:\IAR\savelocation\DeYan_UAV\figure\2021-07-22-14-39-05.jpg" alt="2021-07-22-14-39-05" style="zoom: 33%;" />
+
+但是关于设定值`loc_ctrl_2.exp[Z]`却十分奇怪，在`flag.taking_off != 1`时，他被赋值为反馈值`loc_ctrl_2.fb[Z]`；
+
+如果`flag.taking_off = 1`，且`flag.ct_alt_hold != 1`，那么`loc_ctrl_2.exp[Z] = loc_ctrl_2.fb[Z] + alt_val_2.err`。但此时因为没有进入PID环节，`alt_val_2.err`就是为0，所以设定值仍然等于反馈值。
+
+<img src="figure\2021-07-22-15-57-56.jpg" alt="2021-07-22-15-57-56" style="zoom:50%;" />
+
+这里表达的意思是，若飞机未进入定高悬停状态`flag.ct_alt_hold=0`，则高度环的主控制器不起作用，高度环控制器输出为0。当进入定高悬停状态时，则`loc_ctrl_2.exp[Z]`等于当前的高度值，高度环控制器开始工作，使得高度得到控制。
+
+这里，进入定高的条件是高度速度环的反馈值和期望值接近。也就是说，飞机在最开始起飞时，是没有高度控制器的，只有速度控制器；当速度接近设定值时，高度控制器才投入运行，保持当前的飞行高度。
+
+因此，想要无人机定高飞行，只需要修改`loc_ctrl_2.exp[Z]`即可达到目的。
+
+### 高度速度环控制
+
+其实本身没有什么好说的，但其设定值还是有点东西。下面这个框图可以说明。
+
+
+
+## 8. 电机控制模块
 
 ### 初始化与判断
 
@@ -446,3 +476,7 @@ typedef struct
 7.20 1：完成了一键起飞的任务，并且添加了zigbee回传标志位的功能。新建飞行日志文件夹，存放每次飞行时的记录。
 
 2：phs的高度飞行设计完成，添加了飞行高度`tof_height_mm`的回传，添加了飞行日志，随着数据可以回传，我们的进度有所加快。下一步预计进行前后作用的控制。
+
+---
+
+7.22：今天完成了定高任务，完成区域定高，取消遥控器控制。下一步测试X、Y方向的运动，回传高度融合数据。

@@ -18,9 +18,9 @@
 
 enum
 {
-      AUTO_TAKE_OFF_NULL = 0,
+      AUTO_TAKE_OFF_NULL = 0,   // 一键起飞状态未开启
       AUTO_TAKE_OFF,            //一键起飞
-      AUTO_TAKE_OFF_FINISH,
+      AUTO_TAKE_OFF_FINISH,     // 已经完成一键起飞
       AUTO_LAND,                //一键降落
 };
 
@@ -158,7 +158,7 @@ typedef struct
       u8 taking_off; //起飞
       u8 set_yaw;
       u8 ct_loc_hold;
-      u8 ct_alt_hold;
+      u8 ct_alt_hold; // 定高悬停标志位，当垂直速度期望值和反馈值差<20 时，其被置位
 
 
       //飞行状态
