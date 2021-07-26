@@ -136,6 +136,7 @@ static void Loop_100Hz(void)	//10ms执行一次
 
 	our_landing();
 
+	// our_square_trajectory();
     our_mission_height_control();
 	// our_mission_updown_repeat();
     //////////////////////////////////////////////////////////////////////		
@@ -178,7 +179,6 @@ static sched_task_t sched_tasks[] =
 
 //根据数组长度，判断线程数量
 #define TASK_NUM (sizeof(sched_tasks)/sizeof(sched_task_t))
-
 
 // 初始化sched_tasks结构体，即初始化任务表
 void Scheduler_Setup(void)

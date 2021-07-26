@@ -383,21 +383,35 @@ void zigbee_data_process(u8 data,u8 data_story[],u8 i)
 void zigbee_data_Sent(u8 data[],u8 size_of_data)
 {
   u8 data_processed[20]={0};
-  u8 i=0;
+  u8 i,j=0;
   data_processed[0] = 0xfe;
   data_processed[1] = size_of_data+4;
   data_processed[2] = 0x91;
   data_processed[3] = 0x90;
   data_processed[4] = 0x3e;
   data_processed[5] = 0x49;
-  for(i=6;i<6+size_of_data;i++)
+
+  for(i=6,j=0;i<6+size_of_data;i++,j++)
   {
-    if(data[i-6] == 0xff || data[i-6] == 0xfe) // 偷个懒，如果出现需要转义的字符，就不转义，直接换为0xfd
+    if(data[j] == 0xff ) 
     {
-      data[i-6] = 0xfd;
+      data_processed[i] = 0xfe;
+      i++;
+      data_processed[i] = 0xfd;
+      size_of_data++;
     }
-    data_processed[i] = data[i-6];
-  }
+    else if(data[j] == 0xfe ) 
+    {
+      data_processed[i] = 0xfe;
+      i++;
+      data_processed[i] = 0xfc;
+    size_of_data++;
+    }
+    else
+    {
+      data_processed[i] = data[j]; 
+    }   
+  } 
   data_processed[i] = 0xFF;
   
   for(i=0;i<7+size_of_data;i++)

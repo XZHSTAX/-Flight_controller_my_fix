@@ -31,22 +31,31 @@
 #include "DY_MotionCal.h"
 #include "DY_Navigate.h"
 #include "DY_Pid.h"
+#include "DY_Flight_Log.h"
 
 
 _our_flags our_flags={0,0,1};
 _PID_arg_st our_height_pid;//自定义高度控制PID
 _PID_val_st our_height_pid_val;//自定义高度控制PID数据
    
-u32 our_delay_times[2] = {0,0};
+u32 our_delay_times[4] = {0,0,0,0};
 //our_delay_times[0]用于起飞延时，计算总时间并降落
 //our_delay_times[1]用于定高悬停计时
+//our_delay_times[2]用于矩形轨迹跟踪
 
 float Height_Set = 0.0f; //设定高度值
 
+union float_data
+{
+    float wcz_hei_fus;
+    uint8_t wcz_hei_fus_Byte[4];
+};
+union float_data data1_hei;
 
 /*******************************************************
 * Function name ：our_take_off
 * Description   : 放入DY_scheduler.c 10ms线程中，延迟10s,模拟摇杆启动一键起飞任务
+                  当起飞成功后开始计时
 * Parameter     ：None
 * Return        ：None
 **********************************************************/
@@ -55,7 +64,10 @@ void our_take_off()
     if(our_delay_times[0] > 1000)
     {
         CH_N[AUX2] = -210;
-
+    }
+    if(flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH)
+    {
+        our_delay_times[2] += 1;
     }
 
 }
@@ -109,19 +121,19 @@ void our_mission_height_control()
 {   
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
-        if(our_delay_times[1] <= 1000 )
+        if(our_delay_times[3] <= 1000 )
         {
             Height_Set = 50;
         }
-        else if(our_delay_times[1] > 1000 &&  our_delay_times[1] < 2000)
+        else if(our_delay_times[3] > 1000 &&  our_delay_times[3] < 2000)
         {
             Height_Set = 100;
         }
-        else if(our_delay_times[1] > 2000 &&  our_delay_times[1] < 3000)
+        else if(our_delay_times[3] > 2000 &&  our_delay_times[3] < 3000)
         {
             Height_Set = 150;
         }
-        else if(our_delay_times[1] > 3000 &&  our_delay_times[1] < 4000)
+        else if(our_delay_times[3] > 3000 &&  our_delay_times[3] < 4000)
         {
             Height_Set = 50;
         }
@@ -135,13 +147,14 @@ void our_mission_height_control()
         PID_calculate(10e-3f,      //周期（单位：秒）
                 0,				        //前馈值
                 Height_Set,				//期望值（设定值）
-                wcz_hei_     fus.out,	    //反馈值（）
+                wcz_hei_fus.out,	    //反馈值（）
                 &our_height_pid, //PID参数结构体
                 &our_height_pid_val,	//PID数据结构体
                 100,        //积分误差限幅
                 0			//integration limit，积分限幅									
                 );	 
         dy_height =  our_height_pid_val.out; 
+        our_delay_times[3] += 1;
     }
 }
 
@@ -156,7 +169,7 @@ void our_mission_height_control()
 void our_height_pid_Init()
 {   
     our_height_pid.kp = 1.0f;  //比例系数
-    our_height_pid.ki = 3.0f;  //积分系数
+    our_height_pid.ki = 2.0f;  //积分系数
     our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
     our_height_pid.kd_fb = 0.01f;  //previous_d 微分先行（反馈微分系数）
     our_height_pid.k_ff = 0.0f;    //前馈系数
@@ -171,7 +184,7 @@ void our_height_pid_Init()
 **********************************************************/
 void our_delay_time()
 {
-    static u8 data[] = {6,6,6,6,6,6,6,6};
+    static u8 data[] = {6,6,6,6,6,6,6,6,6,6,6,6};
     our_delay_times[0] += 1;
 
     if(our_delay_times[0] %25 == 0) // 10ms*25=250ms=0.25s
@@ -184,7 +197,63 @@ void our_delay_time()
         data[5] = tof_height_mm&0x00ff;
         data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
         data[7] = (auto_taking_off_speed&0x00ff);
-        zigbee_data_Sent(data,sizeof(data));
+
+        // data1_hei.wcz_hei_fus = wcz_hei_fus.out;
+        // data[8] = data1_hei.wcz_hei_fus_Byte[0];
+        // data[9] = data1_hei.wcz_hei_fus_Byte[1];
+        // data[10] = data1_hei.wcz_hei_fus_Byte[2];
+        // data[11] = data1_hei.wcz_hei_fus_Byte[3];
+        // zigbee_data_Sent(data,sizeof(data));
+        zigbee_data_Sent(data,sizeof(data)-4);
+    }
+}
+
+/*******************************************************
+* Function name ：square_trajectory
+* Description   : 放入DY_scheduler.c 10ms线程中，测试矩形轨迹飞行
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void our_square_trajectory()
+{
+    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
+    {
+        if(wcz_hei_fus.out>lower_limit&&wcz_hei_fus.out<upper_limit)
+        {
+            dy_height = 0;
+            if(our_delay_times[2] <= 1000 )
+            {
+                dy_rol = 0;
+                dy_pit = 5;
+            }
+            if(our_delay_times[2] <= 2000 )
+            {
+                dy_pit = 0;
+                dy_rol = 5;
+            }
+            if(our_delay_times[2] <= 3000 )
+            {
+                dy_rol = 0;
+                dy_pit = -5;
+            }
+            if(our_delay_times[2] <= 4000 )
+            {
+                dy_pit = 0;
+                dy_rol = -5;
+            }
+            else 
+                our_delay_times[2] = 0;
+        }
+        else if(wcz_hei_fus.out<=lower_limit)
+        {
+            dy_height = 10;
+        }
+        else if(wcz_hei_fus.out>=upper_limit)
+        {
+            dy_height = -10;
+        }
+        else
+            dy_flag.stop == 1;     
     }
 }
 
