@@ -39,7 +39,7 @@ u32 test_dT_1000hz[3];
 // [4] 执行完Loop_1000Hz的时刻
 // [5] 本次执行Loop_1000Hz的时长
 u32 test_rT[6];
-
+u8  counter_for_25ms = 0;
 static void Loop_1000Hz(void)	//1ms执行一次
 { 
 	test_dT_1000hz[0] = test_dT_1000hz[1];
@@ -85,7 +85,31 @@ static void Loop_500Hz(void)	//2ms执行一次
 
 static void Loop_200Hz(void)	//5ms执行一次
 {
-	
+	static u8 data[] = {6,6,6,6,6,6,6,6};
+	if(counter_for_25ms<5)
+	{
+		counter_for_25ms++;
+	}
+	else
+	{
+		counter_for_25ms=0;	    
+        data[0] = flag.fly_ready;
+        data[1] = flag.taking_off;
+        data[2] = flag.auto_take_off_land;//one_key_taof_start
+        data[3] = one_key_taof_start;
+        data[4] = (tof_height_mm&0xff00)>>8;
+        data[5] = tof_height_mm&0x00ff;
+        data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
+        data[7] = (auto_taking_off_speed&0x00ff);
+
+        // data1_hei.wcz_hei_fus = wcz_hei_fus.out;
+        // data[8] = data1_hei.wcz_hei_fus_Byte[0];
+        // data[9] = data1_hei.wcz_hei_fus_Byte[1];
+        // data[10] = data1_hei.wcz_hei_fus_Byte[2];
+        // data[11] = data1_hei.wcz_hei_fus_Byte[3];
+        // zigbee_data_Sent(data,sizeof(data));
+        zigbee_data_Sent(data,sizeof(data));
+	}
 }
 
 static void Loop_100Hz(void)	//10ms执行一次
@@ -136,8 +160,8 @@ static void Loop_100Hz(void)	//10ms执行一次
 
 	our_landing();
 
-	// our_square_trajectory();
-    our_mission_height_control();
+	our_square_trajectory();
+    // our_mission_height_control();
 	// our_mission_updown_repeat();
     //////////////////////////////////////////////////////////////////////		
     test_rT[1]= GetSysTime_us();

@@ -31,7 +31,7 @@ void PID_Rest()
 //---	姿态控制角度环PID参数
 	DY_Parame.set.pid_att_2level[ROL][KP] = 5.0f;   //姿态控制角度环PID参数
 	DY_Parame.set.pid_att_2level[ROL][KI] = 3.0f;   //姿态控制角度环PID参数
-	DY_Parame.set.pid_att_2level[ROL][KD] = 1.f;    //姿态控制角度环PID参数
+	DY_Parame.set.pid_att_2level[ROL][KD] = 0.5f;    //姿态控制角度环PID参数
 	
 	DY_Parame.set.pid_att_2level[PIT][KP] = 5.0f;   //姿态控制角度环PID参数
 	DY_Parame.set.pid_att_2level[PIT][KI] = 3.0f;   //姿态控制角度环PID参数
@@ -53,9 +53,9 @@ void PID_Rest()
 	DY_Parame.set.pid_loc_1level[KI] = 1.f;       //位置控制位置速度环PID参数    0.1
 	DY_Parame.set.pid_loc_1level[KD] = 0.02f;      //位置控制位置速度环PID参数
 //---	位置控制位置环PID参数
-	DY_Parame.set.pid_loc_2level[KP] = 4.0f;           //位置控制位置环PID参数
-	DY_Parame.set.pid_loc_2level[KI] = 2.0f;           //位置控制位置环PID参数
-	DY_Parame.set.pid_loc_2level[KD] = 1.0f;           //位置控制位置环PID参数
+	DY_Parame.set.pid_loc_2level[KP] = 3.0f;           //位置控制位置环PID参数
+	DY_Parame.set.pid_loc_2level[KI] = 1.5f;           //位置控制位置环PID参数
+	DY_Parame.set.pid_loc_2level[KD] = 0.5f;           //位置控制位置环PID参数
 
 	// DY_DT_SendString("PID reset!",sizeof("PID reset!"));
 }

@@ -65,11 +65,6 @@ void our_take_off()
     {
         CH_N[AUX2] = -210;
     }
-    if(flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH)
-    {
-        our_delay_times[2] += 1;
-    }
-
 }
 /*******************************************************
 * Function name ：our_mission_updown_repeat
@@ -142,7 +137,7 @@ void our_mission_height_control()
         
         if(flag.ct_alt_hold)
         {
-            our_delay_times[1] += 1;
+            our_delay_times[1] += 1;//暂时有问题，用our_delay_times[3]代替
         }
         PID_calculate(10e-3f,      //周期（单位：秒）
                 0,				        //前馈值
@@ -184,28 +179,28 @@ void our_height_pid_Init()
 **********************************************************/
 void our_delay_time()
 {
-    static u8 data[] = {6,6,6,6,6,6,6,6,6,6,6,6};
+    // static u8 data[] = {6,6,6,6,6,6,6,6};
     our_delay_times[0] += 1;
 
-    if(our_delay_times[0] %25 == 0) // 10ms*25=250ms=0.25s
-    {
-        data[0] = flag.fly_ready;
-        data[1] = flag.taking_off;
-        data[2] = flag.auto_take_off_land;//one_key_taof_start
-        data[3] = one_key_taof_start;
-        data[4] = (tof_height_mm&0xff00)>>8;
-        data[5] = tof_height_mm&0x00ff;
-        data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
-        data[7] = (auto_taking_off_speed&0x00ff);
+    // if(our_delay_times[0] %25 == 0) // 10ms*25=250ms=0.25s
+    // {
+    //     data[0] = flag.fly_ready;
+    //     data[1] = flag.taking_off;
+    //     data[2] = flag.auto_take_off_land;//one_key_taof_start
+    //     data[3] = one_key_taof_start;
+    //     data[4] = (tof_height_mm&0xff00)>>8;
+    //     data[5] = tof_height_mm&0x00ff;
+    //     data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
+    //     data[7] = (auto_taking_off_speed&0x00ff);
 
-        // data1_hei.wcz_hei_fus = wcz_hei_fus.out;
-        // data[8] = data1_hei.wcz_hei_fus_Byte[0];
-        // data[9] = data1_hei.wcz_hei_fus_Byte[1];
-        // data[10] = data1_hei.wcz_hei_fus_Byte[2];
-        // data[11] = data1_hei.wcz_hei_fus_Byte[3];
-        // zigbee_data_Sent(data,sizeof(data));
-        zigbee_data_Sent(data,sizeof(data)-4);
-    }
+    //     // data1_hei.wcz_hei_fus = wcz_hei_fus.out;
+    //     // data[8] = data1_hei.wcz_hei_fus_Byte[0];
+    //     // data[9] = data1_hei.wcz_hei_fus_Byte[1];
+    //     // data[10] = data1_hei.wcz_hei_fus_Byte[2];
+    //     // data[11] = data1_hei.wcz_hei_fus_Byte[3];
+    //     // zigbee_data_Sent(data,sizeof(data));
+    //     zigbee_data_Sent(data,sizeof(data));
+    // }
 }
 
 /*******************************************************
@@ -218,29 +213,31 @@ void our_square_trajectory()
 {
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
-        if(wcz_hei_fus.out>lower_limit&&wcz_hei_fus.out<upper_limit)
+        if(wcz_hei_fus.out>lower_limit && wcz_hei_fus.out<upper_limit)
         {
+            DY_Debug_Mode = 1;
+            our_delay_times[2] += 1;
             dy_height = 0;
-            if(our_delay_times[2] <= 1000 )
-            {
+            if(our_delay_times[2] <= 400 )
+            {   
                 dy_rol = 0;
-                dy_pit = 5;
+                dy_pit = 25;
             }
-            if(our_delay_times[2] <= 2000 )
+            else if(our_delay_times[2] <= 800 )
             {
-                dy_pit = 0;
-                dy_rol = 5;
-            }
-            if(our_delay_times[2] <= 3000 )
-            {
+                dy_pit = -25;
                 dy_rol = 0;
-                dy_pit = -5;
             }
-            if(our_delay_times[2] <= 4000 )
-            {
-                dy_pit = 0;
-                dy_rol = -5;
-            }
+            // else if(our_delay_times[2] <= 100 )
+            // {
+            //     dy_rol = 0;
+            //     dy_pit = -20;
+            // }
+            // else if(our_delay_times[2] <= 1600 )
+            // {
+            //     dy_pit = 0;
+            //     dy_rol = -20;
+            // }
             else 
                 our_delay_times[2] = 0;
         }
@@ -255,6 +252,7 @@ void our_square_trajectory()
         else
             dy_flag.stop == 1;     
     }
+
 }
 
 

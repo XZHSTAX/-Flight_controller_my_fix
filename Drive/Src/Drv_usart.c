@@ -244,7 +244,7 @@ void UART4_IRQHandler(void)
 //    {
       comdata = (u8)MAP_UARTCharGet(UART4_BASE);
       // DY_OF_GetOneByte(comdata);
-      MAP_UARTCharPut(UART4_BASE, comdata);
+      // MAP_UARTCharPut(UART4_BASE, comdata);
       if(comdata != 0xff)
       {
         zigbee_data_process(comdata,data_brake,counter);
@@ -252,10 +252,10 @@ void UART4_IRQHandler(void)
       }
       else
       {
-        for(i=0;i<counter;i++)
-        {
-          MAP_UARTCharPut(UART4_BASE,data_brake[i]);
-        }
+        // for(i=0;i<counter;i++)
+        // {
+        //   MAP_UARTCharPut(UART4_BASE,data_brake[i]);
+        // }
         if(data_brake[6] == 0x66)
         {
           Uart4_Send(Wanning,sizeof(Wanning));
@@ -379,7 +379,6 @@ void zigbee_data_process(u8 data,u8 data_story[],u8 i)
 }
 
 // 用于发送一些数据，data是要发送的数据，size_of_data是数据个数,会直接通过串口4，然后zigbee发给32
-// 注意data 中不可以有ff或fe(没做转义)
 void zigbee_data_Sent(u8 data[],u8 size_of_data)
 {
   u8 data_processed[20]={0};
