@@ -33,7 +33,7 @@
 #include "DY_Pid.h"
 #include "DY_Flight_Log.h"
 
-#define height_control_mode 0
+#define height_change_control_mode 0
 _our_flags our_flags={0,0,1};
 _PID_arg_st our_height_pid;//自定义高度控制PID
 _PID_val_st our_height_pid_val;//自定义高度控制PID数据
@@ -120,7 +120,7 @@ void our_mission_updown_repeat()
 **********************************************************/
 void our_mission_height_control()
 {   
-    #if height_control_mode
+    #if height_change_control_mode
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
         if(our_delay_times[3] <= 1000 )
