@@ -11,7 +11,7 @@ typedef struct{
 }_our_flags;
 extern _our_flags our_flags;
 
-#define fly_time 2000 //2000*10ms = 20s起飞延迟时间
+#define fly_time 1600 //1600*10ms = 16s起飞延迟时间
 #define fly_land_time 9000 //9000*10ms = 90s降落延迟时间
 #define upper_limit 140 //140cm
 #define lower_limit 50  //50cm 

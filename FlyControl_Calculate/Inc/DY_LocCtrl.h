@@ -22,6 +22,7 @@ extern _loc_ctrl_st loc_ctrl_2;
 
 extern _PID_arg_st loc_arg_1[] ; 
 extern _PID_val_st loc_val_1[] ; 
+extern u8 I_want_OP_work;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 

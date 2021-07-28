@@ -65,11 +65,11 @@ void our_take_off()
     {
         CH_N[AUX2] = -210;
     }
-    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH))
-    {
-        MAP_UARTCharPut(UART4_BASE, 'H');
-        DY_Debug_Mode = 1;
-    }
+    // if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH))
+    // {
+    //     MAP_UARTCharPut(UART4_BASE, 'H');
+    //     DY_Debug_Mode = 1;
+    // }
 }
 
 /*******************************************************
@@ -120,7 +120,7 @@ void our_mission_updown_repeat()
 **********************************************************/
 void our_mission_height_control()
 {   
-    #if height_change_control_mode
+#if height_change_control_mode
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
         if(our_delay_times[3] <= 1000 )
@@ -158,7 +158,7 @@ void our_mission_height_control()
         dy_height =  our_height_pid_val.out; 
         our_delay_times[3] += 1;
     }
-    #else
+#else
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
         Height_Set = 130;
@@ -172,8 +172,15 @@ void our_mission_height_control()
                 0			//integration limit，积分限幅									
                 );	 
         dy_height =  our_height_pid_val.out; 
+        if((ABS(Height_Set - wcz_hei_fus.out)<20) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) )
+        {
+            MAP_UARTCharPut(UART4_BASE, 'H');
+            DY_Debug_Mode = 1;
+            DY_Debug_Yaw_Mode = 1;
+            // I_want_OP_work = 0;
+        }
     }
-    #endif
+#endif
 }
 
 

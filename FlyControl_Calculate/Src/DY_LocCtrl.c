@@ -19,6 +19,8 @@ _PID_arg_st loc_arg_1_fix[2] ;
 //位置速度环修正控制数据
 _PID_val_st loc_val_1_fix[2] ; 
 
+u8 I_want_OP_work = 1;
+
 /*角度环PID参数初始化*/
 void Loc_1level_PID_Init()
 {
@@ -44,7 +46,7 @@ static float fb_speed_fix[2];
 /*位置速度环*/
 void Loc_1level_Ctrl(u16 dT_ms,s16 *CH_N)
 {
-	if(switchs.of_flow_on || switchs.dy_opticalflow_on || switchs.dy_pmw3901_on)		//光流数据有效
+	if((I_want_OP_work) && (switchs.of_flow_on || switchs.dy_opticalflow_on || switchs.dy_pmw3901_on))		//光流数据有效
 	{
 
 		loc_ctrl_1.exp[X] = fs.speed_set_h[X];

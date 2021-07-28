@@ -53,19 +53,19 @@ void DY_Flight_Control(void)
 	{
 		dy_flag.up = 0;
 		
-		dy_height = dy_ov_height;
+		// dy_height = dy_ov_height;
 	}
 	if(dy_flag.down == 1)
 	{
 		dy_flag.down = 0;
 		
-		dy_height = -(dy_ov_height);
+		// dy_height = -(dy_ov_height);
 	}
 	if(dy_flag.stop == 1)
 	{
 		dy_flag.stop = 0;
 		
-		dy_height = 0;
+		// dy_height = 0;
 		dy_pit = 0;
 		dy_rol = 0;
 		dy_yaw = 0.0f;
@@ -74,7 +74,7 @@ void DY_Flight_Control(void)
 	{
 		dy_flag.land = 0;
 		
-		dy_height = 0;
+		// dy_height = 0;
 		dy_pit = 0;
 		dy_rol = 0;
 		dy_yaw = 0.0f;
