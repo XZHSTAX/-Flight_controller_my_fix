@@ -18,11 +18,11 @@ void PID_Rest()
 {
 //---	姿态控制角速度环PID参数
 	DY_Parame.set.pid_att_1level[ROL][KP] = 3.5f;   //姿态控制角速度环PID参数
-	DY_Parame.set.pid_att_1level[ROL][KI] = 2.0f;      //姿态控制角速度环PID参数
+	DY_Parame.set.pid_att_1level[ROL][KI] = 0.0f;      //姿态控制角速度环PID参数
 	DY_Parame.set.pid_att_1level[ROL][KD] = 0.1f;   //姿态控制角速度环PID参数
 	
 	DY_Parame.set.pid_att_1level[PIT][KP] = 3.5f;   //姿态控制角速度环PID参数
-	DY_Parame.set.pid_att_1level[PIT][KI] = 2.0f;      //姿态控制角速度环PID参数
+	DY_Parame.set.pid_att_1level[PIT][KI] = 0.0f;      //姿态控制角速度环PID参数
 	DY_Parame.set.pid_att_1level[PIT][KD] = 0.1f;   //姿态控制角速度环PID参数
 	
 	DY_Parame.set.pid_att_1level[YAW][KP] = 4.0f;   //姿态控制角速度环PID参数
@@ -46,7 +46,7 @@ void PID_Rest()
 	DY_Parame.set.pid_alt_1level[KD] = 0.05f;       //高度控制高度速度环PID参数
 //---	高度控制高度环PID参数
 	DY_Parame.set.pid_alt_2level[KP] = 1.0f;        //高度控制高度环PID参数
-	DY_Parame.set.pid_alt_2level[KI] = 0;           //高度控制高度环PID参数
+	DY_Parame.set.pid_alt_2level[KI] = 0.5f;           //高度控制高度环PID参数
 	DY_Parame.set.pid_alt_2level[KD] = 0;           //高度控制高度环PID参数
 //---	位置控制位置速度环PID参数	
 	DY_Parame.set.pid_loc_1level[KP] = 2.f;       //位置控制位置速度环PID参数    0.2

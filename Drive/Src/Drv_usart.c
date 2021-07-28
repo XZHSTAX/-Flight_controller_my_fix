@@ -11,6 +11,7 @@
 #include "DY_Tracking.h"
 #include "DY_FcData.h"
 
+#define UART4_WORK_MODE 1
 extern _flag flag;
 u8 counter=0;
 u8 data_brake[20] ={0};
@@ -225,16 +226,16 @@ void UART4_IRQHandler(void)
 {
   u32 uart4_status;
   u8 comdata;
-  u8 i=0;
   
   uart4_status = MAP_UARTIntStatus(UART4_BASE, true);
   
   if(uart4_status == 0x00000030)        //错误处理
   {
     comdata = (u8)MAP_UARTCharGet(UART4_BASE);
-    
+    DY_Tracking_Data_Receive_Prepare(comdata);
   }
   
+  #if UART4_WORK_MODE
   if(uart4_status == UART_INT_RX)
   {
 //    MAP_UARTIntClear(UART4_BASE, uart4_status);
@@ -243,34 +244,18 @@ void UART4_IRQHandler(void)
 //    while(MAP_UARTCharsAvail(UART4_BASE))
 //    {
       comdata = (u8)MAP_UARTCharGet(UART4_BASE);
-      // DY_OF_GetOneByte(comdata);
-      // MAP_UARTCharPut(UART4_BASE, comdata);
-      if(comdata != 0xff)
-      {
-        zigbee_data_process(comdata,data_brake,counter);
-        counter++;
-      }
-      else
-      {
-        // for(i=0;i<counter;i++)
-        // {
-        //   MAP_UARTCharPut(UART4_BASE,data_brake[i]);
-        // }
-        if(data_brake[6] == 0x66)
-        {
-          Uart4_Send(Wanning,sizeof(Wanning));
-          flag.fly_ready = 0;
-          Uart4_Send(Note,sizeof(Note));
-          MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
-        }
-        MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
-        counter = 0;
-      }
-      
-      // MAP_UARTCharPut(UART4_BASE,comdata);
+      DY_Tracking_Data_Receive_Prepare(comdata);
       
 //    }
   }
+  #else
+  if(uart4_status == UART_INT_RX)
+  {
+
+      comdata = (u8)MAP_UARTCharGet(UART4_BASE);
+      MAP_UARTCharPut(UART4_BASE,comdata);    
+  }
+  #endif
   if(uart4_status == UART_INT_TX)
   {
 //    MAP_UARTIntClear(UART4_BASE, uart4_status);
@@ -282,6 +267,68 @@ void UART4_IRQHandler(void)
     }
   }
 }
+
+// void UART4_IRQHandler(void)
+// {
+//   u32 uart4_status;
+//   u8 comdata;
+//   u8 i=0;
+  
+//   uart4_status = MAP_UARTIntStatus(UART4_BASE, true);
+  
+//   if(uart4_status == 0x00000030)        //错误处理
+//   {
+//     comdata = (u8)MAP_UARTCharGet(UART4_BASE);
+    
+//   }
+  
+//   if(uart4_status == UART_INT_RX)
+//   {
+// //    MAP_UARTIntClear(UART4_BASE, uart4_status);
+    
+//     /*****接收中断服务函数*****/
+// //    while(MAP_UARTCharsAvail(UART4_BASE))
+// //    {
+//       comdata = (u8)MAP_UARTCharGet(UART4_BASE);
+//       // DY_OF_GetOneByte(comdata);
+//       // MAP_UARTCharPut(UART4_BASE, comdata);
+//       if(comdata != 0xff)
+//       {
+//         zigbee_data_process(comdata,data_brake,counter);
+//         counter++;
+//       }
+//       else
+//       {
+//         // for(i=0;i<counter;i++)
+//         // {
+//         //   MAP_UARTCharPut(UART4_BASE,data_brake[i]);
+//         // }
+//         if(data_brake[6] == 0x66)
+//         {
+//           Uart4_Send(Wanning,sizeof(Wanning));
+//           flag.fly_ready = 0;
+//           Uart4_Send(Note,sizeof(Note));
+//           MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
+//         }
+//         MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
+//         counter = 0;
+//       }
+      
+//       // MAP_UARTCharPut(UART4_BASE,comdata);
+      
+// //    }
+//   }
+//   if(uart4_status == UART_INT_TX)
+//   {
+// //    MAP_UARTIntClear(UART4_BASE, uart4_status);
+//     /*****发送中断服务函数*****/
+//     MAP_UARTCharPut(UART4_BASE, Tx4Buffer[Tx4Counter++]);
+//     if(Tx4Counter == count4)
+//     {
+//       MAP_UARTIntDisable(UART4_BASE,UART_INT_TX);
+//     }
+//   }
+// }
 
 void Uart4_Send(u8 *DataToSend, u8 data_num)
 {
@@ -345,7 +392,8 @@ void UART5_IRQHandler(void)
 //    while(MAP_UARTCharsAvail(UART5_BASE))
 //    {
       comdata = (u8)MAP_UARTCharGet(UART5_BASE);
-      
+      MAP_UARTCharPut(UART5_BASE, 0x66);
+      MAP_UARTCharPut(UART5_BASE, comdata);
 //    }
   }
   if(uart5_status == UART_INT_TX)

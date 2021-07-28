@@ -47,7 +47,8 @@ void DY_Tracking_Data_Receive_Prepare(u8 data)
 }
 
 void DY_Tracking_DataAnl(uint8_t *data_buf,uint8_t num)
-{
+{	
+
 	u8 sum = 0;
 	for(u8 i=0;i<(num-1);i++)
 		sum += *(data_buf+i);

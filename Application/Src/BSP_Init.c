@@ -60,13 +60,13 @@ u8 All_Init()
     sens_hd_check.baro_ok = Drv_Spl0601_Init();       		//SPL0601初始化，若初始化成功，则将气压计的初始化成功标志位赋值
     
 
-    MAP_UARTCharPut(UART3_BASE, 0x63);  //UART3中断发送数据初始化（无效数据）
-    Uart4_Init(115200);                 //光流模块
+    MAP_UARTCharPut(UART3_BASE, 0x03);  //UART3中断发送数据初始化（无效数据）
+    Uart4_Init(500000);                 //光流模块
     Delay_ms(10);
-    MAP_UARTCharPut(UART4_BASE, 0x64);  //UART4中断发送数据初始化（无效数据）
-    Uart5_Init(115200);                 //OpenMv
+    MAP_UARTCharPut(UART4_BASE, 0x04);  //UART4中断发送数据初始化（无效数据）
+    Uart5_Init(500000);                 //OpenMv
     Delay_ms(10);
-    MAP_UARTCharPut(UART5_BASE, 0x65);  //UART5中断发送数据初始化（无效数据）
+    MAP_UARTCharPut(UART5_BASE, 0x05);  //UART5中断发送数据初始化（无效数据）
     
     I2C_Soft_Init();          		    //I2C初始化，飞控外接VL53L0X激光测距模块，使用I2C通信
     Drv_Vl53_Init();          		    //TOF传感器初始化，使用VL53L0X激光测距模块

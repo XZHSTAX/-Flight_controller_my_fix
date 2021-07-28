@@ -33,7 +33,7 @@
 #include "DY_Pid.h"
 #include "DY_Flight_Log.h"
 
-
+#define height_control_mode 0
 _our_flags our_flags={0,0,1};
 _PID_arg_st our_height_pid;//自定义高度控制PID
 _PID_val_st our_height_pid_val;//自定义高度控制PID数据
@@ -65,7 +65,13 @@ void our_take_off()
     {
         CH_N[AUX2] = -210;
     }
+    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH))
+    {
+        MAP_UARTCharPut(UART4_BASE, 'H');
+        DY_Debug_Mode = 1;
+    }
 }
+
 /*******************************************************
 * Function name ：our_mission_updown_repeat
 * Description   : 放入DY_scheduler.c 10ms线程中，延迟fly_time启动一键起飞任务
@@ -114,6 +120,7 @@ void our_mission_updown_repeat()
 **********************************************************/
 void our_mission_height_control()
 {   
+    #if height_control_mode
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
         if(our_delay_times[3] <= 1000 )
@@ -151,6 +158,22 @@ void our_mission_height_control()
         dy_height =  our_height_pid_val.out; 
         our_delay_times[3] += 1;
     }
+    #else
+    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
+    {
+        Height_Set = 130;
+        PID_calculate(10e-3f,      //周期（单位：秒）
+                0,				        //前馈值
+                Height_Set,				//期望值（设定值）
+                wcz_hei_fus.out,	    //反馈值（）
+                &our_height_pid, //PID参数结构体
+                &our_height_pid_val,	//PID数据结构体
+                100,        //积分误差限幅
+                0			//integration limit，积分限幅									
+                );	 
+        dy_height =  our_height_pid_val.out; 
+    }
+    #endif
 }
 
 

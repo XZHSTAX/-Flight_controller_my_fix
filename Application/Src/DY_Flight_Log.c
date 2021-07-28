@@ -6,6 +6,7 @@
 #include "DY_FlightCtrl.h"
 #include "DY_Math.h"
 #include "Drv_time.h"
+#include "Drv_usart.h"
 
 _DY_flag dy_flag;
 u8 DY_ControlConvert_Tracking_Flag=1;
