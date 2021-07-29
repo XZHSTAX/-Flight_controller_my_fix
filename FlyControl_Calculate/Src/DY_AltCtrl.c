@@ -17,7 +17,7 @@ s16 auto_taking_off_speed;
 
 /***************高度控制变量初始化***************/
 s16 dy_height = 0;
-
+#define USE_SYETEM_HEIGH_CONTROL 0
 #define AUTO_TAKE_OFF_KP 2.0f
 ////extern _filter_1_st wz_spe_f1;
 // 一键起飞任务，判断标志位，为flag.auto_take_off_land标志位赋值
@@ -138,11 +138,12 @@ void Alt_2level_Ctrl(float dT_s)
 			flag.ct_alt_hold = 1;
 		}
 	}
-
+#if USE_SYETEM_HEIGH_CONTROL
 	if(flag.taking_off == 1)
 	{
 		if(flag.ct_alt_hold == 1)		//定高悬停		flag.ct_alt_hold标志位由程序控制
 		{
+			loc_ctrl_2.exp[Z] = 130;
 			PID_calculate(dT_s,            //周期（单位：秒）
 						0,				//前馈值
 						loc_ctrl_2.exp[Z],				//期望值（设定值）
@@ -164,7 +165,9 @@ void Alt_2level_Ctrl(float dT_s)
 		alt_val_2.out = 0;
 		
 	}
-	
+#else
+	alt_val_2.out = 0;
+#endif	
 	alt_val_2.out  = LIMIT(alt_val_2.out,-150,150);
 }
 

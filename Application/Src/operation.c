@@ -65,10 +65,11 @@ void our_take_off()
     {
         CH_N[AUX2] = -210;
     }
-    // if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH))
+    // if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) &&(flag.ct_alt_hold == 1))
     // {
     //     MAP_UARTCharPut(UART4_BASE, 'H');
     //     DY_Debug_Mode = 1;
+    //     DY_Debug_Yaw_Mode = 1;
     // }
 }
 
@@ -161,7 +162,7 @@ void our_mission_height_control()
 #else
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
-        Height_Set = 130;
+        Height_Set = 120;
         PID_calculate(10e-3f,      //周期（单位：秒）
                 0,				        //前馈值
                 Height_Set,				//期望值（设定值）
@@ -194,9 +195,9 @@ void our_mission_height_control()
 void our_height_pid_Init()
 {   
     our_height_pid.kp = 1.0f;  //比例系数
-    our_height_pid.ki = 2.0f;  //积分系数
+    our_height_pid.ki = 4.0f;  //积分系数
     our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
-    our_height_pid.kd_fb = 0.01f;  //previous_d 微分先行（反馈微分系数）
+    our_height_pid.kd_fb = 0.05f;  //previous_d 微分先行（反馈微分系数）
     our_height_pid.k_ff = 0.0f;    //前馈系数
 }
 
