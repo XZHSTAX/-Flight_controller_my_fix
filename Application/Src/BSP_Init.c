@@ -64,7 +64,7 @@ u8 All_Init()
     Uart4_Init(500000);                 //光流模块
     Delay_ms(10);
     MAP_UARTCharPut(UART4_BASE, 0x04);  //UART4中断发送数据初始化（无效数据）
-    Uart5_Init(500000);                 //OpenMv
+    Uart5_Init(115200);                 //OpenMv
     Delay_ms(10);
     MAP_UARTCharPut(UART5_BASE, 0x05);  //UART5中断发送数据初始化（无效数据）
     
@@ -92,7 +92,7 @@ u8 All_Init()
     
     DY_DT_SendString("SYS init OK!",sizeof("SYS init OK!"));		//系统初始化完毕
     Delay_ms(100);
-    
+
 	return (1);
 }
 

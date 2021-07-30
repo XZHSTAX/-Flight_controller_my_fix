@@ -8,7 +8,6 @@
 #include "DY_FlightCtrl.h"
 #include "Drv_led.h"
 #include "Drv_icm20602.h"
-
 #include "DY_FlyControl.h"
 
 union Parameter DY_Parame;
@@ -46,7 +45,7 @@ void PID_Rest()
 	DY_Parame.set.pid_alt_1level[KD] = 0.05f;       //高度控制高度速度环PID参数
 //---	高度控制高度环PID参数
 	DY_Parame.set.pid_alt_2level[KP] = 1.0f;        //高度控制高度环PID参数
-	DY_Parame.set.pid_alt_2level[KI] = 0.0f;           //高度控制高度环PID参数
+	DY_Parame.set.pid_alt_2level[KI] = 1.0f;           //高度控制高度环PID参数
 	DY_Parame.set.pid_alt_2level[KD] = 0;           //高度控制高度环PID参数
 //---	位置控制位置速度环PID参数	
 	DY_Parame.set.pid_loc_1level[KP] = 0.15f;       //位置控制位置速度环PID参数    0.2
@@ -94,7 +93,7 @@ void Parame_Reset(void)
 	DY_Parame.set.return_home_power_voltage = 3.55f *3;		//返航电压	10.65V
 	DY_Parame.set.lowest_power_voltage = 3.5f *3;		    //最低电压	10.5V
 	
-	DY_Parame.set.auto_take_off_height = 130;//自动起飞高度 100cm
+	DY_Parame.set.auto_take_off_height = 150;//自动起飞高度 120cm
 	
 	for(u8 i = 0;i<3;i++)
 	{

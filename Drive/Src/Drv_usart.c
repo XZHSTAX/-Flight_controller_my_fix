@@ -392,9 +392,9 @@ void UART5_IRQHandler(void)
 //    while(MAP_UARTCharsAvail(UART5_BASE))
 //    {
       comdata = (u8)MAP_UARTCharGet(UART5_BASE);
-      MAP_UARTCharPut(UART5_BASE, 0x67);
-      MAP_UARTCharPut(UART5_BASE, comdata);
-      MAP_UARTCharPut(UART5_BASE, 0x67);     
+      // MAP_UARTCharPut(UART5_BASE, 0x67);
+      // MAP_UARTCharPut(UART5_BASE, comdata);
+      // MAP_UARTCharPut(UART5_BASE, 0x67);     
 //    }
   }
   if(uart5_status == UART_INT_TX)
@@ -464,7 +464,7 @@ void zigbee_data_Sent(u8 data[],u8 size_of_data)
   
   for(i=0;i<7+size_of_data;i++)
   {
-    MAP_UARTCharPut(UART4_BASE, data_processed[i]);
+    MAP_UARTCharPut(UART5_BASE, data_processed[i]);
     // printf("%x ",data_processed[i]);
   }
 

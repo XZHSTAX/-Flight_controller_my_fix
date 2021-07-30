@@ -8,6 +8,7 @@ typedef struct{
 	u8 delaying;
     u8 unlock_flag;
     u8 UAV_up;
+    u8 PID_Switch_flag;
 }_our_flags;
 extern _our_flags our_flags;
 
@@ -23,5 +24,5 @@ void our_mission_updown_repeat(void);
 void our_mission_height_control(void);
 void our_height_pid_Init(void);
 void our_square_trajectory(void);
-
+void out_DT();
 #endif

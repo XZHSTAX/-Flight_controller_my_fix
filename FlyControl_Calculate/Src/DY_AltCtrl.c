@@ -11,6 +11,7 @@
 
 #include "DY_FlightCtrl.h"
 
+#include "operation.h"
 // static s16 auto_taking_off_speed;
 // 起飞时的附加速度，起飞后为0
 s16 auto_taking_off_speed;
@@ -143,7 +144,6 @@ void Alt_2level_Ctrl(float dT_s)
 	{
 		if(flag.ct_alt_hold == 1)		//定高悬停		flag.ct_alt_hold标志位由程序控制
 		{
-			loc_ctrl_2.exp[Z] = 130;
 			PID_calculate(dT_s,            //周期（单位：秒）
 						0,				//前馈值
 						loc_ctrl_2.exp[Z],				//期望值（设定值）

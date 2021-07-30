@@ -33,8 +33,10 @@
 #include "DY_Pid.h"
 #include "DY_Flight_Log.h"
 
+static void Height_PID_Change();
+
 #define height_change_control_mode 0
-_our_flags our_flags={0,0,1};
+_our_flags our_flags={0,0,1,0};
 _PID_arg_st our_height_pid;//自定义高度控制PID
 _PID_val_st our_height_pid_val;//自定义高度控制PID数据
    
@@ -162,7 +164,7 @@ void our_mission_height_control()
 #else
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
-        Height_Set = 120;
+        Height_Set = 150;
         PID_calculate(10e-3f,      //周期（单位：秒）
                 0,				        //前馈值
                 Height_Set,				//期望值（设定值）
@@ -173,11 +175,13 @@ void our_mission_height_control()
                 0			//integration limit，积分限幅									
                 );	 
         dy_height =  our_height_pid_val.out; 
-        if((ABS(Height_Set - wcz_hei_fus.out)<20) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) )
+        if((ABS(Height_Set - wcz_hei_fus.out)<20) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) &&(our_flags.PID_Switch_flag!=1) && (our_delay_times[0] > fly_time+500))
         {
             MAP_UARTCharPut(UART4_BASE, 'H');
             DY_Debug_Mode = 1;
             DY_Debug_Yaw_Mode = 1;
+            our_flags.PID_Switch_flag = 1;
+            Height_PID_Change();
             // I_want_OP_work = 0;
         }
     }
@@ -195,10 +199,10 @@ void our_mission_height_control()
 void our_height_pid_Init()
 {   
     our_height_pid.kp = 1.0f;  //比例系数
-    our_height_pid.ki = 4.0f;  //积分系数
+    our_height_pid.ki = 2.0f;  //积分系数
     our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
     our_height_pid.kd_fb = 0.05f;  //previous_d 微分先行（反馈微分系数）
-    our_height_pid.k_ff = 0.0f;    //前馈系数
+    our_height_pid.k_ff = 0.0f;    //前馈系数  
 }
 
 
@@ -301,4 +305,56 @@ void our_landing()
     }
 }
 
+/*******************************************************
+* Function name ：our_DT
+* Description   : 放入50ms线程中，每250ms发送一次数据
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void out_DT()
+{
+    static u8 data[] = {6,6,6,6,6,6,6,6};
+    static u8 counter_for_250ms = 0;
+	if(counter_for_250ms<5)
+	{
+		counter_for_250ms++;
+	}
+	else
+	{
+		counter_for_250ms=0;	    
+        data[0] = flag.fly_ready;
+        data[1] = flag.taking_off;
+        data[2] = flag.auto_take_off_land;//one_key_taof_start
+        data[3] = one_key_taof_start;
+        data[4] = (tof_height_mm&0xff00)>>8;
+        data[5] = tof_height_mm&0x00ff;
+        data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
+        data[7] = (auto_taking_off_speed&0x00ff);
+
+    //     // data1_hei.wcz_hei_fus = wcz_hei_fus.out;
+    //     // data[8] = data1_hei.wcz_hei_fus_Byte[0];
+    //     // data[9] = data1_hei.wcz_hei_fus_Byte[1];
+    //     // data[10] = data1_hei.wcz_hei_fus_Byte[2];
+    //     // data[11] = data1_hei.wcz_hei_fus_Byte[3];
+        zigbee_data_Sent(data,sizeof(data));
+	}
+}
+
+
+static void Height_PID_Change()
+{
+        our_height_pid.kp = 4.0f;  //比例系数
+        our_height_pid.ki = 3.0f;  //积分系数
+        our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
+        our_height_pid.kd_fb = 0.05f;  //previous_d 微分先行（反馈微分系数）
+        our_height_pid.k_ff = 0.0f;    //前馈系数
+
+        alt_arg_2.kp = 4.0f;
+        alt_arg_2.ki = 3.0f;
+        alt_arg_2.kd_ex = 0.00f;
+        alt_arg_2.kd_fb = 0.05f;
+        alt_arg_2.k_ff = 0.0f;	
+
+
+}
 
