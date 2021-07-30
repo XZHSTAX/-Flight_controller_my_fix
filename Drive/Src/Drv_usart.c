@@ -12,6 +12,7 @@
 #include "DY_FcData.h"
 
 #define UART4_WORK_MODE 1
+#define UART3_ZIGBEE_MODE 1
 extern _flag flag;
 u8 counter=0;
 u8 data_brake[20] ={0};
@@ -157,7 +158,29 @@ void UART3_IRQHandler(void)
     comdata = (u8)MAP_UARTCharGet(UART3_BASE);
     DY_DT_Data_Receive_Prepare(comdata);
   }
-  
+#if UART3_ZIGBEE_MODE
+  if(uart3_status == UART_INT_RX)
+  {
+      comdata = (u8)MAP_UARTCharGet(UART3_BASE);
+      if(comdata != 0xff)
+      {
+        zigbee_data_process(comdata,data_brake,counter);
+        counter++;
+      }
+      else
+      {
+        if(data_brake[6] == 0x66)
+        {
+          Uart4_Send(Wanning,sizeof(Wanning));
+          flag.fly_ready = 0;
+          Uart4_Send(Note,sizeof(Note));
+          MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
+        }
+        MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
+        counter = 0;
+      }
+  }
+#else
   if(uart3_status == UART_INT_RX)
   {
 //    MAP_UARTIntClear(UART3_BASE, uart3_status);
@@ -169,6 +192,7 @@ void UART3_IRQHandler(void)
       DY_DT_Data_Receive_Prepare(comdata);
 //    }
   }
+#endif
   if(uart3_status == UART_INT_TX)
   {
 //    MAP_UARTIntClear(UART3_BASE, uart3_status);
@@ -464,7 +488,7 @@ void zigbee_data_Sent(u8 data[],u8 size_of_data)
   
   for(i=0;i<7+size_of_data;i++)
   {
-    MAP_UARTCharPut(UART5_BASE, data_processed[i]);
+    MAP_UARTCharPut(UART3_BASE, data_processed[i]);
     // printf("%x ",data_processed[i]);
   }
 

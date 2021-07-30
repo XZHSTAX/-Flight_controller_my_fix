@@ -43,7 +43,7 @@ u8 checkdata_to_send,checksum_to_send;
 void DY_DT_Send_Data(u8 *dataToSend , u8 length)
 {
 #ifdef DY_DT_USE_USART3
-	Uart3_Send(data_to_send, length);
+	// Uart3_Send(data_to_send, length);
 #endif
 }
 

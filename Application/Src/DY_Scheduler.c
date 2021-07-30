@@ -154,6 +154,7 @@ static void Loop_20Hz(void)	//50ms执行一次
 	Drv_Vl53_RunTask();
 	/*电压相关任务*/
 	Power_UpdateTask(50);
+	out_DT();
 }
 
 static void Loop_2Hz(void)	//500ms执行一次
