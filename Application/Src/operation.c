@@ -178,6 +178,10 @@ void our_mission_height_control()
             Height_PID_Change();
             // I_want_OP_work = 0;
         }
+        if(our_flags.PID_Switch_flag ==1 )
+        {
+            MAP_UARTCharPut(UART4_BASE, 'H');
+        }
     }
 #endif
 }
@@ -298,7 +302,7 @@ void out_DT()
         data[0] = flag.fly_ready;
         data[1] = flag.taking_off;
         data[2] = flag.auto_take_off_land;//one_key_taof_start
-        data[3] = one_key_taof_start;
+        data[3] = our_flags.PID_Switch_flag;
         data[4] = (tof_height_mm&0xff00)>>8;
         data[5] = tof_height_mm&0x00ff;
         data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
@@ -316,7 +320,7 @@ void out_DT()
 
 static void Height_PID_Change()
 {
-        our_height_pid.kp = 4.0f;  //比例系数
+        our_height_pid.kp = 2.0f;  //比例系数
         our_height_pid.ki = 3.0f;  //积分系数
         our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
         our_height_pid.kd_fb = 0.05f;  //previous_d 微分先行（反馈微分系数）
