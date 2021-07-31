@@ -176,6 +176,10 @@ void UART3_IRQHandler(void)
           Uart4_Send(Note,sizeof(Note));
           MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
         }
+        else if(data_brake[6] == 0x67)
+        {
+          one_key_land();
+        }
         MAP_UARTCharPut(UART4_BASE,flag.fly_ready);
         counter = 0;
       }

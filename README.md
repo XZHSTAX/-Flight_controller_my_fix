@@ -536,3 +536,7 @@ typedef struct
 7.30-1: **Finish height and place fixed with OpenMV** 通过调参完成了在圆上起飞，悬停15s再降落，也可偏离圆起飞，飞到圆上悬停，现在飞行、悬停都较为稳定。目前的代码取消了原厂的高度环，只用了PHS的高度环，在稳定后加强高度环的PID参数，但高度上仍然有一定的波动。下一步开始巡线，为了保证安全，要重新加回zigbee模块。
 
 7.30-2：**Zigbee DT Start again**. 完成通过UART3的Zigbee通信，现在又可以传输数据并且使用32进行紧急停车了。
+
+---
+
+7.31-1: **Zigbee Plus** 完成了stm32的k0为急停，k1为一键降落。

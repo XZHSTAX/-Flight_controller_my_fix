@@ -67,12 +67,6 @@ void our_take_off()
     {
         CH_N[AUX2] = -210;
     }
-    // if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) &&(flag.ct_alt_hold == 1))
-    // {
-    //     MAP_UARTCharPut(UART4_BASE, 'H');
-    //     DY_Debug_Mode = 1;
-    //     DY_Debug_Yaw_Mode = 1;
-    // }
 }
 
 /*******************************************************
@@ -214,28 +208,7 @@ void our_height_pid_Init()
 **********************************************************/
 void our_delay_time()
 {
-    // static u8 data[] = {6,6,6,6,6,6,6,6};
     our_delay_times[0] += 1;
-
-    // if(our_delay_times[0] %25 == 0) // 10ms*25=250ms=0.25s
-    // {
-    //     data[0] = flag.fly_ready;
-    //     data[1] = flag.taking_off;
-    //     data[2] = flag.auto_take_off_land;//one_key_taof_start
-    //     data[3] = one_key_taof_start;
-    //     data[4] = (tof_height_mm&0xff00)>>8;
-    //     data[5] = tof_height_mm&0x00ff;
-    //     data[6] = (uint8_t)( ((uint16_t)auto_taking_off_speed&0xff00)>>8);
-    //     data[7] = (auto_taking_off_speed&0x00ff);
-
-    //     // data1_hei.wcz_hei_fus = wcz_hei_fus.out;
-    //     // data[8] = data1_hei.wcz_hei_fus_Byte[0];
-    //     // data[9] = data1_hei.wcz_hei_fus_Byte[1];
-    //     // data[10] = data1_hei.wcz_hei_fus_Byte[2];
-    //     // data[11] = data1_hei.wcz_hei_fus_Byte[3];
-    //     // zigbee_data_Sent(data,sizeof(data));
-    //     zigbee_data_Sent(data,sizeof(data));
-    // }
 }
 
 /*******************************************************
