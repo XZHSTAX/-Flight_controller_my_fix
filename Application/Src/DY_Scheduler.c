@@ -134,6 +134,8 @@ static void Loop_100Hz(void)	//10ms执行一次
 
 	our_landing();
 
+	// Yaw_test();
+
 	// our_square_trajectory();
     our_mission_height_control();
 	// our_mission_updown_repeat();

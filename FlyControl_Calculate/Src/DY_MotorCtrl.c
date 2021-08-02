@@ -84,7 +84,7 @@ void Motor_Ctrl_Task(u8 dT_ms)
 		{
 			if(flag.motor_preparation == 1)
 			{
-				motor_step[i] = LIMIT(motor_step[i],IDLING,700);	//限幅 200 ~ 1000
+				motor_step[i] = LIMIT(motor_step[i],IDLING,1000);	//限幅 200 ~ 1000
 			}
 	
 		}

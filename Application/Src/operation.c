@@ -36,14 +36,17 @@
 static void Height_PID_Change();
 
 #define height_change_control_mode 0
-_our_flags our_flags={0,0,1,0};
+_our_flags our_flags={0,0,1,0,0};
 _PID_arg_st our_height_pid;//自定义高度控制PID
 _PID_val_st our_height_pid_val;//自定义高度控制PID数据
    
-u32 our_delay_times[4] = {0,0,0,0};
+u32 our_delay_times[6] = {0,0,0,0,0,0};
 //our_delay_times[0]用于起飞延时，计算总时间并降落
-//our_delay_times[1]用于定高悬停计时
+//our_delay_times[1]用于定高悬停计时,暂时有问题，用our_delay_times[3]代替了
 //our_delay_times[2]用于矩形轨迹跟踪
+//our_delay_times[3]用于定高悬停计时
+//our_delay_times[4]用于逆时针绕杆计时
+//our_delay_times[5]用于偏航测试
 
 float Height_Set = 0.0f; //设定高度值
 
@@ -158,7 +161,7 @@ void our_mission_height_control()
 #else
     if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time))
     {
-        Height_Set = 150;
+        Height_Set = Flight_Height;
         PID_calculate(10e-3f,      //周期（单位：秒）
                 0,				        //前馈值
                 Height_Set,				//期望值（设定值）
@@ -179,7 +182,7 @@ void our_mission_height_control()
             // I_want_OP_work = 0;
         }
         if(our_flags.PID_Switch_flag ==1 )
-        {
+        {        
             MAP_UARTCharPut(UART4_BASE, 'H');
         }
     }
@@ -196,8 +199,8 @@ void our_mission_height_control()
 **********************************************************/
 void our_height_pid_Init()
 {   
-    our_height_pid.kp = 1.0f;  //比例系数
-    our_height_pid.ki = 2.0f;  //积分系数
+    our_height_pid.kp = 1.5f;  //比例系数
+    our_height_pid.ki = 1.0f;  //积分系数
     our_height_pid.kd_ex = 0.00f;  //微分系数（期望微分系数）
     our_height_pid.kd_fb = 0.05f;  //previous_d 微分先行（反馈微分系数）
     our_height_pid.k_ff = 0.0f;    //前馈系数  
@@ -317,7 +320,12 @@ void out_DT()
 	}
 }
 
-
+/*******************************************************
+* Function name ： Height_PID_Change
+* Description   : 在起飞过程和悬停过程中切换PID系数
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
 static void Height_PID_Change()
 {
         our_height_pid.kp = 2.0f;  //比例系数
@@ -334,4 +342,52 @@ static void Height_PID_Change()
 
 
 }
+/*******************************************************
+* Function name ： Yaw_test
+* Description   : 偏航测试
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void Yaw_test()
+{   
+    if((our_delay_times[0] > fly_time) && (flag.auto_take_off_land == AUTO_TAKE_OFF_FINISH) && (our_delay_times[0] <= fly_land_time) &&(our_flags.PID_Switch_flag!=1) && our_flags.winding_finish == 0)
+    {
+        our_delay_times[5] += 1; 
+        if(our_delay_times[5] >= 0 &&  our_delay_times[5] < 800)
+        {
+            dy_yaw = 5;
+        }
+        else 
+        {
+            dy_yaw = 0; 
+            our_flags.winding_finish = 1;
+        }
+        if(our_delay_times[5]>1500)
+            one_key_land();
+    }
+}
 
+
+
+/*******************************************************
+* Function name ： our_winding
+* Description   : 逆时针绕杆180度，半径0.3m
+* Parameter     ：None
+* Return        ：None
+**********************************************************/
+void our_winding()
+{
+    if(!our_flags.winding_finish)
+    {
+        our_delay_times[4] += 1;
+        dy_yaw = 12;
+        dy_pit = 1;
+        if(our_delay_times[4]==1500)//15s
+        {
+            dy_flag.stop = 1;
+            our_flags.winding_finish = 1;
+        }
+    }
+    else
+        our_delay_times[4] = 0;
+}

@@ -3,6 +3,9 @@
 
 #include "DY_FcData.h"
 
+
+#define Flight_Height 100
+
 __packed struct Parameter_s
 {
 	u16 frist_init;	//飞控第一次初始化，需要做一些特殊工作，比如清空flash

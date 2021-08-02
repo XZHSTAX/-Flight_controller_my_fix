@@ -542,3 +542,7 @@ typedef struct
 7.31-1: **Zigbee Plus** 完成了stm32的k0为急停，k1为一键降落。
 
 7-31-2:  **Zigbee Plus2**  更换了Zigbee，之前数据传输断连似乎是Zigbee模块连接有误的原因。现在进行的是识别火源。
+
+---
+
+8-2-1：**Fix Height PID**， 取消了切换PID，修改了高度PID。下一步测试偏航。
